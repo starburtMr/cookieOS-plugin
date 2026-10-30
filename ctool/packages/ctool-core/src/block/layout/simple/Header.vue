@@ -1,7 +1,6 @@
 <template>
     <div class="ctool-header">
         <Align>
-            <Github/>
             <span>{{ $t(`tool_${storeOperate.items.tool}`) }}</span>
             <AiBadge v-if="toolSupportsAi(storeOperate.items.tool)" variant="inline" />
         </Align>
@@ -47,7 +46,6 @@ import useSetting from "@/store/setting";
 import {openUrl} from "@/helper/helper"
 import {getTool, toolExists, FeatureInterface} from "@/config";
 import Search from "../../Search.vue";
-import Github from "../../Github.vue";
 import getHistoryInstance from "@/helper/history";
 import {onMounted, onUnmounted} from "vue";
 import event from "@/event";

@@ -1,7 +1,6 @@
 <template>
     <div class="ctool-header">
         <div class="ctool-header-top">
-            <Github />
             <div class="ctool-header-top-left">
                 <div
                     v-for="name in allCategories"
@@ -60,7 +59,6 @@ import {getTool, toolExists, FeatureInterface, categories, getCategory, category
 import Search from "../../Search.vue";
 import Tools from "../../Tools.vue";
 import {nextTick, watch} from "vue";
-import Github from "../../Github.vue";
 import AiBadge from "@/components/AiBadge.vue";
 import {toolSupportsAi} from "@/helper/ai";
 
@@ -136,7 +134,7 @@ watch(() => {
     height: 33px;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: auto minmax(0px, 1fr) auto;
+    grid-template-columns: minmax(0px, 1fr) auto;
     border-bottom: solid 1px var(--ctool-border-color);
     background-color: var(--ctool-block-title-bg-color);
     overflow: hidden;
@@ -145,7 +143,6 @@ watch(() => {
 .ctool-header-top-left {
     display: inline-flex;
     align-items: center;
-    padding-left: 5px;
     /* 分类标签超出时横向可滚动（uTools 等固定宽度环境需要） */
     overflow-x: auto;
     overflow-y: hidden;
