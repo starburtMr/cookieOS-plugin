@@ -1,0 +1,45 @@
+# Local development tools and instructions
+.agents/
+.codex/
+.claude/
+.cursor/
+.codegraph/
+AGENTS*.md
+CLAUDE.md
+/使用说明.md
+/agents/
+/codex/
+
+# Credentials, local configuration and runtime data
+.local/
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.log
+*.sqlite
+*.sqlite3
+
+# Dependencies, caches and generated packages
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+target/
+dist/
+build/
+coverage/
+.cache/
+*.zip
+*.tar.gz
+
+# Editor and operating system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
