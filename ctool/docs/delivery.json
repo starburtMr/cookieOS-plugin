@@ -22,5 +22,11 @@
     "JDoodle authenticated execution",
     "real host enable/disable/update/rollback/uninstall",
     "browser CORS against GeoJS on target host"
-  ]
+  ],
+  "sourceCommit": "2f1c4c2e0a730272d1d3166aca9c87fdc15aecbd",
+  "integration": {
+    "branch": "main",
+    "worktreeRemoved": true,
+    "pushed": false
+  }
 }

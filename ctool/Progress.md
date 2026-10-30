@@ -1,6 +1,6 @@
 # Ctool 实际进度
 
-当前阶段：本地安装候选已完成实现和自动检查，正在合并与清理；真实宿主验收待独立实例/凭据。阶段定义见 [DEV-PLAN.md](DEV-PLAN.md)，选型与合同见 [High-Level-Design.md](High-Level-Design.md)，具体任务见 [doc/tasks/cookieos-migration](doc/tasks/cookieos-migration/README.md)。
+当前阶段：本地安装候选已完成实现、检查、合并和 worktree 清理；真实宿主验收待独立实例/凭据。阶段定义见 [DEV-PLAN.md](DEV-PLAN.md)，选型与合同见 [High-Level-Design.md](High-Level-Design.md)，具体任务见 [doc/tasks/cookieos-migration](doc/tasks/cookieos-migration/README.md)。
 
 ## 任务状态
 
@@ -101,7 +101,7 @@
 | F3 | [打包](doc/tasks/cookieos-migration/09-build-package.md#f3) | 本地实现与适用自动检查通过；真实验收见 G |
 | G1 | [真实安装/UI](doc/tasks/cookieos-migration/10-acceptance.md#g1) | 待真实宿主验收；无独立实例授权 |
 | G2 | [真实模型/AI/MCP](doc/tasks/cookieos-migration/10-acceptance.md#g2) | 待真实模型/MCP 验收；无实例/凭据 |
-| G3 | [生命周期与交付](doc/tasks/cookieos-migration/10-acceptance.md#g3) | 本地候选检查通过；合并清理进行中 |
+| G3 | [生命周期与交付](doc/tasks/cookieos-migration/10-acceptance.md#g3) | 本地候选交付完成；真实生命周期仍待验收 |
 
 ## 2026-10-30：模块任务拆分与方案复查
 
@@ -150,3 +150,10 @@
 - 源码目录 `ctool/`；模块任务 11 份实际非空、22 个任务编号保留，DEV-PLAN 仅阶段/依赖，191 个文档链接检查通过。
 - 两阶段审查由当前主执行者顺序完成，没有独立审查者；实现/合同/测试与维护边界审查无剩余 Critical/Important。本次批准范围为本地候选交付，G1/G2 与真实生命周期保留待验收。
 - 未安装正在使用的 cookieOS、未调用真实模型或带凭据的 JDoodle、未推送/发布 GitHub Release、未登记市场。真实界面形态/宿主 CSP/AI/MCP/停用/更新/回退仍依验收任务执行，不能以本地模拟替代。
+
+
+## 合并与清理（2026-10-30）
+
+- 功能提交 `2f1c4c2` 已 fast-forward 合回主目录 main。合并前核对 HEAD、索引和 17 份原方案文件的基线，原方案另存本地备份；未覆盖并发改动。
+- 主目录复验：UI 类型检查、26 项服务/打包合同检查、SDK 文件预检通过；ZIP 校验摘要未变化。依赖和构建产物迁入主目录，离线 frozen-lockfile 安装成功。
+- 本次 worktree 与功能分支已删除。未推送远程、未发布市场或安装正在使用的 cookieOS。
