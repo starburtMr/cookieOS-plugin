@@ -166,3 +166,14 @@
 - LAN 预览浏览器检查：普通/简洁布局各在 1074×884 和 390×884 下确认标识不存在、搜索可见且未越界；普通布局分类切换通过；四种组合均无 pageerror。简洁布局通过预览桥偏好注入启用。
 - 当前主执行者顺序完成两阶段审查：Stage 1/2 APPROVE，无 Critical/Important；未使用独立审查者。本次是可逆展示删除，未新增测试文件，使用真实构建页面验证。
 - 已更新本地预览 UI；未重新打包原 v0.1.0 ZIP、未发布、未做真实 cookieOS 宿主验收。
+
+
+## 首次市场测试发布（2026-10-30）
+
+- 用户授权推送远程并测试市场发现；源码 `main` 已推送至 `afdfac493d3ddb6c6ef58d3a4c37b076c1cc956f`。本次元数据在独立 worktree 修改，未上传本地开发框架、私钥或运行数据。
+- 从该源码重新执行 `pnpm build:extension`，UI 类型检查与构建通过；`pnpm test:contract` 22/22、`pnpm test:package` 4/4、SDK check/pack、ZIP 路径/链接/文件允许集检查通过。新构建浏览器 JSON 格式化和头部删除检查通过。原全量业务验证沿用同日有效记录，本次未重复全量单测和路由用例。
+- 首次公网资产：`dist/market-release/ctool-v0.1.0.zip`，7806928 字节，483 条目；SHA256 `1b605e6d6437f996d56d10edb253ebf8b7cd46adc1031f9516f82f99ec12c8e4`。保留旧本地候选 ZIP，不覆盖旧文件。
+- GitHub Release `ctool-v0.1.0` 标记预发布：https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.1.0。匿名 HTTPS 实际下载成功，ZIP 完整性和 SHA256 与本地一致。
+- 市场清单递增至 sequence 2，登记唯一 Ctool 条目；使用原本地 Ed25519 私钥签名，固定公钥验签通过，改动清单/签名的反例均被拒绝。字段已对照当前宿主市场解析及展示实现，仅补清单及说明，不改宿主。
+- 当前主执行者顺序完成两阶段审查：Stage 1/2 APPROVE，无 Critical/Important；无独立审查者。此轮只改文档/发布元数据，没有源码或新重复逻辑，自动重复检查不适用。清单和签名同次提交，推送后需从公开地址复核。
+- 真实市场刷新、安装、宿主模型、外部 MCP 以及停用/更新/回退仍未验证；未修改正在使用的 cookieOS 配置或自动安装扩展。

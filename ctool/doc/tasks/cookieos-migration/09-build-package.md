@@ -82,3 +82,10 @@ python3 "$COOKIEOS_SDK_DIR/dev.py" pack ./dist/extension ../dist/ctool-0.1.0.zip
 - 实现：提供统一 verify，构建时收集实际模块依赖与许可，只组装 manifest/ui/service/licenses/LICENSE。SDK 文件检查和 ZIP/散列在交付前执行。
 - 验证：check、check:service、lint、test、build:extension、test:contract、test:package、test:e2e、check:duplicates；重复门禁另做注入反例。最终结果写 Progress。
 - 状态与最终命令结果：[Progress](../../../Progress.md)。真实宿主验收项保持待验收。
+
+
+## 首次市场测试发布补充（2026-10-30）
+
+- 用户已授权远程推送及市场发现测试；按当前含头部调整的源码重新构建、SDK 检查与打包，保留原本地候选。
+- 发布 `ctool-v0.1.0` 预发布资产至 GitHub Release；匿名下载的 ZIP 与本地 SHA256 一致。市场清单 sequence 2 和签名同次更新。
+- 新产物身份与本轮 22 项服务合同、4 项包测试、浏览器冒烟及未验项见 [Progress](../../../Progress.md) 和 [交付记录](../../../docs/delivery.json)。宿主实际安装/生命周期仍交 G1/G2 验收。

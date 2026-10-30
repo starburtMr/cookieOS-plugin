@@ -1,7 +1,7 @@
 {
   "file": "ctool-v0.1.0.zip",
-  "sha256": "6c74dbcfdd00d956cb9154f09dd16178761bcc8171f3155017c0e92d95c24b6e",
-  "bytes": 7807213,
+  "sha256": "1b605e6d6437f996d56d10edb253ebf8b7cd46adc1031f9516f82f99ec12c8e4",
+  "bytes": 7806928,
   "entries": 483,
   "id": "io.cookieos.ctool",
   "version": "0.1.0",
@@ -23,10 +23,22 @@
     "real host enable/disable/update/rollback/uninstall",
     "browser CORS against GeoJS on target host"
   ],
-  "sourceCommit": "2f1c4c2e0a730272d1d3166aca9c87fdc15aecbd",
+  "sourceCommit": "afdfac493d3ddb6c6ef58d3a4c37b076c1cc956f",
   "integration": {
     "branch": "main",
     "worktreeRemoved": true,
-    "pushed": false
+    "pushed": true
+  },
+  "releaseUrl": "https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.1.0",
+  "downloadUrl": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.1.0/ctool-v0.1.0.zip",
+  "releaseChannel": "prerelease",
+  "artifactDirectory": "dist/market-release",
+  "releaseChecks": {
+    "buildAndUiTypecheck": "passed",
+    "serviceContractTests": 22,
+    "packageTests": 4,
+    "sdkCheck": "passed",
+    "zipIntegrity": "passed",
+    "browserSmoke": "JSON format and header removal passed"
   }
 }

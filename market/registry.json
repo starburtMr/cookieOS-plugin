@@ -1,7 +1,17 @@
 {
   "schemaVersion": 1,
-  "sequence": 1,
-  "issuedAt": "2026-10-30T03:03:52Z",
-  "expiresAt": "2027-01-28T03:03:52Z",
-  "items": []
+  "sequence": 2,
+  "issuedAt": "2026-10-30T15:22:12Z",
+  "expiresAt": "2027-01-28T15:22:12Z",
+  "items": [
+    {
+      "id": "io.cookieos.ctool",
+      "name": "Ctool 开发者工具箱",
+      "version": "0.1.0",
+      "description": "60 项开发工具、88 个功能入口，支持 cookieOS 模型辅助及 AI/MCP 工具。市场测试版本。",
+      "category": "开发工具",
+      "downloadUrl": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.1.0/ctool-v0.1.0.zip",
+      "sha256": "1b605e6d6437f996d56d10edb253ebf8b7cd46adc1031f9516f82f99ec12c8e4"
+    }
+  ]
 }

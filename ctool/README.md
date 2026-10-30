@@ -6,6 +6,8 @@ cookieOS 扩展 `io.cookieos.ctool`，插件版本 **0.1.0**。基于 Ctool 2.9.
 
 管理服务器需要 **Node.js 22 或更新版本**；本包不需要安装 npm 依赖。浏览器需支持 ES modules、Web Workers、WebAssembly 和 Web Crypto。
 
+市场测试版见 [GitHub Release](https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.1.0)。新版 cookieOS 的市场地址可填写 `https://github.com/starburtMr/cookieOS-plugin`，刷新市场后选择 Ctool 安装；也可按下述步骤上传本地 ZIP。真实宿主安装和 AI/MCP 验收尚未完成。
+
 1. 打开 https://cookieos.yxysj66.com/extensions?tab=installed 。
 2. 点击「安装扩展」→「本地 ZIP」，上传 `ctool-v0.1.0.zip`。
 3. 打开 Ctool。可在设置中选择「跟随 cookieOS 默认模型」或指定模型；无模型时先在 cookieOS 配置模型供应商。

@@ -6,9 +6,9 @@ cookieOS 插件的公开开发与分发仓库。每个插件直接放在根目�
 
 | 插件 | 源码 | 版本 | 状态 |
 |---|---|---|---|
-| Ctool 开发者工具箱 | [ctool](ctool/README.md) | 0.1.0 | 本地安装候选；按 SDK 1.1.0 接入，待独立宿主验收 |
+| Ctool 开发者工具箱 | [ctool](ctool/README.md) | 0.1.0 | 市场测试版本；按 SDK 1.1.0 接入，待独立宿主验收 |
 
-目前尚无市场发布版本。市场清单为空，不包含虚构下载地址；本地 ZIP 和校验摘要见插件交付记录。
+市场提供 Ctool 0.1.0 测试版本，安装包通过 [GitHub Release](https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.1.0) 分发。真实宿主安装、模型及 MCP 验收仍待完成。
 
 新增插件后，在此登记名称、目录、用途、最新版本和验证过的 cookieOS 版本。可安装版本以签名市场清单为准。
 
@@ -41,7 +41,7 @@ cookieOS-plugin/
 - 签名：<https://raw.githubusercontent.com/starburtMr/cookieOS-plugin/main/market/registry.json.sig>
 - 公钥：[market/public-key.txt](market/public-key.txt)
 
-在支持该市场协议的 cookieOS 扩展设置中填写清单地址和公钥文本，再刷新市场。当前应得到空列表；仓库文件发布及离线验签不代表已在真实宿主完成接入验收。
+新版 cookieOS 在扩展设置填写仓库地址 `https://github.com/starburtMr/cookieOS-plugin` 或上述清单地址，再点击「刷新市场」，应显示 Ctool。旧版固定公钥模式还需填写公钥文本；公开文件及离线验签不代表真实宿主安装验收。
 
 ## 使用与贡献
 
