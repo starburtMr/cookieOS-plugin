@@ -1,6 +1,8 @@
 # Ctool 开发者工具箱
 
-cookieOS 扩展 `io.cookieos.ctool`，插件版本 **0.1.0**。基于 Ctool 2.9.1，保留 60 项工具、88 个功能入口，12 类 AI 辅助使用 cookieOS 已配置的模型。
+cookieOS 扩展 `io.cookieos.ctool`。运行名称、版本、作者、分类和能力以 [manifest.json](manifest.json) 为准，工具定义由现有业务模块生成。基于 Ctool 2.9.1，界面工具、入口和 AI/MCP 数量的实际口径见 [SDK 1.2 盘点](docs/sdk-1.2-inventory.json)。
+
+本轮 SDK 1.2.0 适配为本地候选，未推送或正式发布。当前公开市场仍是之前的测试版；本轮产物及限制见 [验证记录](doc/verification/sdk-1.2/README.md)。
 
 ## 安装
 
@@ -9,7 +11,7 @@ cookieOS 扩展 `io.cookieos.ctool`，插件版本 **0.1.0**。基于 Ctool 2.9.
 市场测试版见 [GitHub Release](https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.1.0)。新版 cookieOS 的市场地址可填写 `https://github.com/starburtMr/cookieOS-plugin`，刷新市场后选择 Ctool 安装；也可按下述步骤上传本地 ZIP。真实宿主安装和 AI/MCP 验收尚未完成。
 
 1. 打开 https://cookieos.yxysj66.com/extensions?tab=installed 。
-2. 点击「安装扩展」→「本地 ZIP」，上传 `ctool-v0.1.0.zip`。
+2. 点击「安装扩展」→「本地 ZIP」，上传本轮 `ctool-0.2.0.zip`。
 3. 打开 Ctool。可在设置中选择「跟随 cookieOS 默认模型」或指定模型；无模型时先在 cookieOS 配置模型供应商。
 4. 内置 AI/MCP 工具还需在扩展设置中打开对应开关。外部 MCP 调用需在「MCP 服务」选择插件工具，配置服务和访问令牌；令牌不属于插件包。
 
@@ -49,11 +51,11 @@ npx --yes pnpm@10.34.9 verify
 `pnpm build:extension` 在 `dist/extension/` 组装干净安装目录。使用官方 SDK：
 
 ```sh
-python3 ../cookieos-extension-sdk/dev.py check ./dist/extension
-python3 ../cookieos-extension-sdk/dev.py pack ./dist/extension ../dist/ctool-v0.1.0.zip
+python3 "$SDK_DIR/dev.py" check ./dist/extension
+python3 "$SDK_DIR/dev.py" pack ./dist/extension ../dist/ctool-0.2.0/ctool-0.2.0.zip
 ```
 
-ZIP 必须放在安装目录之外，已有 ZIP 应保留并使用新版本文件名。SDK 来自 https://cookieos.yxysj66.com/api/v1/extensions/sdk ，本轮合同快照为 1.1.0。`dev.py check` 只做文件预检，完整安装规则仍以 cookieOS 为准。
+ZIP 必须放在安装目录之外，已有 ZIP 应保留并使用新版本文件名。SDK 来自 https://cookieos.yxysj66.com/api/v1/extensions/sdk ，本轮合同快照为 1.2.0。`dev.py check` 只做文件预检，完整安装规则仍以 cookieOS 为准。
 
 `pnpm test:e2e` 使用本地模拟 xhub 和临时浏览器上下文，服务只提供构建产物。模拟测试不能代表真实模型、MCP、宿主 CSP、停用和升级验收。实际记录见 [Progress](Progress.md)，手动步骤见 [验收任务](doc/tasks/cookieos-migration/10-acceptance.md)。
 
@@ -66,3 +68,21 @@ ZIP 必须放在安装目录之外，已有 ZIP 应保留并使用新版本文�
 原项目：https://github.com/nidhogg1024/Ctool 。保留上游及 baiy 的 MIT 声明，见 [LICENSE](LICENSE)。本目录中的 cookieOS 适配按 MIT 提供；第三方依赖依其自身许可。
 
 安装包 `licenses/index.json` 来自构建实际引用模块，包含依赖版本和许可文本。`@ltd/j-toml` 使用 LGPL-3.0，包内 `licenses/source/j-toml/` 保留其原始发布文件和含源代码的 source maps。要替换该库，可在源码工作区更换对应依赖、执行上述构建命令并重新打包；本插件不限制为调试修改版而进行的逆向分析。未修改该库。
+
+
+## 展示资料与市场导出
+
+`manifest.json` 是运行身份和版本来源；界面构建读取其版本，组装时由现有 `allTools` 生成工具清单。`metadata.json` 仅维护展示资料，`assets/` 保存品牌图标和实际页面截图，`presentation/README.md` 是安装包内的用户介绍。原开发 README 不直接复制进包。
+
+设置 `SDK_DIR` 指向确认 `sdkVersion=1.2.0` 的下载包，先运行 `pnpm build:extension`，再按上面的命令检查/打包；产物父目录先创建，ZIP 输出必须不存在。正式发布获得地址和实际发布时间后，再从最终 ZIP 导出：
+
+```sh
+python3 "$SDK_DIR/dev.py" market-item "$ZIP" \
+  --download-url "$DOWNLOAD_URL" --asset-base-url "$ASSET_BASE_URL" \
+  --published-at "$PUBLISHED_AT" --output "$ITEM_OUTPUT" \
+  --assets-output "$ASSETS_OUTPUT"
+```
+
+上述变量必须填写真实值，两个导出输出必须尚不存在；任何 ZIP 字节变化都需重新导出。本轮交付的 `item.json` 来自真实隔离 HTTPS 测试服务，服务清理后地址失效，不能直接发布。正式下载地址/媒体路径/发布时间尚未确定，因此正式市场条目和公开清单更新保留待办。
+
+`arm_convert` 的 Draft 7 元组结果现已显式声明方言，返回数据格式不变。旧 0.1.0 包在当前严格宿主会因缺少该声明拒绝安装；完整原包升级未验证，合同等价旧版测试包的升级、回退和保留数据重装通过。详细边界见本轮验证记录。

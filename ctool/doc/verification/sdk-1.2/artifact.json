@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "file": "ctool-0.2.0.zip",
+  "sha256": "c654d7af057a177d078042539a2fd03e8625fe645641dea5db7caa02be16140f",
+  "bytes": 8111069,
+  "entries": 489,
+  "licenseRecords": 208,
+  "sdkVersion": "1.2.0",
+  "sdkDownloadSha256": "9a8effc105cbc44f42f84a997a2a8c78f35128a63dccf4c5b316511b3906e868",
+  "hostCandidateSha256": "f1900259ebd477a603baed59759103103ada9b8700e69d745cc4cfa8b9604475",
+  "productionPublished": false,
+  "formalMarketItemGenerated": false,
+  "testMarketItem": "item.json uses actual temporary test HTTPS endpoint; not suitable for publication",
+  "changes": "metadata packaging and explicit Draft7 output schema annotation only; no data migrations"
+}

@@ -39,3 +39,13 @@ flowchart LR
 - 14 个结构化公开操作：[C4](doc/tasks/cookieos-migration/06-shared-tools.md#c4)。
 - 12 项原模型辅助：[D2](doc/tasks/cookieos-migration/07-host-models.md#d2)。
 - 共通交接与完成条件：[任务目录说明](doc/tasks/cookieos-migration/README.md)。
+
+
+## SDK 1.2.0 阶段与依赖
+
+| 阶段 | 范围 | 依赖 | 模块任务 |
+|---|---|---|---|
+| S12-A | 盘点、运行与展示合同 | 无 | [01](doc/tasks/sdk-1.2-presentation/01-inventory-contract.md) |
+| S12-B | 展示文档与真实媒体 | S12-A | [02](doc/tasks/sdk-1.2-presentation/02-presentation-assets.md) |
+| S12-C | 构建、打包、市场导出 | S12-B | [03](doc/tasks/sdk-1.2-presentation/03-build-market.md) |
+| S12-D | 隔离验收、发布产物、合回 | S12-C | [04](doc/tasks/sdk-1.2-presentation/04-host-acceptance-release.md) |

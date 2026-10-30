@@ -1,0 +1,276 @@
+{
+  "checkedOn": "2026-10-31",
+  "sdkVersion": "1.2.0",
+  "hostApi": "^1.0.0",
+  "id": "io.cookieos.ctool",
+  "version": "0.2.0",
+  "runtime": "node >=22.0.0",
+  "counts": {
+    "uiTools": 60,
+    "uiEntries": 88,
+    "uiAiFeatures": 12,
+    "serviceTools": 17,
+    "aiTools": 14,
+    "mcpTools": 14
+  },
+  "counting": "UI tools: ctool-config tools.length; entries: sum(features.length), confirmed by 88-route browser sweep; service/AI/MCP: actual allTools declarations; UI AI: actual AI_SUPPORTED_FEATURES",
+  "categories": [
+    {
+      "name": "crypto",
+      "tools": [
+        "hash",
+        "hmac",
+        "aes",
+        "des",
+        "tripleDes",
+        "rc4",
+        "rabbit",
+        "sm2",
+        "sm4",
+        "rsa",
+        "sign",
+        "bcrypt",
+        "password"
+      ]
+    },
+    {
+      "name": "encoding",
+      "tools": [
+        "base64",
+        "base32",
+        "url",
+        "unicode",
+        "jwt",
+        "hexString",
+        "html",
+        "gzip",
+        "asn1",
+        "punycode",
+        "base58"
+      ]
+    },
+    {
+      "name": "data",
+      "tools": [
+        "json",
+        "msgpack",
+        "configConvert",
+        "serialize",
+        "radix",
+        "ascii",
+        "arm",
+        "mongoObjectId"
+      ]
+    },
+    {
+      "name": "text",
+      "tools": [
+        "text",
+        "pinyin",
+        "variableConversion",
+        "diffs",
+        "regex",
+        "zhNumber",
+        "code"
+      ]
+    },
+    {
+      "name": "network",
+      "tools": [
+        "ip",
+        "urlParse",
+        "websocket",
+        "httpSnippet",
+        "userAgent",
+        "dockerCompose"
+      ]
+    },
+    {
+      "name": "dev",
+      "tools": [
+        "crontab",
+        "sqlFillParameter",
+        "stacktrace",
+        "chmod",
+        "dataValidation",
+        "color",
+        "unit",
+        "time"
+      ]
+    },
+    {
+      "name": "generate",
+      "tools": [
+        "qrCode",
+        "barcode",
+        "randomString",
+        "uuid",
+        "binary",
+        "ipcalc",
+        "numberCalc"
+      ]
+    }
+  ],
+  "uiAiFeatures": [
+    {
+      "tool": "json",
+      "feature": "json"
+    },
+    {
+      "tool": "regex",
+      "feature": "regex"
+    },
+    {
+      "tool": "crontab",
+      "feature": "crontab"
+    },
+    {
+      "tool": "sqlFillParameter",
+      "feature": "sqlFillParameter"
+    },
+    {
+      "tool": "stacktrace",
+      "feature": "stacktrace"
+    },
+    {
+      "tool": "configConvert",
+      "feature": "configConvert"
+    },
+    {
+      "tool": "httpSnippet",
+      "feature": "httpSnippet"
+    },
+    {
+      "tool": "code",
+      "feature": "code"
+    },
+    {
+      "tool": "text",
+      "feature": "text"
+    },
+    {
+      "tool": "diffs",
+      "feature": "diffs"
+    },
+    {
+      "tool": "urlParse",
+      "feature": "urlParse"
+    },
+    {
+      "tool": "userAgent",
+      "feature": "userAgent"
+    }
+  ],
+  "serviceTools": [
+    {
+      "name": "json_format",
+      "effect": "read",
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "json_validate",
+      "effect": "read",
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "base64_encode",
+      "effect": "read",
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "base64_decode",
+      "effect": "read",
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "url_encode",
+      "effect": "read",
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "url_decode",
+      "effect": "read",
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "hash_digest",
+      "effect": "read",
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "time_convert",
+      "effect": "read",
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "radix_convert",
+      "effect": "read",
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "cron_parse",
+      "effect": "read",
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "text_process",
+      "effect": "read",
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "config_convert",
+      "effect": "read",
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "url_parse",
+      "effect": "read",
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "uuid_generate",
+      "effect": "read",
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "arm_convert",
+      "effect": "read",
+      "ai": false,
+      "mcp": false
+    },
+    {
+      "name": "code_run",
+      "effect": "dangerous",
+      "ai": false,
+      "mcp": false
+    },
+    {
+      "name": "code_credits",
+      "effect": "read",
+      "ai": false,
+      "mcp": false
+    }
+  ],
+  "data": {
+    "preferences": "host KV: existing ctool.pref.* keys unchanged",
+    "history": "in-memory only; disabled by default; sensitive tools excluded",
+    "config": "host per-version ordinary configuration; no migration",
+    "secrets": "XHUB_SECRET_CONFIG: jdoodleClientId/jdoodleClientSecret; unchanged",
+    "backend": "stateless service; no new persistent writes"
+  },
+  "contractChange": "Only arm_convert.outputSchema.$schema now explicitly declares Draft7; tuple input/output data semantics unchanged; original 0.1.0 fails current host installation"
+}

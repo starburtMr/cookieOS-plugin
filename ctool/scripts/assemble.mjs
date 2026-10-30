@@ -5,14 +5,12 @@ const root = resolve("dist/extension");
 await rm(join(root, "ui"), {recursive: true, force: true});
 await mkdir(root, {recursive: true});
 await cp("packages/ctool-core/dist", join(root, "ui"), {recursive: true, dereference: false});
-const manifest = {
-    schemaVersion: 1, id: "io.cookieos.ctool", name: "Ctool 开发者工具箱", version: "0.1.0", hostApi: "^1.0.0",
-    description: "60 项开发工具，支持 cookieOS 模型辅助、AI 与 MCP 纯计算工具", author: "cookieOS-plugin contributors", category: "开发工具",
-    permissions: ["open-url"], requires: ["tools.call", "storage.get", "storage.set", "theme.get", "theme.onChange", "runtime.open", "models.list", "models.stream", "models.status"],
-    ui: {entry: "ui/main.js", styles: ["ui/style.css"], surfaces: ["module", "view", "window", "drawer"], defaultSurface: "view"},
-    service: {runtime: "node", entry: "service/main.mjs", args: [], nodeVersion: ">=22.0.0", healthPath: "/healthz"}, tools: allTools,
-};
+const manifest = {...JSON.parse(await readFile("manifest.json", "utf8")), tools: allTools};
 await writeFile(join(root, "manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
+await cp("metadata.json", join(root, "metadata.json"));
+await cp("presentation/README.md", join(root, "README.md"));
+await rm(join(root, "assets"), {recursive: true, force: true});
+await cp("assets", join(root, "assets"), {recursive: true, dereference: false});
 await cp("LICENSE", join(root, "LICENSE"));
 // Include the exact dependency license texts, without source paths or private files.
 const licenses = join(root, "licenses"); await rm(licenses, {recursive: true, force: true}); await mkdir(licenses);
@@ -53,7 +51,7 @@ async function audit(directory) {
         if (entry.isDirectory()) await audit(file);
     }
 }
-for (const name of await readdir(root)) if (!["manifest.json", "ui", "service", "licenses", "LICENSE"].includes(name)) throw new Error(`Unexpected package root: ${name}`);
+for (const name of await readdir(root)) if (!["manifest.json", "metadata.json", "README.md", "assets", "ui", "service", "licenses", "LICENSE"].includes(name)) throw new Error(`Unexpected package root: ${name}`);
 for (const name of await readdir(join(root, "service"))) if (name !== "main.mjs") throw new Error(`Unexpected service output: ${name}`);
 if (records.some(record => !record.notice)) throw new Error("Missing dependency license notice");
 await audit(root);

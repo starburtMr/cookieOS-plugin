@@ -198,3 +198,8 @@ Vite 直接以 `tool.ts` 对应模块构建挂载 #app 的入口，不加载原 
 - 构建产物、模拟测试与真实宿主验收严格区分。没有独立实例/凭据授权时只交付本地 ZIP，市场登记、发布、真实安装、升级与回退仍需真实证据。
 
 - 收尾审查发现原 Bcrypt/RSA 密钥生成 Worker 会打印传入数据，已删除这些调试输出；Bcrypt 复用有截止的 Worker 并校验参数。构建依赖清单合并全部 Worker 的模块，避免最后一个 Worker 覆盖其他 Worker 的许可记录。
+
+
+## SDK 1.2 展示与发布边界
+
+本轮为交付适配：manifest.json 为运行身份与版本来源，tools 继续由既有业务定义生成写入最终 manifest；Vite 从 manifest 注入界面版本。metadata.json 仅含展示引用，assets 和 presentation/README.md 由原 assemble 入口复制到包根；不新增业务运行时或存储迁移。SDK schema 原样保存到 contracts，最终媒体/条目由 SDK 从 ZIP 生成，不自研转换器。新增测试比较旧工具完整合同，校验 metadata、真实图片预算、干净包允许集及最终市场导出一致性。隔离测试复用 cookieOS 已有 RemoteFixture，不改宿主源码、线上服务、数据库或模型凭据；缺少真实供应商时模型结果明确标为模拟链路。

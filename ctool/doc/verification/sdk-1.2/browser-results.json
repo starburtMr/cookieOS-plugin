@@ -1,0 +1,13 @@
+{
+  "passed": [
+    "Real market detail, images, Markdown, links, footer and preview keyboard 1074x884",
+    "Real market detail, images, Markdown, links, footer and preview keyboard 390x844",
+    "Real market detail, images, Markdown, links, footer and preview keyboard 390x442",
+    "Controlled broken-media fallback",
+    "Controlled missing optional presentation fields",
+    "Real installed presentation corresponds to current package",
+    "Real installed iframe JSON format and category navigation"
+  ],
+  "pageErrors": [],
+  "transport": "Real isolated API; self-signed media retrieved with explicit test CA; broken/missing states injected only for those cases"
+}

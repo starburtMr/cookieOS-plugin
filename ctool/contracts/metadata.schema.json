@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$ref": "#/components/schemas/PresentationMetadata",
+  "components": {
+    "schemas": {
+      "PresentationMetadata": {
+        "type": "object",
+        "required": [
+          "schemaVersion"
+        ],
+        "properties": {
+          "homepage": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "icon": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "license": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "readme": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "releaseNotes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "repository": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "schemaVersion": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "screenshots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Screenshot"
+            }
+          },
+          "supportUrl": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "Screenshot": {
+        "type": "object",
+        "required": [
+          "path",
+          "alt"
+        ],
+        "properties": {
+          "alt": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

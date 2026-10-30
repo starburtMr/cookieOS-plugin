@@ -1,0 +1,37 @@
+{
+  "scope": "isolated-only; not public release",
+  "marketRefresh": true,
+  "requirements": {
+    "hostApi": "^1.0.0",
+    "requires": [
+      "tools.call",
+      "storage.get",
+      "storage.set",
+      "theme.get",
+      "theme.onChange",
+      "runtime.open",
+      "models.list",
+      "models.stream",
+      "models.status"
+    ],
+    "service": {
+      "runtime": "node",
+      "nodeVersion": ">=22.0.0"
+    },
+    "surfaces": [
+      "module",
+      "view",
+      "window",
+      "drawer"
+    ],
+    "aiTools": 14,
+    "mcpTools": 14,
+    "permissions": [
+      "open-url"
+    ]
+  },
+  "sha256": "c654d7af057a177d078042539a2fd03e8625fe645641dea5db7caa02be16140f",
+  "packageSizeBytes": 8111069,
+  "mediaFiles": 4,
+  "pinnedMarketInstall": "passed: real HTTPS ZIP download and retained config/storage"
+}

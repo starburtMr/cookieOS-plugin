@@ -1,1 +1,1 @@
-{"sdkVersion":"1.1.0","hostApi":"^1.0.0","features":["host-models"],"modelProtocolVersion":1}
+{"sdkVersion":"1.2.0","hostApi":"^1.0.0","features":["host-models","presentation-metadata"],"modelProtocolVersion":1}

@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "io.cookieos.ctool",
+  "name": "Ctool 开发者工具箱",
+  "version": "0.2.0",
+  "hostApi": "^1.0.0",
+  "description": "用于编码转换、数据处理、文本编辑、加密校验和开发调试的工具箱，支持 cookieOS 模型辅助。",
+  "author": "cookieOS-plugin contributors",
+  "category": "开发工具",
+  "permissions": [
+    "open-url"
+  ],
+  "requires": [
+    "tools.call",
+    "storage.get",
+    "storage.set",
+    "theme.get",
+    "theme.onChange",
+    "runtime.open",
+    "models.list",
+    "models.stream",
+    "models.status"
+  ],
+  "ui": {
+    "entry": "ui/main.js",
+    "styles": [
+      "ui/style.css"
+    ],
+    "surfaces": [
+      "module",
+      "view",
+      "window",
+      "drawer"
+    ],
+    "defaultSurface": "view"
+  },
+  "service": {
+    "runtime": "node",
+    "entry": "service/main.mjs",
+    "args": [],
+    "nodeVersion": ">=22.0.0",
+    "healthPath": "/healthz"
+  }
+}

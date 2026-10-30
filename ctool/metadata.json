@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "icon": "assets/icon.png",
+  "readme": "README.md",
+  "screenshots": [
+    {
+      "path": "assets/screenshots/overview.png",
+      "alt": "工具分类与搜索：按名称查找 JSON 工具"
+    },
+    {
+      "path": "assets/screenshots/json.png",
+      "alt": "JSON 工具：格式化示例数据并查看处理结果"
+    },
+    {
+      "path": "assets/screenshots/qrcode.png",
+      "alt": "二维码生成：将示例文本转换为二维码"
+    }
+  ],
+  "releaseNotes": "新增图标、实际运行截图、使用介绍及更新说明；按 cookieOS SDK 1.2.0 分离运行清单与展示资料，并从最终安装包生成市场资料。原有工具合同和存储键保持不变。 为 ARM 转换的元组结果显式声明 Draft 7，修复严格宿主拒绝安装的问题，不改变返回数据。",
+  "homepage": "https://github.com/starburtMr/cookieOS-plugin/tree/main/ctool",
+  "repository": "https://github.com/starburtMr/cookieOS-plugin",
+  "supportUrl": "https://github.com/starburtMr/cookieOS-plugin/issues",
+  "license": "MIT"
+}

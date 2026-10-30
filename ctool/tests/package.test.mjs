@@ -6,8 +6,42 @@ import {join,resolve} from 'node:path';
 import {spawn} from 'node:child_process';
 import {once} from 'node:events';
 import Ajv2020 from 'ajv/dist/2020.js';
+import Ajv from 'ajv';
 const root=resolve('dist/extension');
 const manifest=JSON.parse(await readFile(join(root,'manifest.json'),'utf8'));
+test('runtime identity has one source and all existing tool/data contracts remain compatible',async()=>{
+    const source=JSON.parse(await readFile('manifest.json','utf8'));
+    const previous=JSON.parse(await readFile('contracts/runtime-v0.1.0.json','utf8'));
+    assert.deepEqual(manifest,{...source,tools:manifest.tools});
+    for(const key of ['id','hostApi','requires','permissions','ui','service'])assert.deepEqual(manifest[key],previous[key],key);
+    const tools=structuredClone(manifest.tools);
+    delete tools.find(t=>t.name==='arm_convert').outputSchema.$schema;
+    assert.deepEqual(tools,previous.tools,'only the explicit ARM output dialect annotation may change');
+    for(const key of ['name','description','author','category'])assert.ok(manifest[key].trim(),key);
+    assert.equal(manifest.version,'0.2.0');assert.equal(manifest.category,'开发工具');
+});
+test('every tool schema compiles with its declared dialect and ARM tuple behavior stays unchanged',async()=>{
+    for(const tool of manifest.tools)for(const key of ['inputSchema','outputSchema']){
+        const schema=tool[key];
+        (schema.$schema?.includes('draft-07')?new Ajv({strict:false}):new Ajv2020({strict:false})).compile(schema);
+    }
+    const schema=manifest.tools.find(t=>t.name==='arm_convert').outputSchema;
+    const previous=JSON.parse(await readFile('contracts/runtime-v0.1.0.json','utf8')).tools.find(t=>t.name==='arm_convert').outputSchema;
+    assert.throws(()=>new Ajv2020({strict:false}).compile(previous));
+    const currentValidator=new Ajv({strict:false}).compile(schema);
+    const oldValidator=new Ajv({strict:false}).compile(previous);
+    for(const value of [{asm:{arm64:[true,'mov x0, x1']}},{hex:{arm:[false,'error']}},{asm:{arm64:['true','text']}},{asm:{arm64:[true,'text','extra']}},{}])assert.equal(currentValidator(value),oldValidator(value));
+});
+test('presentation uses the SDK schema and references bounded real package files',async()=>{
+    const raw=await readFile(join(root,'metadata.json'));assert.ok(raw.length<=65536);
+    const metadata=JSON.parse(raw);
+    const validate=new Ajv2020({strict:false,validateFormats:false}).compile(JSON.parse(await readFile('contracts/metadata.schema.json','utf8')));
+    assert.equal(validate(metadata),true,JSON.stringify(validate.errors));
+    assert.equal(validate({...metadata,name:manifest.name}),false,'metadata must not duplicate identity');
+    assert.ok(metadata.screenshots.length>=2&&metadata.screenshots.length<=4);
+    const readme=await readFile(join(root,metadata.readme));assert.ok(readme.length<=16384);new TextDecoder('utf-8',{fatal:true}).decode(readme);
+    for(const [name,limit] of [[metadata.icon,512*1024],...metadata.screenshots.map(s=>[s.path,2*1024*1024])])assert.ok((await readFile(join(root,name))).length<=limit);
+});
 test('package manifest, stable entrypoints, WASM and safe file set',async()=>{
     assert.equal(manifest.id,'io.cookieos.ctool');assert.equal(manifest.tools.length,17);
     for(const file of [manifest.ui.entry,...manifest.ui.styles,manifest.service.entry])assert.ok((await readFile(join(root,file))).length,file);

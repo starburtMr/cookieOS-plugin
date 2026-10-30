@@ -5,7 +5,7 @@ import vue from "@vitejs/plugin-vue";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import HtmlConfig from "vite-plugin-html-config";
 import ReactivityTransform from "@vue-macros/reactivity-transform/vite";
-import {buildVersion} from "ctool-adapter-base";
+const manifest = JSON.parse(readFileSync(resolve(__dirname, "../../manifest.json"), "utf8"));
 
 for (const name of ["ui", "worker"]) rmSync(resolve(__dirname, `../../.cache/${name}-modules.json`), {force: true});
 const moduleInventory = (name: string) => ({
@@ -21,7 +21,7 @@ const moduleInventory = (name: string) => ({
 export default defineConfig({
     base: "./",
     worker: {format: "es", plugins: () => [moduleInventory("worker")]},
-    define: {"__CTOOL_VERSION__": JSON.stringify("0.1.0")},
+    define: {"__CTOOL_VERSION__": JSON.stringify(manifest.version)},
     plugins: [
         moduleInventory("ui"),
         nodePolyfills({exclude: ["crypto"]}),
@@ -29,7 +29,7 @@ export default defineConfig({
             metas: [
                 {
                     name: "ctool-version",
-                    content: buildVersion(),
+                    content: manifest.version,
                 },
                 {
                     name: "ctool-build-timestamp",

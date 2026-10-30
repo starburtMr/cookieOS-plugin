@@ -1,0 +1,19 @@
+{
+  "passed": [
+    "final ZIP installed; legacy compatibility fixture upgraded with config/storage retained",
+    "installed icon, 3 screenshots, Markdown, release notes and links available",
+    "real host dispatcher JSON and Base64 tools",
+    "real MCP initialize/list 14 tools/call and token cleanup",
+    "disable preserves presentation; enable works",
+    "invalid metadata rejected without replacing or breaking current plugin",
+    "rollback selects legacy presentation fallback and retains config",
+    "retained-data uninstall/reinstall restores config and storage"
+  ],
+  "originalReleaseInstall": "failed: undeclared Draft7 ARM tuple schema",
+  "legacyFixture": "original 0.1.0 with only ARM output $schema annotation, not original release",
+  "unverified": [
+    "real provider inference",
+    "original unmodified 0.1.0 upgrade",
+    "older host binary"
+  ]
+}

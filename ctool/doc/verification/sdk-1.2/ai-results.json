@@ -1,0 +1,6 @@
+{
+  "hostAssistantDispatcher": "passed",
+  "tool": "json_format",
+  "provider": "local simulated SSE model; no real external inference",
+  "uiModelRegression": "22 browser suite includes all 12 model helpers, simulated bridge"
+}

@@ -6,7 +6,7 @@ const archResult = {type: "object", properties: Object.fromEntries(architectures
 export const networkTools = [
     {name: "arm_convert", title: "ARM 在线转换", description: "由用户主动提交到 ARM 转换服务", effect: "read", ai: false, mcp: false, timeoutSeconds: 25,
         inputSchema: {...objectSchema({asm: stringSchema, hex: stringSchema, offset: {type: "string", pattern: "^(?:0x)?[a-fA-F0-9]{0,16}$"}, arch: {type: "array", items: {enum: architectures}, minItems: 1, maxItems: 5, uniqueItems: true}}, ["offset", "arch"]), oneOf: [{required: ["asm"], properties: {asm: stringSchema, hex: false}}, {required: ["hex"], properties: {hex: stringSchema, asm: false}}]},
-        outputSchema: {...objectSchema({asm: archResult, hex: archResult}, []), minProperties: 1}},
+        outputSchema: {$schema: "http://json-schema.org/draft-07/schema#", ...objectSchema({asm: archResult, hex: archResult}, []), minProperties: 1}},
     {name: "code_run", title: "JDoodle 在线运行", description: "用户主动运行单文件代码，可能消耗外部服务额度", effect: "dangerous", ai: false, mcp: false, timeoutSeconds: 65,
         inputSchema: objectSchema({language: {type: "string", pattern: "^[a-z0-9_+-]{1,40}$"}, versionIndex: {type: "string", pattern: "^\\d{1,3}$"}, script: stringSchema, stdin: stringSchema}, ["language", "versionIndex", "script"]),
         outputSchema: objectSchema({output: stringSchema, memory: {type: "string"}, cpuTime: {type: "string"}, error: {type: "string"}, statusCode: {type: "integer"}})},
