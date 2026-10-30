@@ -53,3 +53,7 @@ ZIP SHA256：`c654d7af057a177d078042539a2fd03e8625fe645641dea5db7caa02be16140f`�
 当前主执行者顺序审查；不具备独立审查者。收尾必须核对模块文件、主目录未提交经验文档、合回后检查和本轮 worktree 清理，实际结果写 Progress。
 
 主目录复验与隔离清理已完成，见 [merge-cleanup.json](merge-cleanup.json)。正式市场导出及旧宿主/原发行包升级等限制仍然保留。
+
+## 后续授权 GitHub 发布（2026-10-31）
+
+用户在本地合回后明确要求发布。已将相同最终ZIP及4份摘要媒体发布至 [ctool-v0.2.0](https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.2.0)，保留预发布标记及原验证限制。使用GitHub实际publishedAt重新导出 `dist/ctool-0.2.0-github/item.json`，媒体基础地址是该Release的download路径；未复用临时URL。ZIP/媒体匿名HTTPS下载及SHA256通过，见 [公开验证记录](github-release.json)。原文中的“未发布”和临时item说明对应此前本地验收阶段，已由本次后续授权完成正式URL导出；不表示真实外部模型和原发行包升级等限制已经消失。

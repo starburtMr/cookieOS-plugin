@@ -2,7 +2,7 @@
 
 ## 接入
 
-本仓库提供 cookieOS 已有市场协议的数据源，不另建市场网站或安装服务。当前清单提供 Ctool 0.1.0 测试版本，供真实宿主发现和安装验收。
+本仓库提供 cookieOS 已有市场协议的数据源，不另建市场网站或安装服务。当前清单提供 Ctool 0.2.0 预发布版本，包含 SDK 1.2.0 展示资料。
 
 新版 cookieOS 在扩展设置中填写仓库首页 `https://github.com/starburtMr/cookieOS-plugin` 或下面的市场地址即可，无需手填公钥；点击「刷新市场」后查看 Ctool。
 
@@ -48,4 +48,6 @@ python3 "$COOKIEOS_SDK_DIR/dev.py" market-sign market/registry.json \
 
 密钥泄露时停止使用旧私钥，生成替代密钥并通过可信渠道通知使用者更换公钥。更换公钥不是普通清单更新，不能假定客户端自动信任。
 
-本仓库不自动修改真实 cookieOS 实例配置，也不执行插件安装。Ctool 首次发布标记为 GitHub 预发布，真实市场刷新、安装和升级仍待使用者验收。
+本仓库不自动修改真实 cookieOS 实例配置，也不执行插件安装。Ctool 当前发布继续标记为 GitHub 预发布。0.2.0 已完成隔离宿主市场/安装/MCP及生命周期验证，外部真实模型、旧宿主和原0.1.0发行包升级限制见插件验证记录。
+
+SDK 1.2.0 版本的展示条目必须从最终 ZIP 使用 `dev.py market-item` 生成。GitHub Release 的媒体资产没有子目录，`--asset-base-url` 使用该版本的 `/releases/download/<tag>`，再上传 SDK 导出的内容摘要文件名。先公开 ZIP/媒体，读取 GitHub 实际 publishedAt，再在新目录生成正式 item.json；不得复用临时隔离 URL 或把计划时间当发布时间。验证全部公开文件后才合入市场清单。

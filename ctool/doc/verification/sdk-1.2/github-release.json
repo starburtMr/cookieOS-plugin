@@ -1,0 +1,42 @@
+{
+  "releaseUrl": "https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.2.0",
+  "publishedAt": "2026-10-30T19:26:08Z",
+  "sourceCommit": "0ce9f83a2de46205da38d4777c9674ea0487b45b",
+  "isPrerelease": true,
+  "anonymousHttpsDownloads": [
+    {
+      "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.2.0/ctool-0.2.0.zip",
+      "bytes": 8111069,
+      "sha256": "c654d7af057a177d078042539a2fd03e8625fe645641dea5db7caa02be16140f"
+    },
+    {
+      "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.2.0/440988fefe03787809ef3823ae9c52e0d4930711a25b19e067e1cf7d7a1574e6.png",
+      "bytes": 82513,
+      "sha256": "440988fefe03787809ef3823ae9c52e0d4930711a25b19e067e1cf7d7a1574e6"
+    },
+    {
+      "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.2.0/13b6310e2af35495a862437f7a730b2b42d560709c08a43124d08015f429b25e.png",
+      "bytes": 84255,
+      "sha256": "13b6310e2af35495a862437f7a730b2b42d560709c08a43124d08015f429b25e"
+    },
+    {
+      "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.2.0/9c7b6a1df3e9feb0ffd24d39c09ff910c85f59d2906929e0bd66b7c2fae04b15.png",
+      "bytes": 81268,
+      "sha256": "9c7b6a1df3e9feb0ffd24d39c09ff910c85f59d2906929e0bd66b7c2fae04b15"
+    },
+    {
+      "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.2.0/0e2fe02a32d04b130c55bb07b8e59d55834d28e93edc56644d6c30089965cc25.png",
+      "bytes": 59310,
+      "sha256": "0e2fe02a32d04b130c55bb07b8e59d55834d28e93edc56644d6c30089965cc25"
+    },
+    {
+      "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.2.0/ctool-0.2.0.zip.sha256",
+      "bytes": 82,
+      "sha256": "2f61bae2d25ff8a7c28f2d7e674286a1393ab8d26076465a19197b0ac48516eb"
+    }
+  ],
+  "finalZipSha256": "c654d7af057a177d078042539a2fd03e8625fe645641dea5db7caa02be16140f",
+  "publicAssetsVerified": true,
+  "formalItemUrl": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.2.0/item.json",
+  "formalItemVerified": true
+}

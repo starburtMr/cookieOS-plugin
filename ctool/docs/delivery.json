@@ -1,46 +1,40 @@
 {
-  "file": "ctool-v0.1.0.zip",
-  "sha256": "1b605e6d6437f996d56d10edb253ebf8b7cd46adc1031f9516f82f99ec12c8e4",
-  "bytes": 7806928,
-  "entries": 483,
+  "file": "ctool-0.2.0.zip",
+  "sha256": "c654d7af057a177d078042539a2fd03e8625fe645641dea5db7caa02be16140f",
+  "bytes": 8111069,
   "id": "io.cookieos.ctool",
-  "version": "0.1.0",
-  "runtime": "node >=22",
-  "sdk": "1.1.0",
-  "checks": {
-    "unitTests": 343,
-    "serviceContractTests": 22,
-    "packageTests": 4,
-    "browserTests": 22,
-    "registeredRoutes": 88,
-    "duplicateGate": "no new clones; injected clone rejected",
-    "sdkCheck": "file preflight passed"
-  },
-  "unverified": [
-    "real cookieOS installation and four surfaces",
-    "real host model and external MCP",
-    "JDoodle authenticated execution",
-    "real host enable/disable/update/rollback/uninstall",
-    "browser CORS against GeoJS on target host"
-  ],
-  "sourceCommit": "afdfac493d3ddb6c6ef58d3a4c37b076c1cc956f",
-  "integration": {
-    "branch": "main",
-    "worktreeRemoved": true,
-    "pushed": true
-  },
-  "releaseUrl": "https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.1.0",
-  "downloadUrl": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.1.0/ctool-v0.1.0.zip",
+  "version": "0.2.0",
+  "runtime": "node >=22.0.0",
+  "sdk": "1.2.0",
+  "sourceCommit": "0ce9f83a2de46205da38d4777c9674ea0487b45b",
+  "releaseUrl": "https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.2.0",
+  "downloadUrl": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.2.0/ctool-0.2.0.zip",
+  "publishedAt": "2026-10-30T19:26:08Z",
   "releaseChannel": "prerelease",
-  "artifactDirectory": "dist/market-release",
-  "releaseChecks": {
+  "artifactDirectory": "dist/ctool-0.2.0-github",
+  "checks": {
     "buildAndUiTypecheck": "passed",
     "serviceContractTests": 22,
-    "packageTests": 4,
-    "sdkCheck": "passed",
-    "zipIntegrity": "passed",
-    "browserSmoke": "JSON format and header removal passed",
-    "publicAssetDownload": "anonymous HTTPS, ZIP integrity and SHA256 passed",
-    "publicRegistry": "sequence 2, io.cookieos.ctool 0.1.0, Ed25519 verified"
+    "packageTests": 7,
+    "browserTests": 22,
+    "sdkPreflight": "passed",
+    "isolatedHostInstallAndLifecycle": "passed with contract-equivalent legacy fixture",
+    "realMcp": "passed",
+    "assistantModel": "simulated local provider; real host dispatcher passed",
+    "publicZipAndMedia": "anonymous HTTPS and SHA256 passed"
+  },
+  "unverified": [
+    "unmodified original 0.1.0 upgrade (original ARM schema rejected by strict host)",
+    "older host binary",
+    "real external model inference and JDoodle",
+    "four UI surfaces independently"
+  ],
+  "knownLimitations": [
+    "very short iframe tool window may overlap JSON buttons; metadata dialog responsive checks passed"
+  ],
+  "market": {
+    "sequence": 3,
+    "itemSource": "SDK 1.2.0 dev.py market-item from unchanged final ZIP",
+    "mediaFiles": 4
   }
 }

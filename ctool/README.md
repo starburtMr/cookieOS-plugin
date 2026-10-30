@@ -2,13 +2,13 @@
 
 cookieOS 扩展 `io.cookieos.ctool`。运行名称、版本、作者、分类和能力以 [manifest.json](manifest.json) 为准，工具定义由现有业务模块生成。基于 Ctool 2.9.1，界面工具、入口和 AI/MCP 数量的实际口径见 [SDK 1.2 盘点](docs/sdk-1.2-inventory.json)。
 
-本轮 SDK 1.2.0 适配为本地候选，未推送或正式发布。当前公开市场仍是之前的测试版；本轮产物及限制见 [验证记录](doc/verification/sdk-1.2/README.md)。
+SDK 1.2.0 展示资料版已作为 GitHub 预发布提供；本轮产物及限制见 [验证记录](doc/verification/sdk-1.2/README.md)。
 
 ## 安装
 
 管理服务器需要 **Node.js 22 或更新版本**；本包不需要安装 npm 依赖。浏览器需支持 ES modules、Web Workers、WebAssembly 和 Web Crypto。
 
-市场测试版见 [GitHub Release](https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.1.0)。新版 cookieOS 的市场地址可填写 `https://github.com/starburtMr/cookieOS-plugin`，刷新市场后选择 Ctool 安装；也可按下述步骤上传本地 ZIP。真实宿主安装和 AI/MCP 验收尚未完成。
+市场测试版见 [GitHub Release](https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.2.0)。新版 cookieOS 的市场地址可填写 `https://github.com/starburtMr/cookieOS-plugin`，刷新市场后选择 Ctool 安装；也可按下述步骤上传本地 ZIP。已完成隔离宿主安装、实际 MCP 与模拟模型助手链路验证；真实外部模型和旧宿主尚未验收。
 
 1. 打开 https://cookieos.yxysj66.com/extensions?tab=installed 。
 2. 点击「安装扩展」→「本地 ZIP」，上传本轮 `ctool-0.2.0.zip`。
@@ -83,6 +83,6 @@ python3 "$SDK_DIR/dev.py" market-item "$ZIP" \
   --assets-output "$ASSETS_OUTPUT"
 ```
 
-上述变量必须填写真实值，两个导出输出必须尚不存在；任何 ZIP 字节变化都需重新导出。本轮交付的 `item.json` 来自真实隔离 HTTPS 测试服务，服务清理后地址失效，不能直接发布。正式下载地址/媒体路径/发布时间尚未确定，因此正式市场条目和公开清单更新保留待办。
+上述变量必须填写真实值，两个导出输出必须尚不存在；任何 ZIP 字节变化都需重新导出。早期 `dist/ctool-0.2.0/item.json` 是临时隔离验收产物，不可用于发布。GitHub 发布使用同一最终 ZIP 和真实 publishedAt，在 `dist/ctool-0.2.0-github/` 重新生成正式条目和媒体，并验证公开下载后更新市场清单。
 
 `arm_convert` 的 Draft 7 元组结果现已显式声明方言，返回数据格式不变。旧 0.1.0 包在当前严格宿主会因缺少该声明拒绝安装；完整原包升级未验证，合同等价旧版测试包的升级、回退和保留数据重装通过。详细边界见本轮验证记录。
