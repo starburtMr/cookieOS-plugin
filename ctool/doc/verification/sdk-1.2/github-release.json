@@ -38,5 +38,17 @@
   "finalZipSha256": "c654d7af057a177d078042539a2fd03e8625fe645641dea5db7caa02be16140f",
   "publicAssetsVerified": true,
   "formalItemUrl": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.2.0/item.json",
-  "formalItemVerified": true
+  "formalItemVerified": true,
+  "publicRegistryVerification": {
+    "publicRegistry": "https://raw.githubusercontent.com/starburtMr/cookieOS-plugin/main/market/registry.json",
+    "sequence": 3,
+    "id": "io.cookieos.ctool",
+    "version": "0.2.0",
+    "publishedAt": "2026-10-30T19:26:08Z",
+    "signatureVerified": true,
+    "formalItemMatchesRegistry": true,
+    "checkedAt": "2026-10-30T19:30:04.478Z"
+  },
+  "releaseWorktreeRemoved": true,
+  "existingUncommittedExperiencePreserved": true
 }
