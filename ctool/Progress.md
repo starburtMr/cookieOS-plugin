@@ -175,5 +175,5 @@
 - 首次公网资产：`dist/market-release/ctool-v0.1.0.zip`，7806928 字节，483 条目；SHA256 `1b605e6d6437f996d56d10edb253ebf8b7cd46adc1031f9516f82f99ec12c8e4`。保留旧本地候选 ZIP，不覆盖旧文件。
 - GitHub Release `ctool-v0.1.0` 标记预发布：https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.1.0。匿名 HTTPS 实际下载成功，ZIP 完整性和 SHA256 与本地一致。
 - 市场清单递增至 sequence 2，登记唯一 Ctool 条目；使用原本地 Ed25519 私钥签名，固定公钥验签通过，改动清单/签名的反例均被拒绝。字段已对照当前宿主市场解析及展示实现，仅补清单及说明，不改宿主。
-- 当前主执行者顺序完成两阶段审查：Stage 1/2 APPROVE，无 Critical/Important；无独立审查者。此轮只改文档/发布元数据，没有源码或新重复逻辑，自动重复检查不适用。清单和签名同次提交，推送后需从公开地址复核。
+- 当前主执行者顺序完成两阶段审查：Stage 1/2 APPROVE，无 Critical/Important；无独立审查者。此轮只改文档/发布元数据，没有源码或新重复逻辑，自动重复检查不适用。清单和签名已同次推送；匿名下载公网 main 清单、签名和公钥，确认 sequence 2、Ctool 0.1.0，原始字节与本地一致且验签通过。
 - 真实市场刷新、安装、宿主模型、外部 MCP 以及停用/更新/回退仍未验证；未修改正在使用的 cookieOS 配置或自动安装扩展。

@@ -39,6 +39,8 @@
     "packageTests": 4,
     "sdkCheck": "passed",
     "zipIntegrity": "passed",
-    "browserSmoke": "JSON format and header removal passed"
+    "browserSmoke": "JSON format and header removal passed",
+    "publicAssetDownload": "anonymous HTTPS, ZIP integrity and SHA256 passed",
+    "publicRegistry": "sequence 2, io.cookieos.ctool 0.1.0, Ed25519 verified"
   }
 }
