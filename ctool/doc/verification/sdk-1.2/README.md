@@ -51,3 +51,5 @@ ZIP SHA256：`c654d7af057a177d078042539a2fd03e8625fe645641dea5db7caa02be16140f`�
 `dist/ctool-0.2.0/` 交付 ZIP、摘要、`item.json`、`market-assets/` 和验证收据。**item.json 仅用于本轮隔离验收**，临时服务清理后不能访问，不是正式发布条目。正式地址、媒体上传及实际发布时间未获本轮发布授权，正式 item.json、市场 sequence/签名更新保留待办；没有虚构未来 GitHub 下载地址或发布时间，未改公开 registry。
 
 当前主执行者顺序审查；不具备独立审查者。收尾必须核对模块文件、主目录未提交经验文档、合回后检查和本轮 worktree 清理，实际结果写 Progress。
+
+主目录复验与隔离清理已完成，见 [merge-cleanup.json](merge-cleanup.json)。正式市场导出及旧宿主/原发行包升级等限制仍然保留。
