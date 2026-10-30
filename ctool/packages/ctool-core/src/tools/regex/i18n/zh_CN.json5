@@ -1,0 +1,23 @@
+{
+    "common": "常用",
+    "expression": "正则表达式",
+    "replace_content": "替换内容",
+    "replace": "替换",
+    "delete": "删除",
+    "input": "输入待处理内容",
+    "global": "全局搜索",
+    "ignore_case": "忽略大小写",
+    "multiline": "多行匹配",
+    "dotall": ". 匹配换行",
+    "output_count": "共 {0} 个匹配项",
+    "output_empty": "没有匹配结果，请检查正则",
+    "reference_name": "字符",
+    "reference_text": "描述",
+    // AI
+    "ai_generate": "AI 生成",
+    "ai_explain": "AI 解释",
+    "ai_generate_placeholder": "用自然语言描述你需要的正则，例如：匹配邮箱地址",
+    "ai_explain_result": "AI 解释结果",
+    "ai_generate_empty": "请输入自然语言描述",
+    "ai_explain_empty": "请先输入正则表达式",
+}

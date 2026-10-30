@@ -1,0 +1,64 @@
+{
+    // Tauri v2 配置文件模板
+    // ##version## 和 ##description## 由构建脚本替换
+    "productName": "ctool",
+    "version": "##version##",
+    "mainBinaryName": "ctool",
+    "identifier": "org.baiy.ctool-tauri",
+    "build": {
+        "beforeDevCommand": "",
+        "beforeBuildCommand": "",
+        "frontendDist": "../dist/web"
+    },
+    "app": {
+        "withGlobalTauri": true,
+        "security": {
+            "csp": null
+        },
+        "windows": [
+            {
+                "fullscreen": false,
+                "height": 650,
+                "resizable": true,
+                "title": "Ctool 程序开发常用工具",
+                "width": 900
+            }
+        ]
+    },
+    "bundle": {
+        "active": true,
+        "category": "DeveloperTool",
+        "copyright": "",
+        "icon": [
+            "icons/32x32.png",
+            "icons/128x128.png",
+            "icons/128x128@2x.png",
+            "icons/icon.icns",
+            "icons/icon.ico"
+        ],
+        "longDescription": "##description##",
+        "targets": [
+            "deb",
+            "appimage",
+            "nsis",
+            "app",
+            "dmg"
+        ],
+        "macOS": {
+            // ad-hoc 签名：消除"App 已损坏"提示，用户只需右键→打开即可
+            "signingIdentity": "-"
+        },
+        "linux": {
+            "deb": {
+                "depends": []
+            }
+        },
+        "windows": {
+            "digestAlgorithm": "sha256",
+            "nsis": {
+                // 让用户选择为当前用户安装还是系统级安装
+                "installMode": "both"
+            }
+        }
+    }
+}

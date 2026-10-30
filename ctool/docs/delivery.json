@@ -1,0 +1,26 @@
+{
+  "file": "ctool-v0.1.0.zip",
+  "sha256": "6c74dbcfdd00d956cb9154f09dd16178761bcc8171f3155017c0e92d95c24b6e",
+  "bytes": 7807213,
+  "entries": 483,
+  "id": "io.cookieos.ctool",
+  "version": "0.1.0",
+  "runtime": "node >=22",
+  "sdk": "1.1.0",
+  "checks": {
+    "unitTests": 343,
+    "serviceContractTests": 22,
+    "packageTests": 4,
+    "browserTests": 22,
+    "registeredRoutes": 88,
+    "duplicateGate": "no new clones; injected clone rejected",
+    "sdkCheck": "file preflight passed"
+  },
+  "unverified": [
+    "real cookieOS installation and four surfaces",
+    "real host model and external MCP",
+    "JDoodle authenticated execution",
+    "real host enable/disable/update/rollback/uninstall",
+    "browser CORS against GeoJS on target host"
+  ]
+}

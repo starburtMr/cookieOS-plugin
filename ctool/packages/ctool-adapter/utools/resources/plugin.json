@@ -1,0 +1,16 @@
+{
+    "pluginName": "Ctool Plus",
+    "description": "程序开发常用工具（增强版）— 加密/编解码/JSON/时间戳/正则/IP计算等 70+ 工具",
+    "author": "nidhogg1024",
+    "homepage": "https://github.com/nidhogg1024/Ctool",
+    "main": "tool.html",
+    "version": "##version##",
+    "logo": "icon/icon_utools.png",
+    "pluginSetting": {
+        "single": false
+    },
+    "development": {
+        "main": "http://127.0.0.1:5173/tool.html"
+    },
+    "features": "##features##"
+}

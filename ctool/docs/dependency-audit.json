@@ -1,0 +1,12 @@
+{
+  "workspace": {
+    "info": 0,
+    "low": 12,
+    "moderate": 47,
+    "high": 74,
+    "critical": 3
+  },
+  "bundledPackageCount": 208,
+  "bundledFindings": [],
+  "limitations": "npm audit registry snapshot; not a zero-bug or independent security audit"
+}

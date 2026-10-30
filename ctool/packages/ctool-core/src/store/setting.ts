@@ -1,0 +1,129 @@
+// 设置
+import {preferenceDefaults} from "@/helper/cookieos/storage";
+import {defineStore} from '@/helper/pinia'
+import {Locale, ThemeType, ThemeRawType} from "@/types"
+import {commonTool, ToolType} from "@/config"
+import {proxy} from "ctool-config"
+import {onMounted, watch, onUnmounted, nextTick} from 'vue';
+import {setCurrentLocale} from '@/i18n';
+import event from "@/event";
+
+
+
+interface Setting {
+    // 常用工具
+    common: ToolType[],
+    // 语言
+    locale: Locale,
+    // 主题
+    theme: ThemeType,
+    // 自动读取剪贴板
+    auto_read_copy: boolean,
+    // 读取剪贴板内容过滤首尾不可见字符
+    auto_read_copy_filter: boolean,
+    // 自动复制结果到剪贴板
+    auto_save_copy: boolean,
+    // 布局
+    layout: "complex" | "simple",
+    // 代理是否启用
+    proxy_enable: boolean,
+    // 代理地址
+    proxy_url: string,
+    // 自动填充历史过期时间
+    fill_history_expire: number,
+    // 历史记录角标隐藏
+    history_icon_badge_hidden: boolean,
+    // 界面缩放比例（百分比，50-200，默认 100）
+    zoom: number,
+    ai_model: string,
+    history_enabled: boolean,
+}
+
+let hostTheme: ThemeRawType = "light";
+const getSystemTheme = (): ThemeRawType => {
+    if (window.xhub) return hostTheme;
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return "dark"
+    }
+    return "light"
+}
+
+const defaultValue: Setting = {...preferenceDefaults, common: [...preferenceDefaults.common], proxy_enable: false, proxy_url: proxy.defaultProxyUrl};
+
+const useSetting = defineStore('setting', () => {
+    const items = $ref<Setting>(defaultValue)
+
+    // 保存
+    const save = <K extends keyof Setting>(key: K, value: Setting[K]) => {
+        if (key === 'common' && (value as string[]).length < 1) {
+            items['common'] = [...new Set(commonTool)]
+            return;
+        }
+        items[key] = value
+    }
+
+    // 语言切换
+    watch(() => items.locale, () => setCurrentLocale(items.locale))
+
+    // 主题切换
+    watch(() => items.theme, (theme) => {
+        event.dispatch("theme_change", theme)
+    })
+
+    // 缩放比例变化：通过调整根字体大小实现等比缩放（项目使用 rem 单位）
+    // 使用百分比设置，自动继承浏览器默认字体大小，不依赖硬编码的 16px
+    const applyZoom = (zoom: number) => {
+        const level = Math.max(50, Math.min(200, zoom));
+        document.documentElement.style.fontSize = `${level}%`;
+        // 触发 resize 重新计算布局
+        window.dispatchEvent(new Event('resize'));
+    }
+    watch(() => items.zoom, (zoom) => applyZoom(zoom))
+
+    let stopTheme: (() => void) | undefined;
+    onUnmounted(() => stopTheme?.());
+    onMounted(() => {
+        event.addListener('locale_change', async () => {
+            await nextTick()
+            // 语言变化重新计算窗口尺寸
+            window.dispatchEvent(new Event('resize'));
+        })
+        void window.xhub.theme.get().then(value => { hostTheme = value.colorScheme === "dark" || value.mode === "dark" || value.theme === "dark" ? "dark" : "light"; event.dispatch("theme_change", "host"); });
+        stopTheme = window.xhub.theme.onChange(value => { hostTheme = value.colorScheme === "dark" || value.mode === "dark" || value.theme === "dark" ? "dark" : "light"; event.dispatch("theme_change", "host"); });
+        // 初始化语言
+        setCurrentLocale(items.locale)
+        // 监控系统主题变化
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            items.theme === 'auto' && event.dispatch('theme_change', 'system change')
+        })
+        // 应用初始缩放比例
+        if (items.zoom !== 100) {
+            applyZoom(items.zoom);
+        }
+    })
+    return {
+        items, save
+    }
+})
+
+export const useTheme = defineStore('theme', () => {
+    const theme = $ref<{ raw: ThemeRawType, config: ThemeType }>({raw: 'light', config: 'auto'})
+    const storeSetting = useSetting()
+
+    const update = () => {
+        theme.raw = storeSetting.items.theme === 'auto' ? getSystemTheme() : storeSetting.items.theme
+        theme.config = storeSetting.items.theme
+        document.getElementsByTagName('html')[0].dataset.theme = theme.raw
+    }
+
+    onMounted(() => {
+        update()
+        event.addListener('theme_change', update)
+    })
+    onUnmounted(() => event.removeListener('theme_change', update))
+
+    return {theme}
+}, false)
+
+export default useSetting
+
