@@ -1,12 +1,12 @@
 # Ctool 技术设计
 
-依据：[需求](Product-Spec.md)、[迁移矩阵](docs/migration-matrix.md)、公网 SDK 1.1.0。本文规定实现边界，不表示对应代码已经存在。阶段依赖见 [DEV-PLAN.md](DEV-PLAN.md)，具体步骤与验收命令见 [模块任务](doc/tasks/cookieos-migration/README.md)。
+依据：[需求](Product-Spec.md)、[迁移矩阵](docs/migration-matrix.md)、当前 SDK 1.2.0。本文规定实现边界，不表示对应代码已经存在。阶段依赖见 [DEV-PLAN.md](DEV-PLAN.md)，具体步骤与验收命令见 [模块任务](doc/tasks/cookieos-migration/README.md)。
 
 ## 1. 选择与理由
 
 采用原 Vue 3 + TypeScript + Vite 界面，加 SDK Node 服务。原有工具、编辑器、格式转换库及测试优先复用；不重写 60 项算法，不开发第二套 UI，不替宿主实现模型代理、SSE 协议或 MCP 服务。
 
-Node 服务用于结构化工具和需要秘密配置的外部请求。仅调用宿主模型的界面使用 `window.xhub.models`，不需要经过插件后端。Node 服务不加载用户代码或执行系统命令。
+Node 服务用于结构化工具和需要秘密配置的外部请求。仅调用宿主模型的界面使用 `window.xhub.models`，不需要经过插件后端。Node主上下文不加载用户代码或执行调用方系统命令；既有JSON表达式仅在受限QuickJS中执行。
 
 开发机基线 Node 22.22.2、Python 3.13.7。原项目声明 pnpm >=10，而本机是 9.15.3；项目以局部命令固定 `pnpm@10.34.9`，不升级全局工具。运行端声明 `nodeVersion: >=22.0.0` 并以真实宿主安装验证为准。
 
@@ -56,6 +56,8 @@ flowchart LR
 UI 普通计算优先留在浏览器；AI/MCP 调用参数会经宿主到服务端。不要声称工具箱所有数据都不会上传。浏览器文件、剪贴板、相机等能力不作为 Node 本机路径使用。
 
 ## 4. 复用与有依据的替换
+
+本节保留初版选型过程；实际安装版本以当前锁文件/构建输入为准，当前完整工具化增量与新增候选见末节及研究记录。
 
 版本来自附件锁文件、官方包元数据及实际最小验证。候选版本仍须经过完整依赖图审计与浏览器构建；不是“已证明没有漏洞”的版本清单。
 
@@ -203,3 +205,13 @@ Vite 直接以 `tool.ts` 对应模块构建挂载 #app 的入口，不加载原 
 ## SDK 1.2 展示与发布边界
 
 本轮为交付适配：manifest.json 为运行身份与版本来源，tools 继续由既有业务定义生成写入最终 manifest；Vite 从 manifest 注入界面版本。metadata.json 仅含展示引用，assets 和 presentation/README.md 由原 assemble 入口复制到包根；不新增业务运行时或存储迁移。SDK schema 原样保存到 contracts，最终媒体/条目由 SDK 从 ZIP 生成，不自研转换器。新增测试比较旧工具完整合同，校验 metadata、真实图片预算、干净包允许集及最终市场导出一致性。隔离测试复用 cookieOS 已有 RemoteFixture，不改宿主源码、线上服务、数据库或模型凭据；缺少真实供应商时模型结果明确标为模拟链路。
+
+## 完整工具化架构增量（2026-10-31，待实现）
+
+原第5节是初版14工具合同与历史交付，不作为当前范围上限。当前目标与实现边界以[完整详细设计](Detailed-Design.md)和[60类矩阵](doc/tasks/full-ai-mcp/capability-matrix.md)为准。
+
+保留Vue3+Node、SDK服务和唯一工具定义生成路径。已有纯算法按真实双端需求抽入ctool-tools；CPU/DOM/native资源由service适配，网络和模型仍复用现有协议。Node不加载Vue或浏览器隐式全局，不新增数据库、第二套MCP/SSE、通用任务引擎或密钥平台。
+
+新增的必要职责：有界callId取消、固定重任务Worker、分块文件/结果、图像Node适配、WebSocket会话和SDK模型客户端；均是当前完整功能的实际缺口。临时文件/会话随实例过期，用户已有配置和永久数据保持。SDK未传最终用户身份的限制明确记录，不发明多租户安全结论。
+
+外部选择优先现有版本：Sharp已在依赖树且小图探针通过；QR fork不能直接Node运行，需FULL-00决定隔离DOM复用或经过兼容验证的上游升级；jsdom30.1.3若采用会将服务Node范围收紧为^22.22.2。没有通过目标平台部署验证不得标完整。研究与具体模块见[任务入口](doc/tasks/full-ai-mcp/README.md)。

@@ -49,3 +49,15 @@ flowchart LR
 | S12-B | 展示文档与真实媒体 | S12-A | [02](doc/tasks/sdk-1.2-presentation/02-presentation-assets.md) |
 | S12-C | 构建、打包、市场导出 | S12-B | [03](doc/tasks/sdk-1.2-presentation/03-build-market.md) |
 | S12-D | 隔离验收、发布产物、合回 | S12-C | [04](doc/tasks/sdk-1.2-presentation/04-host-acceptance-release.md) |
+
+## 完整 AI/MCP 阶段与依赖
+
+| 阶段 | 范围 | 前置依赖 | 模块任务 |
+|---|---|---|---|
+| FULL-A | 合同基线、完整映射与关键能力Spike | 无 | [00](doc/tasks/full-ai-mcp/00-contract-and-spikes.md) |
+| FULL-B | 运行生命周期、文件传输、首条完整编码路径 | FULL-A；01 → 02 → 03 | [01](doc/tasks/full-ai-mcp/01-runtime-lifecycle.md)、[02](doc/tasks/full-ai-mcp/02-files-and-results.md)、[03](doc/tasks/full-ai-mcp/03-encoding-and-checksums.md) |
+| FULL-C | 数据、密码学、文本代码、计算生成 | FULL-B；04 → 05 → 06 → 07 | [04](doc/tasks/full-ai-mcp/04-json-and-data.md)、[05](doc/tasks/full-ai-mcp/05-crypto-and-keys.md)、[06](doc/tasks/full-ai-mcp/06-text-and-code.md)、[07](doc/tasks/full-ai-mcp/07-time-and-calculation.md) |
+| FULL-D | 图像、网络执行、宿主模型 | FULL-C；08还依赖FULL-A图像Spike；08 → 09 → 10 | [08](doc/tasks/full-ai-mcp/08-images.md)、[09](doc/tasks/full-ai-mcp/09-network-and-execution.md)、[10](doc/tasks/full-ai-mcp/10-host-models.md) |
+| FULL-E | 完整覆盖、离线打包、隔离宿主与交付 | FULL-C/FULL-D；11 → 12 | [11](doc/tasks/full-ai-mcp/11-coverage-regression.md)、[12](doc/tasks/full-ai-mcp/12-package-and-host-acceptance.md) |
+
+具体范围、文件归属、步骤、合同与验收只在[模块入口](doc/tasks/full-ai-mcp/README.md)及各模块文件，实际进度只在Progress维护。

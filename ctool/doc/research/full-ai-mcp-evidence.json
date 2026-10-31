@@ -1,0 +1,217 @@
+{
+  "checkedOn": "2026-10-31",
+  "baselineCommit": "3cef7b1",
+  "sdkVersion": "1.2.0",
+  "hostApi": "^1.0.0",
+  "sources": [
+    {
+      "name": "qr-upstream",
+      "url": "https://raw.githubusercontent.com/kozakdenys/qr-code-styling/master/README.md",
+      "status": 200,
+      "sha256": "6ef85e520b479f4e5e6eb7c6d02f4ea392298b77d2c30120925c0b287ab16633",
+      "snippets": {
+        "node-canvas": "ptions backgroundOptions | object | |QR background styling options nodeCanvas | node-canvas | |Only specify when running on a node server for canvas type, please refer to node section below jsDom | jsdom | |Only specify when running on a node server for svg type, please refer to node section below `options.qrOptions` structure P",
+        "jsdom": "ng on a node server for canvas type, please refer to node section below jsDom | jsdom | |Only specify when running on a node server for svg type, please refer to node section below `options.qrOptions` structure Property |Type |Default Value --------------------|--------------------------------------------------|------------- typ",
+        "saveAsBlob": "ntials'`)| |Set \"anonymous\" if you want to download QR code from other origins. saveAsBlob |boolean | `true` |Saves image as base64 blob in svg type, see bellow When QR type is svg, the image may not load in certain applications as it is saved as a url, and some svg applications will not render url images for security reasons. S"
+      }
+    },
+    {
+      "name": "barcode",
+      "url": "https://raw.githubusercontent.com/lindell/JsBarcode/master/README.md",
+      "status": 200,
+      "sha256": "312341fbbf5849f27c7c94873ca75e312ccb274de51b4aafeb12e3fce659c42c",
+      "snippets": {
+        "Node.js": "avaScript. It supports multiple barcode formats and works in browsers and with *Node.js*. It has *no dependencies* when it is used for the web but works with *jQuery* if you are into that. Demo ---- #### [Barcode Generator](http://lindell.github.io/JsBarcode/generator/) #### [Simple CodePen Demo](http://codepen.io/lindell/pen/eZ"
+      }
+    },
+    {
+      "name": "sharp",
+      "url": "https://sharp.pixelplumbing.com/install/",
+      "status": 200,
+      "sha256": "fbd5db207c640f28b6e0f4e3c92fac1bb05fbe720df5962a43d7a80e4dab323d",
+      "snippets": {
+        "prebuilt": "ed “Cross-platform” At install time, package managers will automatically select prebuilt binaries for the current OS platform and CPU architecture, where available. Some package managers support multiple platforms and architectures within the same installation tree and/or using the same lockfile. npm v10+ Section titled “npm v10",
+        "glibc": "se on the most common platforms: macOS x64 (&gt;= 10.15) macOS ARM64 Linux ARM (glibc &gt;= 2.36) Linux ARM64 (glibc &gt;= 2.28, musl &gt;= 1.2.5) Linux RISC-V 64-bit (glibc &gt;= 2.41) Linux ppc64 (glibc &gt;= 2.36) Linux s390x (glibc &gt;= 2.36) Linux x64 (glibc &gt;= 2.28, musl &gt;= 1.2.5, CPU with SSE4.2) Windows x64 Window",
+        "arm64": "l x64 and ARM64 CPUs: npm install --cpu=x64 --os=darwin sharp npm install --cpu=arm64 --os=darwin sharp When the cross-target is Linux, the C standard library must be specified. To support glibc (e.g. Debian) and musl (e.g. Alpine) Linux with Intel x64 CPUs: npm install --cpu=x64 --os=linux --libc=glibc sharp npm install --cpu=x"
+      }
+    },
+    {
+      "name": "sharp-input",
+      "url": "https://sharp.pixelplumbing.com/api-constructor/",
+      "status": 200,
+      "sha256": "8ebd493c006550a4cfa59bde5c60ac677cd748f6850eb161da7695b522d14d4c",
+      "snippets": {
+        "limitInputPixels": "ll always abort. Use the default ‘warning’ level with untrusted input. [options.limitInputPixels] number | boolean 268402689 Do not process input images where the number of pixels (width x height) exceeds this limit. Assumes image dimensions contained in the input metadata can be trusted. An integral Number of pixels, zero or fa",
+        "limitInputChannels": "emove limit, true to use default limit of 268402689 (0x3FFF x 0x3FFF). [options.limitInputChannels] number | boolean 5 Do not process input images where the number of channels exceeds this limit. Assumes image metadata can be trusted. An integral Number of channels, zero or false to remove limit, true to use default limit of 5. "
+      }
+    },
+    {
+      "name": "node-workers",
+      "url": "https://nodejs.org/docs/latest-v22.x/api/worker_threads.html",
+      "status": 200,
+      "sha256": "7143d4fe660a1faabcf75dc2c71d77ff35deaad6912bb4210b7f4dea2e6094ec",
+      "snippets": {
+        "resourceLimits": "dId, value[, transferList][, timeout]) worker.receiveMessageOnPort(port) worker.resourceLimits worker.SHARE_ENV worker.setEnvironmentData(key[, value]) worker.threadId worker.threadName worker.workerData Class: BroadcastChannel extends EventTarget new BroadcastChannel(name) broadcastChannel.close() broadcastChannel.onmessage bro",
+        "ArrayBuffer": "rocess or cluster , worker_threads can share memory. They do so by transferring ArrayBuffer instances or sharing SharedArrayBuffer instances. import { Worker , isMainThread, parentPort, workerData, } from 'node:worker_threads' ; if (!isMainThread) { const { parse } = await import ( 'some-js-parsing-library' ); const script = wor",
+        "terminate()": "ts worker.startCpuProfile(name) worker.stderr worker.stdin worker.stdout worker.terminate() worker.threadId worker.threadName worker.unref() worker[Symbol.asyncDispose]() Notes Synchronous blocking of stdio Launching worker threads from preload scripts Index About this documentation Usage and example Index Assertion testing Asyn"
+      }
+    },
+    {
+      "name": "dompurify",
+      "url": "https://raw.githubusercontent.com/cure53/DOMPurify/main/README.md",
+      "status": 200,
+      "sha256": "04689d809c85794e950868af543a9890963d730e9afa6083399900fe09e8a2c1",
+      "snippets": {
+        "jsdom": "t caught too. We also run Node.js v20, v22, v24, v25 and v26 with DOMPurify on [jsdom](https://github.com/jsdom/jsdom). Older Node versions are known to work as well, but hey... no guarantees. DOMPurify is written by security people who have vast background in web attacks and XSS. Fear not. For more details please also read abou",
+        "Node.js": "hree years old) so regressions on outdated browsers get caught too. We also run Node.js v20, v22, v24, v25 and v26 with DOMPurify on [jsdom](https://github.com/jsdom/jsdom). Older Node versions are known to work as well, but hey... no guarantees. DOMPurify is written by security people who have vast background in web attacks and"
+      }
+    },
+    {
+      "name": "jsqr",
+      "url": "https://raw.githubusercontent.com/cozmo/jsQR/master/README.md",
+      "status": 200,
+      "sha256": "00362bb63937bdc33e5f73c6e02c2543faf91479f9f8c775cdbc5c622c50f968",
+      "snippets": {
+        "Uint8ClampedArray": ") { console.log(\"Found QR code\", code); } ``` ### Arguments - `imageData` - An `Uint8ClampedArray` of RGBA pixel values in the form `[r0, g0, b0, a0, r1, g1, b1, a1, ...]`. As such the length of this array should be `4 * width * height`. This data is in the same form as the [`ImageData`](https://developer.mozilla.org/en-US/docs/",
+        "width": "further configure scanning behavior. ```javascript const code = jsQR(imageData, width, height, options?); if (code) { console.log(\"Found QR code\", code); } ``` ### Arguments - `imageData` - An `Uint8ClampedArray` of RGBA pixel values in the form `[r0, g0, b0, a0, r1, g1, b1, a1, ...]`. As such the length of this array should be "
+      }
+    },
+    {
+      "name": "ws",
+      "url": "https://raw.githubusercontent.com/websockets/ws/master/README.md",
+      "status": 200,
+      "sha256": "bb979132f3cbff08ce47f36d041e18071f8f534d01f591c0b129ba7abf1e480e",
+      "snippets": {
+        "perMessageDeflate": "t, { WebSocketServer } from 'ws'; const wss = new WebSocketServer({ port: 8080, perMessageDeflate: { zlibDeflateOptions: { // See zlib defaults. chunkSize: 1024, memLevel: 7, level: 3 }, zlibInflateOptions: { chunkSize: 10 * 1024 }, // Other options settable: clientNoContextTakeover: true, // Defaults to negotiated value. server"
+      }
+    },
+    {
+      "name": "qr-fork",
+      "url": "https://raw.githubusercontent.com/baiy/styled-qr-code/master/README.md",
+      "status": 200,
+      "sha256": "d985b983b2231a90c368e13fefadb1160a2868c2c060d26c90f35c66af9d7d84",
+      "snippets": {}
+    },
+    {
+      "name": "canvas",
+      "url": "https://raw.githubusercontent.com/Automattic/node-canvas/master/README.md",
+      "status": 200,
+      "sha256": "34fc5b543336bbe289a67421cd6d3c6ae268044dca323b80f6c816436ab972d4"
+    },
+    {
+      "name": "jsdiff",
+      "url": "https://raw.githubusercontent.com/kpdecker/jsdiff/master/README.md",
+      "status": 200,
+      "sha256": "2d4a064f4afce51051e29e54d3daf85a109a4ffb2d848f7d620395277d28e75d"
+    }
+  ],
+  "runtimeProbes": {
+    "node": "v22.22.2",
+    "checks": [
+      {
+        "image": "png",
+        "encodedBytes": 198,
+        "decoded": {
+          "format": "raw",
+          "width": 64,
+          "height": 64,
+          "channels": 4,
+          "depth": "uchar",
+          "premultiplied": false,
+          "hasAlpha": true,
+          "size": 16384
+        }
+      },
+      {
+        "image": "jpeg",
+        "encodedBytes": 290,
+        "decoded": {
+          "format": "raw",
+          "width": 64,
+          "height": 64,
+          "channels": 4,
+          "depth": "uchar",
+          "premultiplied": false,
+          "hasAlpha": true,
+          "size": 16384
+        }
+      },
+      {
+        "image": "webp",
+        "encodedBytes": 66,
+        "decoded": {
+          "format": "raw",
+          "width": 64,
+          "height": 64,
+          "channels": 4,
+          "depth": "uchar",
+          "premultiplied": false,
+          "hasAlpha": true,
+          "size": 16384
+        }
+      },
+      {
+        "jsbarcodePlainObject": true
+      },
+      {
+        "jsqrNodeRgba": true
+      },
+      {
+        "qrForkNodeImport": false,
+        "error": "self is not defined"
+      }
+    ],
+    "sharp": {
+      "version": "0.35.4",
+      "engines": {
+        "node": ">=20.9.0"
+      },
+      "license": "Apache-2.0"
+    },
+    "ws": {
+      "version": "8.21.0",
+      "license": "MIT"
+    },
+    "diff": {
+      "version": "4.0.2",
+      "license": "BSD-3-Clause",
+      "engines": {
+        "node": ">=0.3.1"
+      },
+      "removed": true,
+      "added": true
+    }
+  },
+  "candidates": [
+    {
+      "name": "jsdom",
+      "version": "30.1.3",
+      "engines": {
+        "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
+      },
+      "license": "MIT"
+    },
+    {
+      "name": "canvas",
+      "version": "3.2.3",
+      "engines": {
+        "node": "^18.12.0 || >= 20.9.0"
+      },
+      "license": "MIT"
+    },
+    {
+      "name": "qr-code-styling",
+      "version": "1.9.2",
+      "engines": {
+        "node": ">=18.18.0"
+      },
+      "license": "MIT"
+    }
+  ],
+  "runtimePlatform": {
+    "platform": "linux",
+    "arch": "x64",
+    "node": "v22.22.2",
+    "glibc": "2.42"
+  }
+}

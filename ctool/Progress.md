@@ -217,3 +217,13 @@ GitHub发布收尾：本轮元数据已合回主目录，发布worktree及分支
 
 - [模块任务](doc/tasks/remove-footer-feedback.md)：仅删除复杂布局底部反馈入口及空容器，保留其他布局与工具按钮。类型、UI 构建、相关 lint、重复门禁通过，三种尺寸的既有浏览器回归 3/3 通过，截图确认底部不再显示反馈入口。
 - 独立 worktree 实现，主执行者顺序两阶段审查，无阻塞项；不修改配置、不发布或更新线上插件，原经验文档改动保留。
+
+## 完整 AI/MCP 方案（2026-10-31）
+
+- 本轮仅完成规划与联网核实，业务实现尚未开始；运行版本仍0.2.0/14个AI-MCP工具，目标版本0.3.0不是已发布版本。
+- 创建[13个模块任务](doc/tasks/full-ai-mcp/README.md)、[60类/88入口矩阵](doc/tasks/full-ai-mcp/capability-matrix.md)、Detailed-Design和研究证据。DEV-PLAN只追加阶段与依赖。
+- 已检查SDK1.2.0/hostApi ^1.0.0与宿主工具合同：MCP请求256KiB、清单256KiB、名称40字节、工具超时1..300秒、MCP一页100。当前服务取消仅accepted=false，完整长任务需补齐。
+- 联网查阅ws、QR上游/实际fork、Sharp、JsBarcode、DOMPurify、jsQR与Node官方资料；Context7本轮可用。Node22.22.2小图探针通过Sharp0.35.4的PNG/JPEG/WebP编解码、JsBarcode对象渲染与jsQR输入；实际QR fork直接Node导入失败self is not defined。完整QR样式/Logo、native离线包、宿主新合同与真实模型/JDoodle仍待对应任务验证。
+- 下一步FULL-00：冻结旧合同和caseId，验证文件/Schema/取消/图像/模型阻塞点；本轮未改运行源码、依赖、manifest/metadata，不安装/重启正式服务、不推送或发布。
+
+方案交付核对：13个编号模块文件实际存在，矩阵60类/88入口、100个工具名候选与原14个兼容接口关系已核对；233个本地文档链接目标存在。主执行者顺序完成范围/合同与可行性/复用两轮审查，无独立审查者；修正编码展开系数（8MiB输入对应最多16MiB生成文件）、jsdom Node最低版本和原子AI操作计数。JSON证据可解析、git diff --check通过。完整业务测试/真实安装未执行，因为本轮不改业务实现；图像完整渲染、native离线包与外部模型/JDoodle仍保持待验。
