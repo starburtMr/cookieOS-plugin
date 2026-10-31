@@ -1,40 +1,40 @@
 {
   "schemaVersion": 1,
-  "sequence": 3,
-  "issuedAt": "2026-10-30T19:27:17Z",
-  "expiresAt": "2027-01-28T19:27:17Z",
+  "sequence": 4,
+  "issuedAt": "2026-10-31T07:29:02Z",
+  "expiresAt": "2027-01-29T07:29:02Z",
   "items": [
     {
       "id": "io.cookieos.ctool",
       "name": "Ctool 开发者工具箱",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "description": "用于编码转换、数据处理、文本编辑、加密校验和开发调试的工具箱，支持 cookieOS 模型辅助。",
       "author": "cookieOS-plugin contributors",
       "category": "开发工具",
-      "downloadUrl": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.2.0/ctool-0.2.0.zip",
-      "sha256": "c654d7af057a177d078042539a2fd03e8625fe645641dea5db7caa02be16140f",
-      "packageSizeBytes": 8111069,
-      "publishedAt": "2026-10-30T19:26:08Z",
+      "downloadUrl": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.0/ctool-0.3.0.zip",
+      "sha256": "2a42f6a4b858c131e9db4fc6aa43e25a3e9e722b13adf1f61e4acd1ae4dcb1ac",
+      "packageSizeBytes": 40929066,
+      "publishedAt": "2026-10-31T07:23:48Z",
       "metadataVersion": 1,
       "presentation": {
         "homepage": "https://github.com/starburtMr/cookieOS-plugin/tree/main/ctool",
         "repository": "https://github.com/starburtMr/cookieOS-plugin",
         "supportUrl": "https://github.com/starburtMr/cookieOS-plugin/issues",
-        "releaseNotes": "新增图标、实际运行截图、使用介绍及更新说明；按 cookieOS SDK 1.2.0 分离运行清单与展示资料，并从最终安装包生成市场资料。原有工具合同和存储键保持不变。 为 ARM 转换的元组结果显式声明 Draft 7，修复严格宿主拒绝安装的问题，不改变返回数据。",
+        "releaseNotes": "新增分块文件传输、服务取消及临时会话；将现有工具的服务能力扩展为100个AI/MCP工具，保留原有工具合同。补充编码、密码学、数据转换、开发处理、时间计算、图像、联网及宿主模型辅助接口；修正二维码中文编码和SQL占位符处理，保持已有配置及用户数据。",
         "license": "MIT",
-        "readme": "# 使用说明\n\n把常用的编码转换、数据处理、文本编辑和开发调试工具放在一起。通过顶部分类浏览，或输入名称搜索工具；选择功能后填写文本、上传文件或调整选项，再查看、复制或下载结果。\n\n## 功能概览\n\n- 加密与安全：摘要、HMAC、对称加解密、签名校验及密码生成。\n- 编解码：Base64、URL、Unicode、JWT、十六进制和压缩转换。\n- 数据处理：JSON、配置格式转换、序列化、进制和数据标识处理。\n- 文本工具：替换、排序、去重、正则、文本比较及代码格式化。\n- 网络与 Web：IP 查询、URL 解析、WebSocket、HTTP 代码片段和请求信息解析。\n- 开发辅助：Cron、SQL 参数填充、堆栈、权限、数据校验、颜色、单位和时间处理。\n- 生成器：二维码、条形码、UUID、随机文本及网络地址计算。\n\n各项能力以当前工具页面的输入、选项和结果为准。\n\n## 开始使用\n\n在 cookieOS 安装扩展后打开工具箱，选择分类或搜索工具。设置中可调整语言、主题、缩放和常用工具。首次操作可使用示例数据；确认结果后再复制或下载。\n\n## AI 辅助\n\n带 AI 标记的功能可辅助处理 JSON、正则、Cron、SQL、堆栈、配置转换、HTTP 片段、代码、文本、文本比较、URL 和 User-Agent。先在 cookieOS 配置可用模型，再在工具箱设置选择跟随默认模型或指定模型。\n\n主动点击 AI 操作时，本次输入会发送给所选模型，可能产生模型服务费用。结果需确认后点击「使用结果」；修改输入或离开当前工具后，旧结果不会自动应用。模型生成可能不准确，尤其是代码、SQL 和正则，请检查后使用。断流或超时后先查询原调用状态，不要反复提交。\n\n## AI 与 MCP 工具调用\n\n已提供 JSON 格式化/校验、Base64 编解码、URL 编解码、摘要、时间转换、进制转换、Cron、文本处理、配置转换、URL 解析和 UUID 生成的结构化操作。\n\n宿主 AI 或外部 MCP 使用前，需在扩展设置启用对应开关。外部 MCP 还需在 cookieOS「MCP 服务」选择插件工具并配置访问令牌。界面调用模型与这些工具调用分别配置，不会自动让所有界面功能成为 MCP 工具。\n\n## 联网与必要配置\n\n- IP 查询和 WebSocket 从浏览器发起连接；IP 指浏览器的网络出口。HTTPS 页面可能限制不安全的 WebSocket 连接。\n- ARM 转换由 cookieOS 管理服务器访问外部转换服务。\n- 在线代码运行使用 JDoodle，可能消耗外部额度。需在扩展的秘密配置中填写 `jdoodleClientId` 和 `jdoodleClientSecret`，未配置时其他工具仍可使用。代码由外部服务执行；超时不代表未执行，先确认结果再重试。\n\n## 使用限制与数据\n\n较大的输入、文件或耗时计算可能达到工具限制，请按提示缩小内容。AI 需要宿主提供模型接口；无模型时普通工具仍可使用。剪贴板受浏览器权限和安全上下文限制，局域网 HTTP 下可能不可用。\n\n偏好设置保存在 cookieOS。工具历史默认关闭，即使开启也仅在当前页面会话保留，密码、密钥和代码等敏感工具不记录历史。本次更新保持已有配置及存储键，不迁移或清空用户数据。\n\n## 反馈与许可证\n\n使用问题请提交到 [项目反馈](https://github.com/starburtMr/cookieOS-plugin/issues)，附上工具名称、操作步骤和脱敏示例，勿提交令牌、密码或个人数据。\n\n基于 Ctool，保留 baiy 与 nidhogg1024 的 MIT 许可声明；插件适配按 MIT 提供。包内 `LICENSE` 为主许可证，第三方依赖许可见 `licenses/index.json` 及对应文本。LGPL 依赖的原发布源码和 source maps 随包提供；第三方许可不因插件主许可证改变。\n",
-        "icon": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.2.0/440988fefe03787809ef3823ae9c52e0d4930711a25b19e067e1cf7d7a1574e6.png",
+        "readme": "# 使用说明\n\n把常用的编码转换、数据处理、文本编辑和开发调试工具放在一起。通过顶部分类浏览，或输入名称搜索工具；选择功能后填写文本、上传文件或调整选项，再查看、复制或下载结果。\n\n## 功能概览\n\n- 加密与安全：摘要、HMAC、对称加解密、签名校验及密码生成。\n- 编解码：Base64、URL、Unicode、JWT、十六进制和压缩转换。\n- 数据处理：JSON、配置格式转换、序列化、进制和数据标识处理。\n- 文本工具：替换、排序、去重、正则、文本比较及代码格式化。\n- 网络与 Web：IP 查询、URL 解析、WebSocket、HTTP 代码片段和请求信息解析。\n- 开发辅助：Cron、SQL 参数填充、堆栈、权限、数据校验、颜色、单位和时间处理。\n- 生成器：二维码、条形码、UUID、随机文本及网络地址计算。\n\n各项能力以当前工具页面的输入、选项和结果为准。\n\n## 开始使用\n\n在 cookieOS 安装扩展后打开工具箱，选择分类或搜索工具。设置中可调整语言、主题、缩放和常用工具。首次操作可使用示例数据；确认结果后再复制或下载。\n\n## AI 辅助\n\n带 AI 标记的功能可辅助处理 JSON、正则、Cron、SQL、堆栈、配置转换、HTTP 片段、代码、文本、文本比较、URL 和 User-Agent。先在 cookieOS 配置可用模型，再在工具箱设置选择跟随默认模型或指定模型。\n\n主动点击 AI 操作时，本次输入会发送给所选模型，可能产生模型服务费用。结果需确认后点击「使用结果」；修改输入或离开当前工具后，旧结果不会自动应用。模型生成可能不准确，尤其是代码、SQL 和正则，请检查后使用。断流或超时后先查询原调用状态，不要反复提交。\n\n## AI 与 MCP 工具调用\n\n现有页面能力已扩展为100个AI/MCP工具名称，涵盖编码、数据、密码学、文本代码、时间计算、图像与联网操作；原14个接口保持兼容。工具名不等于页面入口数。复杂结果以JSON文本返回，大文本和文件通过临时引用分块读取。\n\n通过模型辅助接口可开始生成、查询状态和取消。13种操作对应页面中的12类辅助，使用同一提示词；生成可能产生费用，不会自动运行生成的代码。密码学接口的keyRef引用扩展秘密配置中的keys对象。临时文件最多8 MiB输入、16 MiB输出，空闲15分钟过期，重启后引用失效。\n宿主 AI 或外部 MCP 使用前，需在扩展设置启用对应开关。外部 MCP 还需在 cookieOS「MCP 服务」选择插件工具并配置访问令牌。界面模型选择与宿主AI/MCP开关分别配置。\n\n## 联网与必要配置\n\n- 页面IP查询和WebSocket从浏览器连接；AI/MCP接口从管理服务器连接，出口与浏览器可能不同。HTTPS页面可能限制不安全的WebSocket连接。\n- ARM 转换由 cookieOS 管理服务器访问外部转换服务。\n- 在线代码运行使用 JDoodle，可能消耗外部额度。需在扩展的秘密配置中填写 `jdoodleClientId` 和 `jdoodleClientSecret`，未配置时其他工具仍可使用。代码由外部服务执行；超时不代表未执行，先确认结果再重试。\n\n## 使用限制与数据\n\n较大的输入、文件或耗时计算可能达到工具限制，请按提示缩小内容。AI 需要宿主提供模型接口；无模型时普通工具仍可使用。剪贴板受浏览器权限和安全上下文限制，局域网 HTTP 下可能不可用。\n\n偏好设置保存在 cookieOS。工具历史默认关闭，即使开启也仅在当前页面会话保留，密码、密钥和代码等敏感工具不记录历史。本次更新保持已有配置及存储键，不迁移或清空用户数据。\n\n## 反馈与许可证\n\n使用问题请提交到 [项目反馈](https://github.com/starburtMr/cookieOS-plugin/issues)，附上工具名称、操作步骤和脱敏示例，勿提交令牌、密码或个人数据。\n\n基于 Ctool，保留 baiy 与 nidhogg1024 的 MIT 许可声明；插件适配按 MIT 提供。包内 `LICENSE` 为主许可证，第三方依赖许可见 `licenses/index.json` 及对应文本。原有J-TOML源码和source maps随包提供；原生依赖的组件版本及许可保留在运行包和licenses目录。第三方许可不因插件主许可证改变。\n",
+        "icon": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.0/440988fefe03787809ef3823ae9c52e0d4930711a25b19e067e1cf7d7a1574e6.png",
         "screenshots": [
           {
-            "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.2.0/13b6310e2af35495a862437f7a730b2b42d560709c08a43124d08015f429b25e.png",
+            "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.0/13b6310e2af35495a862437f7a730b2b42d560709c08a43124d08015f429b25e.png",
             "alt": "工具分类与搜索：按名称查找 JSON 工具"
           },
           {
-            "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.2.0/9c7b6a1df3e9feb0ffd24d39c09ff910c85f59d2906929e0bd66b7c2fae04b15.png",
+            "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.0/9c7b6a1df3e9feb0ffd24d39c09ff910c85f59d2906929e0bd66b7c2fae04b15.png",
             "alt": "JSON 工具：格式化示例数据并查看处理结果"
           },
           {
-            "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.2.0/0e2fe02a32d04b130c55bb07b8e59d55834d28e93edc56644d6c30089965cc25.png",
+            "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.0/0e2fe02a32d04b130c55bb07b8e59d55834d28e93edc56644d6c30089965cc25.png",
             "alt": "二维码生成：将示例文本转换为二维码"
           }
         ]
@@ -54,7 +54,7 @@
         ],
         "service": {
           "runtime": "node",
-          "nodeVersion": ">=22.0.0"
+          "nodeVersion": "^22.22.2"
         },
         "surfaces": [
           "module",
@@ -62,8 +62,8 @@
           "window",
           "drawer"
         ],
-        "aiTools": 14,
-        "mcpTools": 14,
+        "aiTools": 100,
+        "mcpTools": 100,
         "permissions": [
           "open-url"
         ]
