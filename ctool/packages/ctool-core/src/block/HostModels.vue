@@ -1,6 +1,6 @@
 <template>
-    <Align direction="vertical">
-        <Align>
+    <Align direction="vertical" gap="large" class="ctool-host-models">
+        <Align class="ctool-host-model-controls" gap="large">
             <Select :model-value="settings.items.ai_model" :options="options" @change="value => settings.save('ai_model', String(value))"/>
             <Button text="刷新模型" :loading="loading" @click="load"/>
         </Align>
@@ -30,3 +30,23 @@ async function load() {
 }
 onMounted(load);
 </script>
+
+<style scoped>
+.ctool-host-models {
+    min-width: 0;
+}
+.ctool-host-model-controls :deep(.ctool-select) {
+    flex: 1 1 220px;
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    min-height: var(--ctool-form-item-height);
+}
+.ctool-host-model-controls :deep(summary) {
+    min-height: var(--ctool-form-item-height);
+    overflow-wrap: anywhere;
+}
+.ctool-host-model-controls :deep(button) {
+    flex-shrink: 0;
+}
+</style>

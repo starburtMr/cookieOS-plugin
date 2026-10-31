@@ -20,5 +20,6 @@ import {aiActivities} from "@/helper/cookieos/ai";
 
 <style scoped>
 .ctool-ai-activity { position: fixed; right: 12px; bottom: 42px; z-index: 3000; width: min(560px, calc(100vw - 24px)); max-height: 65vh; overflow: auto; }
+:global(body:has(.ctool-settings-card) .ctool-ai-activity) { z-index: 997; }
 pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 35vh; overflow: auto; margin: 0 0 12px; }
 </style>

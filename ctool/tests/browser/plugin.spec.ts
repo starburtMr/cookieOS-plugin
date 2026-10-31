@@ -243,3 +243,39 @@ test('Bcrypt hashes and checks without logging the password',async({page})=>{
     await expect(page.getByRole('button',{name:/校验|验证/})).toContainText(/成功|匹配|正确/);
     expect(logs.some(text=>text.includes('bcrypt-test-input'))).toBe(false);
 });
+
+for (const viewport of [{width:1074,height:700},{width:390,height:700},{width:390,height:442}]) {
+    test(`settings controls remain usable at ${viewport.width}x${viewport.height}`, async ({page}, testInfo) => {
+        test.setTimeout(20000);
+        await page.setViewportSize(viewport);
+        await fixture(page);
+        await page.goto('/#/tool/json?input='+encodeURIComponent('log: {"a":1}'));
+        await page.getByText(/AI.*JSON/).first().click();
+        await expect(page.getByText('使用结果',{exact:true})).toBeVisible();
+        await page.locator('.ctool-bottom-right .ctool-icon').nth(2).click();
+        const drawer = page.locator('.ctool-drawer').filter({has:page.locator('.ctool-setting')});
+        const select = drawer.getByRole('button',{name:'跟随 cookieOS 默认模型'});
+        await select.scrollIntoViewIfNeeded();
+        await expect(select).toBeVisible();
+        expect((await select.boundingBox())!.width).toBeGreaterThan(180);
+        const refresh = drawer.getByRole('button',{name:'刷新模型',exact:true});
+        await refresh.click();
+        await select.click();
+        await drawer.getByText('Fixture / Fixture Model',{exact:true}).click();
+        await expect(drawer.getByRole('button',{name:'Fixture / Fixture Model',exact:true})).toBeVisible();
+        await expect.poll(()=>page.evaluate(()=>(window as any).fixture.writes.some(([k,v])=>k==='ctool.pref.ai_model' && v==='fixture-model'))).toBe(true);
+        const history = drawer.getByLabel('本次会话保留普通工具历史');
+        await history.check();
+        await expect(history).toBeChecked();
+        expect(await drawer.locator('.ctool-card-body').evaluate(el=>el.scrollWidth-el.clientWidth)).toBeLessThanOrEqual(1);
+        const covered = await refresh.evaluate(el=>{
+            const r=el.getBoundingClientRect();
+            return !el.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));
+        });
+        expect(covered).toBe(false);
+        await page.screenshot({path:testInfo.outputPath('settings.png')});
+        await page.keyboard.press('Escape');
+        await expect(drawer).toHaveCount(0);
+        await expect(page.locator('.ctool-ai-activity')).toBeVisible();
+    });
+}

@@ -1,5 +1,5 @@
 <template>
-    <Card :title="$t('main_ui_setting')" height="100%" padding="18px 18px 12px">
+    <Card class="ctool-settings-card" :title="$t('main_ui_setting')" height="100%" padding="18px 18px 12px">
         <template #extra>
             Ctool v{{ version }} {{ $t(`main_last_updated`) }}{{ lastUpdate }}
         </template>
@@ -121,6 +121,7 @@
                     @change="(value)=>storeSetting.save('history_icon_badge_hidden',value)"
                 />
             </div>
+            <span class="ctool-setting-label-top">AI 模型</span>
             <HostModels />
         </div>
     </Card>
@@ -179,11 +180,33 @@ const zoomOptions = [50, 60, 70, 75, 80, 85, 90, 95, 100, 110, 120, 125, 130, 14
     gap: 15px 20px;
 }
 
+.ctool-setting > * {
+    min-width: 0;
+}
+
+.ctool-setting .ctool-bool {
+    height: auto;
+    min-height: var(--ctool-form-item-height);
+}
+
+.ctool-settings-card > .ctool-card-header {
+    height: auto;
+    min-height: 2.2rem;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    padding: 6px 10px;
+}
+
 .ctool-setting > span {
     display: flex;
     align-items: center;
     justify-content: right;
     min-width: 0;
+}
+
+.ctool-setting > .ctool-setting-label-top {
+    align-items: flex-start;
+    padding-top: 6px;
 }
 
 .ctool-setting-section {
@@ -277,6 +300,13 @@ const zoomOptions = [50, 60, 70, 75, 80, 85, 90, 95, 100, 110, 120, 125, 130, 14
     .ctool-ai-actions {
         align-items: stretch;
         flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+    .ctool-setting {
+        grid-template-columns: 64px minmax(0, 1fr);
+        gap: 12px;
     }
 }
 </style>
