@@ -42,3 +42,7 @@ SHA256：`2a42f6a4b858c131e9db4fc6aa43e25a3e9e722b13adf1f61e4acd1ae4dcb1ac`。
 - 原生RSS不是硬上限。8MiB文件测试50ms采样进程树峰值约510MiB，见resource-results.json；不是所有图片负载上界。
 - 主许可证MIT，第三方保持各自条款。公开再分发前须解决部分上游缺独立MIT声明及精确原生对应源码归档，见third-party/native/README.md；本轮不宣称公开发布条件已齐。
 - 未生成0.3.0 item.json/市场媒体导出，未设置虚构URL或publishedAt，也未修改正式清单/sequence/签名。本地产物不是已发布。
+
+## 合回与清理
+
+实现提交6ba6c23已快进合回main；在主目录重新安装锁定依赖并完整执行verify，355单元/229合同/8包/26浏览器及其他门禁再次通过。自有worktree和codex/ctool-full-ai-mcp分支已删除。主目录仅保留用户原有docs/experience.md修改，SHA未变化。未推送。具体收据见merge-cleanup.json。
