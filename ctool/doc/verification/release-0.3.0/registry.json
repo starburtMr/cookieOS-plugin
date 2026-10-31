@@ -1,0 +1,16 @@
+{
+  "sequence": 4,
+  "issuedAt": "2026-10-31T07:29:02Z",
+  "expiresAt": "2027-01-29T07:29:02Z",
+  "version": "0.3.0",
+  "sha256": "2a42f6a4b858c131e9db4fc6aa43e25a3e9e722b13adf1f61e4acd1ae4dcb1ac",
+  "registrySha256": "626d94cb8863b4b7ca20f8b9ef6a2bd2b82a3b9053f90065420763957dcc8c7f",
+  "signingIdentityUnchanged": true,
+  "localSignatureVerified": true,
+  "tamperedRegistryRejected": true,
+  "publishedCommit": "7465b6a2e69ae2767cb3b81aaef406763f3e25f2",
+  "remoteRegistryUrl": "https://raw.githubusercontent.com/starburtMr/cookieOS-plugin/7465b6a2e69ae2767cb3b81aaef406763f3e25f2/market/registry.json",
+  "remoteSignatureUrl": "https://raw.githubusercontent.com/starburtMr/cookieOS-plugin/7465b6a2e69ae2767cb3b81aaef406763f3e25f2/market/registry.json.sig",
+  "remoteRawBytesMatch": true,
+  "remoteSignatureVerified": true
+}

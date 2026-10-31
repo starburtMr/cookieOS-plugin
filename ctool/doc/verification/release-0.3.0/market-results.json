@@ -1,0 +1,23 @@
+{
+  "version": "0.3.0",
+  "sequence": 4,
+  "registryCommit": "7465b6a2e69ae2767cb3b81aaef406763f3e25f2",
+  "packageSha256": "2a42f6a4b858c131e9db4fc6aa43e25a3e9e722b13adf1f61e4acd1ae4dcb1ac",
+  "hostSha256": "16e80e040dfc62e2a8c1d139f9069fabe5b9472490430841bfd1eb96cb90e174",
+  "verifiedAt": "2026-10-31T07:33:41.001017+00:00",
+  "passed": [
+    "public GitHub repository source discovers 0.3.0 with 100 AI/MCP tools and pinned installation capability",
+    "real public market download upgrades immutable 0.2.0 to exact final 0.3.0 ZIP and preserves config/storage",
+    "market-installed real Node service executes representative shared tool",
+    "market-installed presentation uses final ZIP digest and three screenshots",
+    "fixed-key signed public registry refresh succeeds with original public key",
+    "changed installation intent is rejected without replacing installed package",
+    "owned fixture processes, PostgreSQL container, ports and temporary data cleaned"
+  ],
+  "unverified": [
+    "production cookieOS instance",
+    "real external model provider",
+    "other OS/CPU/libc and older hosts",
+    "complete market/detail UI browser matrix"
+  ]
+}

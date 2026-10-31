@@ -2,16 +2,16 @@
 
 cookieOS 扩展 `io.cookieos.ctool`。运行名称、版本、作者、分类和能力以 [manifest.json](manifest.json) 为准，工具定义由现有业务模块生成。基于 Ctool 2.9.1，界面工具、入口和 AI/MCP 数量的实际口径见 [SDK 1.2 盘点](docs/sdk-1.2-inventory.json)。
 
-SDK 1.2.0 展示资料版已作为 GitHub 预发布提供；本轮产物及限制见 [验证记录](doc/verification/sdk-1.2/README.md)。
+Ctool 0.3.0 已作为 GitHub 预发布提供，包含 SDK 1.2.0 展示资料及 100 个 AI/MCP 工具；发行产物与本轮核对见 [市场发布记录](doc/verification/release-0.3.0/README.md)，原展示资料验收见 [SDK 1.2 记录](doc/verification/sdk-1.2/README.md)。
 
 ## 安装
 
 管理服务器需要 **Linux x64 与 Node.js 22.22.2～22.x**；本包不需要安装 npm 依赖。浏览器需支持 ES modules、Web Workers、WebAssembly 和 Web Crypto。
 
-市场测试版见 [GitHub Release](https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.2.0)。新版 cookieOS 的市场地址可填写 `https://github.com/starburtMr/cookieOS-plugin`，刷新市场后选择 Ctool 安装；也可按下述步骤上传本地 ZIP。已完成隔离宿主安装、实际 MCP 与模拟模型助手链路验证；真实外部模型和旧宿主尚未验收。
+预发布安装包见 [GitHub Release](https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.3.0)。新版 cookieOS 的市场地址可填写 `https://github.com/starburtMr/cookieOS-plugin`，刷新市场后选择 Ctool 安装；也可按下述步骤上传本地 ZIP。已完成隔离宿主安装、实际 MCP 与模拟模型助手链路验证；真实外部模型和旧宿主尚未验收。
 
 1. 打开 https://cookieos.yxysj66.com/extensions?tab=installed 。
-2. 点击「安装扩展」→「本地 ZIP」，上传本轮 `ctool-0.3.0-linux-x64.zip`。
+2. 点击「安装扩展」→「本地 ZIP」，上传 `ctool-0.3.0.zip`（约 40.9 MB）。独立第三方源码分卷用于查阅及重建，无需随插件安装。
 3. 打开 Ctool。可在设置中选择「跟随 cookieOS 默认模型」或指定模型；无模型时先在 cookieOS 配置模型供应商。
 4. 内置 AI/MCP 工具还需在扩展设置中打开对应开关。外部 MCP 调用需在「MCP 服务」选择插件工具，配置服务和访问令牌；令牌不属于插件包。
 
@@ -62,7 +62,7 @@ npx --yes pnpm@10.34.9 verify
 
 ```sh
 python3 "$SDK_DIR/dev.py" check ./dist/extension
-python3 "$SDK_DIR/dev.py" pack ./dist/extension ../dist/ctool-0.3.0/ctool-0.3.0-linux-x64.zip
+python3 "$SDK_DIR/dev.py" pack ./dist/extension ../dist/ctool-0.3.0/ctool-0.3.0.zip
 ```
 
 ZIP 必须放在安装目录之外，已有 ZIP 应保留并使用新版本文件名。SDK 来自 https://cookieos.yxysj66.com/api/v1/extensions/sdk ，本轮合同快照为 1.2.0。`dev.py check` 只做文件预检，完整安装规则仍以 cookieOS 为准。
@@ -71,7 +71,7 @@ ZIP 必须放在安装目录之外，已有 ZIP 应保留并使用新版本文�
 
 ## 更新与回退
 
-首次安装前保留当前 cookieOS 配置。后续修复使用递增的插件版本和新 ZIP；回退需保留旧 ZIP 与配置备份。插件停用不会撤销已经发送的外部代码执行或模型请求。真实更新/回退尚未在独立宿主验收。
+首次安装前保留当前 cookieOS 配置。后续修复使用递增的插件版本和新 ZIP；回退需保留旧 ZIP 与配置备份。插件停用不会撤销已经发送的外部代码执行或模型请求。0.2.0 升级、回退和保留数据重装已在隔离宿主验收，详见 [本轮记录](doc/verification/release-0.3.0/host-results.json)；其他平台及旧宿主未验。
 
 ## 来源与许可
 

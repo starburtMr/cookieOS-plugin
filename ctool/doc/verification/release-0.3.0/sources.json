@@ -1,0 +1,118 @@
+{
+  "file": "ctool-0.3.0-third-party-sources.tar.gz",
+  "bytes": 523048565,
+  "sha256": "fd0807580504f4629a25ce07d94ac92cb1812d55915fca37d0841ddd1aa18105",
+  "sourceFiles": 732,
+  "upstreamDownloads": 666,
+  "canvasProvenance": {
+    "upstreamUrl": "https://github.com/Automattic/node-canvas/releases/download/v3.2.3/canvas-v3.2.3-napi-v7-linux-x64.tar.gz",
+    "upstreamSha256": "886d1cc270d4caad1d1698ee97532e79c60e992e16fe5f37f2d3bb058f4292b0",
+    "upstreamBytes": 8681961,
+    "releaseTag": "v3.2.3",
+    "sourceCommit": "f91598e8c7186dbbce3733878d55aad33af29635",
+    "workflowCommit": "e8d2275abdfbe85ce4241b90732d1eeef14fb3a6",
+    "workflowRun": "https://github.com/Automattic/node-canvas/actions/runs/23776689553",
+    "exactBinaryMatches": [
+      "canvas.node",
+      "libcairo-gobject.so.2",
+      "libcairo.so.2",
+      "libexpat.so.1",
+      "libffi.so.7",
+      "libfontconfig.so.1",
+      "libfreetype.so.6",
+      "libfribidi.so.0",
+      "libgdk_pixbuf-2.0.so.0",
+      "libgif.so.7",
+      "libgio-2.0.so.0",
+      "libglib-2.0.so.0",
+      "libgmodule-2.0.so.0",
+      "libgobject-2.0.so.0",
+      "libharfbuzz.so.0",
+      "libjpeg.so.62",
+      "libpango-1.0.so.0",
+      "libpangocairo-1.0.so.0",
+      "libpangoft2-1.0.so.0",
+      "libpcre.so.1",
+      "libpixman-1.so.0",
+      "libpng16.so.16",
+      "librsvg-2.so.2",
+      "libstdc++.so.6",
+      "libxml2.so.2",
+      "libz.so.1"
+    ]
+  },
+  "libstdcxxProvenance": {
+    "binary": "service/node_modules/canvas/build/Release/libstdc++.so.6",
+    "upstreamPackage": "libstdc++6_8.3.0-6_amd64.deb",
+    "upstreamUrl": "https://archive.debian.org/debian/pool/main/g/gcc-8/libstdc++6_8.3.0-6_amd64.deb",
+    "upstreamSha256": "5cc70625329655ff9382580971d4616db8aa39af958b7c995ee84598f142a4ee",
+    "buildId": "a055c822224879f4d9e32493e36d749b9bdcf945",
+    "sourcePackage": "gcc-8 8.3.0-6",
+    "note": "Build ID identical; upstream canvas prebuild sets $ORIGIN RUNPATH and strips symbols."
+  },
+  "rustCrates": 598,
+  "parts": [
+    {
+      "file": "ctool-0.3.0-third-party-sources.tar.gz.part-00",
+      "bytes": 46137344,
+      "sha256": "beffd42e6a3087d994116134e68094163249d014aaac120e89a74bdc108b76e4"
+    },
+    {
+      "file": "ctool-0.3.0-third-party-sources.tar.gz.part-01",
+      "bytes": 46137344,
+      "sha256": "5b4ad764fa1679ef5887e4a71bf9114a343cb8aabb04b6d889a51d9066a6c254"
+    },
+    {
+      "file": "ctool-0.3.0-third-party-sources.tar.gz.part-02",
+      "bytes": 46137344,
+      "sha256": "5f79e6f9076ffbee9e3be252be2bf2efe37ba6d15ffaac363d4d6694ef17b2dc"
+    },
+    {
+      "file": "ctool-0.3.0-third-party-sources.tar.gz.part-03",
+      "bytes": 46137344,
+      "sha256": "21e1549ccbb927cf5f23c82dc493030e1217d3b1cc3262abdee22da3f875ed77"
+    },
+    {
+      "file": "ctool-0.3.0-third-party-sources.tar.gz.part-04",
+      "bytes": 46137344,
+      "sha256": "a257742a59b8ec30616f3218cf0c27a454da253a031a353ff39aff3db90ea36e"
+    },
+    {
+      "file": "ctool-0.3.0-third-party-sources.tar.gz.part-05",
+      "bytes": 46137344,
+      "sha256": "c25289fccb6b5dd254b63d12961a1165269180a70973238ee20e5a7870c6d4d6"
+    },
+    {
+      "file": "ctool-0.3.0-third-party-sources.tar.gz.part-06",
+      "bytes": 46137344,
+      "sha256": "a6e7c1863db35926d7453b43cdf13f9ca5a6d63029beab1878ac6c13ed8c4d00"
+    },
+    {
+      "file": "ctool-0.3.0-third-party-sources.tar.gz.part-07",
+      "bytes": 46137344,
+      "sha256": "db3f3bb350f13387a552b74ab689c069681277cf07f72095323bbed1bef25323"
+    },
+    {
+      "file": "ctool-0.3.0-third-party-sources.tar.gz.part-08",
+      "bytes": 46137344,
+      "sha256": "01853ba5518c49a8bf1f399676218ffc41359dd0f21404c2eade3b08c9f7efc0"
+    },
+    {
+      "file": "ctool-0.3.0-third-party-sources.tar.gz.part-09",
+      "bytes": 46137344,
+      "sha256": "3bd6cea44aa1afbbd3f5d64ccf2393928a5f8f104cbe56edc3a1ed35c7f9a072"
+    },
+    {
+      "file": "ctool-0.3.0-third-party-sources.tar.gz.part-10",
+      "bytes": 46137344,
+      "sha256": "b0175b97f3b6e806cfc60d935bc73868bb4ef1284dacb105da78093894f9bb53"
+    },
+    {
+      "file": "ctool-0.3.0-third-party-sources.tar.gz.part-11",
+      "bytes": 15537781,
+      "sha256": "e18129ed44b75b4f70ad1137f0bf37fe54b67c65fb35fc2e6aabf2bfe7a3f759"
+    }
+  ],
+  "reassemble": "cat ctool-0.3.0-third-party-sources.tar.gz.part-* > ctool-0.3.0-third-party-sources.tar.gz",
+  "verify": "sha256sum -c ctool-0.3.0-third-party-sources.tar.gz.sha256"
+}

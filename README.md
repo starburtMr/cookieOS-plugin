@@ -6,11 +6,11 @@ cookieOS 插件的公开开发与分发仓库。每个插件直接放在根目�
 
 | 插件 | 源码 | 版本 | 状态 |
 |---|---|---|---|
-| Ctool 开发者工具箱 | [ctool](ctool/README.md) | 源码0.3.0；市场0.2.0 | 0.3.0含100个AI/MCP工具，隔离宿主验收通过；真实外部供应商、其他平台及公开分发材料待验/待完善 |
+| Ctool 开发者工具箱 | [ctool](ctool/README.md) | 0.3.0 | 100个AI/MCP工具，GitHub预发布与市场清单同步；真实外部供应商、其他平台及旧宿主待验 |
 
-市场提供 Ctool 0.2.0 预发布版本，安装包通过 [GitHub Release](https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.2.0) 分发。已完成隔离宿主安装、展示、MCP 和模拟模型链路验收；真实外部模型及旧宿主仍待验证。
+市场提供 Ctool 0.3.0 预发布版本，安装包通过 [GitHub Release](https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.3.0) 分发。安装 ZIP 约40.9 MB；独立第三方源码分卷用于查阅与重建，无需随插件安装。
 
-0.3.0源码已推送，候选ZIP已通过隔离安装、四种界面、AI/MCP及升级回退验证，尚未发布Release或市场条目；结果与限制见[验证记录](ctool/doc/verification/full-ai-mcp/README.md)。
+最终ZIP已通过隔离安装、四种界面、AI/MCP及升级回退验证；本次公开下载、签名和市场同步结果见[发布记录](ctool/doc/verification/release-0.3.0/README.md)，原功能验证见[完整AI/MCP记录](ctool/doc/verification/full-ai-mcp/README.md)。模型供应商为本地协议夹具，真实外部模型和旧宿主仍待验证。
 
 新增插件后，在此登记名称、目录、用途、最新版本和验证过的 cookieOS 版本。可安装版本以签名市场清单为准。
 
