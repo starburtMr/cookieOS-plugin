@@ -111,8 +111,8 @@ const update = async () => {
     try {
         const qrCode = new QRCodeStyling(generateOptionsHandle(action.current.option, action.current.input.text.toString(), image))
         const result = await qrCode.getRawData()
-        if (!result){
-            throw new Error('generated error')
+        if (!(result instanceof Blob)){
+            throw new TypeError('generated error')
         }
         output = await Text.fromBlob(result)
     } catch (e) {

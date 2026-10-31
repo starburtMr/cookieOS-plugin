@@ -1,0 +1,20 @@
+{
+  "version": "0.3.0",
+  "file": "dist/ctool-0.3.0/ctool-0.3.0.zip",
+  "sha256": "2a42f6a4b858c131e9db4fc6aa43e25a3e9e722b13adf1f61e4acd1ae4dcb1ac",
+  "zipBytes": 40929066,
+  "unpackedBytes": 131025770,
+  "fileCount": 4167,
+  "manifestBytes": 129057,
+  "sdkVersion": "1.2.0",
+  "hostApi": "^1.0.0",
+  "nodeVersion": "^22.22.2",
+  "tools": 100,
+  "aiTools": 100,
+  "mcpTools": 100,
+  "target": "Linux x64 glibc",
+  "sharp": "0.35.5",
+  "librsvg": "2.63.2",
+  "marketItemGenerated": false,
+  "published": false
+}

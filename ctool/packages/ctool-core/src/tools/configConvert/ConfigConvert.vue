@@ -16,6 +16,7 @@
 </template>
 
 <script lang="ts" setup>
+import {configDetectPrompt} from "ctool-tools/domains/aiPrompts";
 import {invokePure} from "ctool-tools";
 import {useHostAi} from "@/helper/cookieos/ai";
 import { initialize, useAction } from "@/store/action";
@@ -142,7 +143,7 @@ const aiDetectSourceFormat = async () => {
         const result = await chat([
             {
                 role: "system",
-                content: `你是一个配置格式识别助手。请从以下候选中识别用户输入最可能的来源格式，只输出一个格式 ID，不要解释：${sourceFormats.join(", ")}。`,
+                content: configDetectPrompt(sourceFormats),
             },
             { role: "user", content: input },
         ], config);

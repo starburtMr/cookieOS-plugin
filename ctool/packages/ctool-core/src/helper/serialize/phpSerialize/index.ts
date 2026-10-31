@@ -1,11 +1,2 @@
-import unserialize from "./unserialize"
-import serialize from "./serialize"
-
-export default {
-    parse<T = any>(value = ""): T {
-        return unserialize(value)
-    },
-    stringify(json: any): string {
-        return serialize(json)
-    }
-}
+export * from "ctool-tools/domains/serialize/phpSerialize/index";
+export {default} from "ctool-tools/domains/serialize/phpSerialize/index";

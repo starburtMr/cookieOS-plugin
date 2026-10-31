@@ -1,0 +1,65 @@
+Upstream @canvas/image-data@1.1.0 declares MIT in its package.json.
+The npm package and published source revision contain no standalone copyright/license notice.
+Package metadata follows; no copyright year or holder is invented.
+
+
+{
+  "name": "@canvas/image-data",
+  "version": "1.1.0",
+  "license": "MIT",
+  "repository": "node-gfx/image-data"
+}
+
+MIT license terms:
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the 'Software'), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+Published README:
+
+# ImageData
+
+An `ImageData` implementation for usage outside of the browser.
+
+## Installation
+
+```sh
+npm install --save @canvas/image-data
+```
+
+## Usage
+
+```js
+const ImageData = require('@canvas/image-data')
+
+const img = new ImageData(2, 4)
+
+console.log(img.width)
+//=> 2
+
+console.log(img.height)
+//=> 4
+
+console.log(img.data)
+//=> Uint8ClampedArray [ 0, 0, 0, 0, 0, ... ]
+```
+
+## Hacking
+
+The tests are made to be run against both this implementation and Chrome's implementation to make sure that we behave in the same way. You can run the tests in Chrome by spinning up a local web server and open `test.html`.

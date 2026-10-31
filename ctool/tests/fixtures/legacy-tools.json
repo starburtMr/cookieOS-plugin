@@ -1,0 +1,984 @@
+{
+  "sourceCommit": "3cef7b1",
+  "tools": [
+    {
+      "name": "json_format",
+      "title": "JSON 格式化",
+      "description": "JSON 格式化",
+      "effect": "read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "indent": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8
+          },
+          "sortKeys": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 1048576
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "json_validate",
+      "title": "JSON 语法校验",
+      "description": "JSON 语法校验",
+      "effect": "read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 204800
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "valid": {
+            "type": "boolean"
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 10
+          }
+        },
+        "required": [
+          "valid",
+          "issues"
+        ],
+        "additionalProperties": false
+      },
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "base64_encode",
+      "title": "Base64 编码",
+      "description": "Base64 编码",
+      "effect": "read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 204800
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 1048576
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "base64_decode",
+      "title": "Base64 解码",
+      "description": "Base64 解码",
+      "effect": "read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 204800
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 1048576
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "url_encode",
+      "title": "URL 编码",
+      "description": "URL 编码",
+      "effect": "read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "component",
+              "uri"
+            ]
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 1048576
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "url_decode",
+      "title": "URL 解码",
+      "description": "URL 解码",
+      "effect": "read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "component",
+              "uri"
+            ]
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 1048576
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "hash_digest",
+      "title": "文本摘要",
+      "description": "文本摘要",
+      "effect": "read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "algorithm": {
+            "type": "string",
+            "enum": [
+              "sha256",
+              "sha512",
+              "md5"
+            ]
+          }
+        },
+        "required": [
+          "text",
+          "algorithm"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "digest": {
+            "type": "string",
+            "pattern": "^[a-f0-9]+$"
+          }
+        },
+        "required": [
+          "digest"
+        ],
+        "additionalProperties": false
+      },
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "time_convert",
+      "title": "时间转换",
+      "description": "时间转换",
+      "effect": "read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "from": {
+            "type": "string",
+            "enum": [
+              "iso",
+              "seconds",
+              "milliseconds"
+            ]
+          },
+          "timezone": {
+            "type": "string",
+            "maxLength": 204800
+          }
+        },
+        "required": [
+          "value",
+          "from",
+          "timezone"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "iso": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "seconds": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "milliseconds": {
+            "type": "string",
+            "maxLength": 204800
+          }
+        },
+        "required": [
+          "iso",
+          "seconds",
+          "milliseconds"
+        ],
+        "additionalProperties": false
+      },
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "radix_convert",
+      "title": "整数进制转换",
+      "description": "整数进制转换",
+      "effect": "read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "maxLength": 8192
+          },
+          "fromBase": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 36
+          },
+          "toBase": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 36
+          }
+        },
+        "required": [
+          "value",
+          "fromBase",
+          "toBase"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "maxLength": 204800
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "cron_parse",
+      "title": "Cron 下次执行时间",
+      "description": "Cron 下次执行时间",
+      "effect": "read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "expression": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "timezone": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "currentDate": {
+            "type": "string",
+            "maxLength": 204800
+          }
+        },
+        "required": [
+          "expression",
+          "timezone",
+          "currentDate"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "dates": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 204800
+            },
+            "maxItems": 20
+          }
+        },
+        "required": [
+          "dates"
+        ],
+        "additionalProperties": false
+      },
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "text_process",
+      "title": "文本处理",
+      "description": "文本处理",
+      "effect": "read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "operation": {
+            "type": "string",
+            "enum": [
+              "trim",
+              "upper",
+              "lower",
+              "deduplicateLines"
+            ]
+          }
+        },
+        "required": [
+          "text",
+          "operation"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 1048576
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "config_convert",
+      "title": "JSON YAML TOML 转换",
+      "description": "JSON YAML TOML 转换",
+      "effect": "read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "from": {
+            "type": "string",
+            "enum": [
+              "json",
+              "yaml",
+              "toml"
+            ]
+          },
+          "to": {
+            "type": "string",
+            "enum": [
+              "json",
+              "yaml",
+              "toml"
+            ]
+          }
+        },
+        "required": [
+          "text",
+          "from",
+          "to"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 1048576
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "url_parse",
+      "title": "URL 结构解析",
+      "description": "URL 结构解析",
+      "effect": "read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 204800
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "protocol": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "hostname": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "port": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "pathname": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "query": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "maxLength": 204800
+                },
+                "value": {
+                  "type": "string",
+                  "maxLength": 204800
+                }
+              },
+              "required": [
+                "name",
+                "value"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 10000
+          },
+          "fragment": {
+            "type": "string",
+            "maxLength": 204800
+          }
+        },
+        "required": [
+          "protocol",
+          "hostname",
+          "port",
+          "pathname",
+          "query",
+          "fragment"
+        ],
+        "additionalProperties": false
+      },
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "uuid_generate",
+      "title": "UUID v4 生成",
+      "description": "UUID v4 生成",
+      "effect": "read",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-f0-9-]{36}$"
+            },
+            "maxItems": 100
+          }
+        },
+        "required": [
+          "values"
+        ],
+        "additionalProperties": false
+      },
+      "ai": true,
+      "mcp": true
+    },
+    {
+      "name": "arm_convert",
+      "title": "ARM 在线转换",
+      "description": "由用户主动提交到 ARM 转换服务",
+      "effect": "read",
+      "ai": false,
+      "mcp": false,
+      "timeoutSeconds": 25,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "asm": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "hex": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "offset": {
+            "type": "string",
+            "pattern": "^(?:0x)?[a-fA-F0-9]{0,16}$"
+          },
+          "arch": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "arm64",
+                "arm",
+                "thumb",
+                "armbe",
+                "thumbbe"
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 5,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "offset",
+          "arch"
+        ],
+        "additionalProperties": false,
+        "oneOf": [
+          {
+            "required": [
+              "asm"
+            ],
+            "properties": {
+              "asm": {
+                "type": "string",
+                "maxLength": 204800
+              },
+              "hex": false
+            }
+          },
+          {
+            "required": [
+              "hex"
+            ],
+            "properties": {
+              "hex": {
+                "type": "string",
+                "maxLength": 204800
+              },
+              "asm": false
+            }
+          }
+        ]
+      },
+      "outputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "asm": {
+            "type": "object",
+            "properties": {
+              "arm64": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 1048576
+                  }
+                ],
+                "minItems": 2,
+                "maxItems": 2,
+                "additionalItems": false
+              },
+              "arm": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 1048576
+                  }
+                ],
+                "minItems": 2,
+                "maxItems": 2,
+                "additionalItems": false
+              },
+              "thumb": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 1048576
+                  }
+                ],
+                "minItems": 2,
+                "maxItems": 2,
+                "additionalItems": false
+              },
+              "armbe": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 1048576
+                  }
+                ],
+                "minItems": 2,
+                "maxItems": 2,
+                "additionalItems": false
+              },
+              "thumbbe": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 1048576
+                  }
+                ],
+                "minItems": 2,
+                "maxItems": 2,
+                "additionalItems": false
+              }
+            },
+            "additionalProperties": false
+          },
+          "hex": {
+            "type": "object",
+            "properties": {
+              "arm64": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 1048576
+                  }
+                ],
+                "minItems": 2,
+                "maxItems": 2,
+                "additionalItems": false
+              },
+              "arm": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 1048576
+                  }
+                ],
+                "minItems": 2,
+                "maxItems": 2,
+                "additionalItems": false
+              },
+              "thumb": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 1048576
+                  }
+                ],
+                "minItems": 2,
+                "maxItems": 2,
+                "additionalItems": false
+              },
+              "armbe": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 1048576
+                  }
+                ],
+                "minItems": 2,
+                "maxItems": 2,
+                "additionalItems": false
+              },
+              "thumbbe": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 1048576
+                  }
+                ],
+                "minItems": 2,
+                "maxItems": 2,
+                "additionalItems": false
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [],
+        "additionalProperties": false,
+        "minProperties": 1
+      }
+    },
+    {
+      "name": "code_run",
+      "title": "JDoodle 在线运行",
+      "description": "用户主动运行单文件代码，可能消耗外部服务额度",
+      "effect": "dangerous",
+      "ai": false,
+      "mcp": false,
+      "timeoutSeconds": 65,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "language": {
+            "type": "string",
+            "pattern": "^[a-z0-9_+-]{1,40}$"
+          },
+          "versionIndex": {
+            "type": "string",
+            "pattern": "^\\d{1,3}$"
+          },
+          "script": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "stdin": {
+            "type": "string",
+            "maxLength": 204800
+          }
+        },
+        "required": [
+          "language",
+          "versionIndex",
+          "script"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "type": "string",
+            "maxLength": 204800
+          },
+          "memory": {
+            "type": "string"
+          },
+          "cpuTime": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          },
+          "statusCode": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "output",
+          "memory",
+          "cpuTime",
+          "error",
+          "statusCode"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "code_credits",
+      "title": "JDoodle 额度查询",
+      "description": "查询已用执行额度",
+      "effect": "read",
+      "ai": false,
+      "mcp": false,
+      "timeoutSeconds": 15,
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "used": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "used"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

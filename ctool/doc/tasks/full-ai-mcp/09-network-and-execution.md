@@ -1,6 +1,6 @@
 # FULL-09：联网、WebSocket与在线运行
 
-状态：未开始；本文件是任务合同，实际进度只在 [Progress](../../../Progress.md) 记录。
+状态：实现与验收记录见文末；实际进度只在 [Progress](../../../Progress.md) 记录。
 
 ## 目标与输入
 
@@ -30,3 +30,9 @@ service/network.ts、service/websocket.ts、input_fetch处理；共享定义；U
 - 长接收文件经分块读出；不得因实现新接口改变现有UI网络位置。
 - 测试接入现有 `pnpm test`、`pnpm test:contract`、`pnpm test:package`、`pnpm test:e2e` 对应入口，单模块先跑适用子集；命令与完整集成顺序见任务入口。不为无关代码造新检查器。
 - 记录样例、命令、退出状态、实际产物与未验证项；失败修复后重跑受影响检查，再做顺序两阶段审查。不以文字勾选替代证据。
+
+## 本轮落点与验收记录
+
+- 实际落点：service/connections.ts、network.ts；tests/connections.test.mjs。
+- 已执行：ARM/JDoodle合同与失败语义、服务器出口/下载、secretRef、WS游标/去重/溢出/失效/关闭；无真实付费执行。
+- 统一命令和当前产物证据：[验证记录](../../verification/full-ai-mcp/README.md)、[检查收据](../../verification/full-ai-mcp/checks.json)。隔离宿主与真实外部供应商分开记录；限制不以完成标记掩盖。

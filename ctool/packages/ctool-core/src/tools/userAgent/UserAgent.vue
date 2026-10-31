@@ -44,6 +44,7 @@
 </template>
 
 <script lang="ts" setup>
+import {aiPrompts} from "ctool-tools/domains/aiPrompts";
 import {useHostAi} from "@/helper/cookieos/ai";
 import { initialize, useAction } from "@/store/action";
 import { watch } from "vue";
@@ -100,7 +101,7 @@ const aiExplainUserAgent = async () => {
         const result = await chat([
             {
                 role: "system",
-                content: "你是一个 User-Agent 解释助手。请用简洁中文解释这个 User-Agent 代表的浏览器、内核、操作系统、设备类型，并补充 1-2 条与兼容性或排查相关的提示。",
+                content: aiPrompts.ua_explain,
             },
             {
                 role: "user",

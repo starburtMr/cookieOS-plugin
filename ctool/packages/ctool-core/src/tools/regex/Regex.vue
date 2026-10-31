@@ -70,6 +70,7 @@
 </template>
 
 <script lang="ts" setup>
+import {aiPrompts} from "ctool-tools/domains/aiPrompts";
 import {useHostAi} from "@/helper/cookieos/ai";
 import { initialize, useAction } from "@/store/action";
 import { getCommonExpression } from "@/tools/regex/util";
@@ -132,7 +133,7 @@ const aiGenerateRegex = async () => {
         const result = await chat([
             {
                 role: "system",
-                content: "你是一个正则表达式专家。根据用户的自然语言描述，生成对应的 JavaScript 正则表达式。\n\n规则：\n1. 只输出正则表达式本体（不要包含 / 定界符和 flags）\n2. 不要输出任何解释或 Markdown 标记\n3. 正则必须兼容 JavaScript RegExp 语法",
+                content: aiPrompts.regex_generate,
             },
             { role: "user", content: aiPromptText.trim() },
         ], config);
@@ -166,7 +167,7 @@ const aiExplainRegex = async () => {
         const result = await chat([
             {
                 role: "system",
-                content: "你是一个正则表达式专家。用户会给你一段正则表达式，请用简洁的中文解释它的含义。\n\n规则：\n1. 逐段解释正则的各个部分\n2. 最后给出整体的自然语言描述\n3. 如果有常见的匹配/不匹配示例，简要列出",
+                content: aiPrompts.regex_explain,
             },
             { role: "user", content: action.current.input.trim() },
         ], config);

@@ -16,7 +16,7 @@
       "alt": "二维码生成：将示例文本转换为二维码"
     }
   ],
-  "releaseNotes": "新增图标、实际运行截图、使用介绍及更新说明；按 cookieOS SDK 1.2.0 分离运行清单与展示资料，并从最终安装包生成市场资料。原有工具合同和存储键保持不变。 为 ARM 转换的元组结果显式声明 Draft 7，修复严格宿主拒绝安装的问题，不改变返回数据。",
+  "releaseNotes": "新增分块文件传输、服务取消及临时会话；将现有工具的服务能力扩展为100个AI/MCP工具，保留原有工具合同。补充编码、密码学、数据转换、开发处理、时间计算、图像、联网及宿主模型辅助接口；修正二维码中文编码和SQL占位符处理，保持已有配置及用户数据。",
   "homepage": "https://github.com/starburtMr/cookieOS-plugin/tree/main/ctool",
   "repository": "https://github.com/starburtMr/cookieOS-plugin",
   "supportUrl": "https://github.com/starburtMr/cookieOS-plugin/issues",

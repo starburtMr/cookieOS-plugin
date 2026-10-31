@@ -1,0 +1,12 @@
+{
+  "scenario": "8MiB random-byte upload, digest/HMAC all algorithms and 16MiB Hex round trip",
+  "samplingIntervalMs": 50,
+  "samples": 38,
+  "maxSampledTreeRssKiB": 521744,
+  "processPeakRssKiB": [
+    49248,
+    160500,
+    312260
+  ],
+  "caveat": "sampled RSS for this fixture only; not a hard memory limit or image worst-case bound"
+}

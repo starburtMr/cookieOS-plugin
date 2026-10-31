@@ -22,6 +22,8 @@ export default antfu({
         "**/buildDataTemp.ts",
         "**/buildTypeTemp.d.ts",
         "**/ctool-core/src/tools/asn1/lib/**",
+        "**/ctool-tools/src/domains/asn1/**",
+        "service/sdk/**/*.mjs",
         "**/ctool-core/src/helper/serialize/**",
         "**/ctool-core/src/statics/**",
         "*.cjs",

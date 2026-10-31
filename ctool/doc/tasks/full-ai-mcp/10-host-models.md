@@ -1,6 +1,6 @@
 # FULL-10：全部宿主模型辅助
 
-状态：未开始；本文件是任务合同，实际进度只在 [Progress](../../../Progress.md) 记录。
+状态：实现与验收记录见文末；实际进度只在 [Progress](../../../Progress.md) 记录。
 
 ## 目标与输入
 
@@ -29,3 +29,9 @@ packages/ctool-tools/src/prompts/；service/ai.ts；service/vendor/cookieos-mode
 - 默认模型缺失不再统统显示泛化失败；UI旧结果不覆盖新输入。
 - 测试接入现有 `pnpm test`、`pnpm test:contract`、`pnpm test:package`、`pnpm test:e2e` 对应入口，单模块先跑适用子集；命令与完整集成顺序见任务入口。不为无关代码造新检查器。
 - 记录样例、命令、退出状态、实际产物与未验证项；失败修复后重跑受影响检查，再做顺序两阶段审查。不以文字勾选替代证据。
+
+## 本轮落点与验收记录
+
+- 实际落点：service/models.ts、sdk/、共享aiPrompts/diffPrompt；tests/models.test.mjs。
+- 已执行：13操作严格分支、SDK协议、不重放、取消/并发；真实隔离模型桥与内置AI使用本地供应商夹具。
+- 统一命令和当前产物证据：[验证记录](../../verification/full-ai-mcp/README.md)、[检查收据](../../verification/full-ai-mcp/checks.json)。隔离宿主与真实外部供应商分开记录；限制不以完成标记掩盖。

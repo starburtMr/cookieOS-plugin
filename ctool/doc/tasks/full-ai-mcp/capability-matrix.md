@@ -1,16 +1,16 @@
-# 完整能力覆盖矩阵（计划，不代表已实现）
+# 完整能力覆盖矩阵
 
-来源：当前 ctool-config 实际导出与现有页面代码；60 类工具、88 个登记入口。当前 14 个 AI/MCP 工具只涉及 11 类工具；不得把 88 个路由当作原子业务操作数。
+来源：当前 ctool-config 实际导出与现有页面代码；60 类工具、88 个登记入口。原0.2.0的14个AI/MCP工具只涉及11类工具；不得把 88 个路由当作原子业务操作数。
 每行负责模块必须从原页面枚举实际 operation/选项，形成可执行用例表；此表覆盖范围，最终注册表和用例表核对 operation 级覆盖。纯展示、复制、选色拖拽等由返回数据与客户端操作承接，不伪造浏览器文件/剪贴板/相机访问。
 
-| 序号 | 工具 | 登记入口 | 必须覆盖的业务操作/选项 | 拟用工具名（新名称尚待FULL-00冻结） | 当前基线 | 负责模块 |
+| 序号 | 工具 | 登记入口 | 必须覆盖的业务操作/选项 | 0.3.0工具名 | 当前基线 | 负责模块 |
 |---|---|---|---|---|---|---|
 | 01 | `hash` | hash | 摘要五算法、文本/文件、盐值模板、大小写、逐行批量 | `hash_compute` | 部分开放 | [FULL-03](03-encoding-and-checksums.md) |
 | 02 | `aes` | encrypt, decrypt | 加解密、现有模式/填充/IV/编码 | `aes_crypt` | 待开放 | [FULL-05](05-crypto-and-keys.md) |
 | 03 | `des` | encrypt, decrypt | 加解密、现有模式/填充/IV/编码 | `des_crypt` | 待开放 | [FULL-05](05-crypto-and-keys.md) |
 | 04 | `tripleDes` | encrypt, decrypt | 加解密、现有模式/填充/IV/编码 | `triple_des_crypt` | 待开放 | [FULL-05](05-crypto-and-keys.md) |
 | 05 | `rc4` | encrypt, decrypt | 加解密、密钥和编码 | `rc4_crypt` | 待开放 | [FULL-05](05-crypto-and-keys.md) |
-| 06 | `rabbit` | encrypt, decrypt | 加解密、密钥/IV和编码 | `rabbit_crypt` | 待开放 | [FULL-05](05-crypto-and-keys.md) |
+| 06 | `rabbit` | encrypt, decrypt | 加解密、密钥和编码 | `rabbit_crypt` | 待开放 | [FULL-05](05-crypto-and-keys.md) |
 | 07 | `sm2` | encrypt, decrypt, sign, verify | 加解密、签名/验签及原选项 | `sm2_crypt`, `sm2_sign`, `sm2_verify` | 待开放 | [FULL-05](05-crypto-and-keys.md) |
 | 08 | `sm4` | encrypt, decrypt | 加解密及现有配置 | `sm4_crypt` | 待开放 | [FULL-05](05-crypto-and-keys.md) |
 | 09 | `rsa` | encrypt, decrypt | 加解密、PKCS1/OAEP及原密钥格式 | `rsa_crypt` | 待开放 | [FULL-05](05-crypto-and-keys.md) |
@@ -66,7 +66,7 @@
 | 59 | `configConvert` | configConvert | 现有11种格式及转换选项；不可表示类型明确失败 | `config_transform` | 部分开放 | [FULL-04](04-json-and-data.md) |
 | 60 | `stacktrace` | stacktrace | 异常语言/消息/调用帧/业务帧和位置 | `stacktrace_parse` | 待开放 | [FULL-06](06-text-and-code.md) |
 
-拟议业务名称、保留的14个名称与共用文件/模型工具去重后为 **100 个工具名称**。这是规划数，不是已注册数；FULL-00 完成 JSON Schema 字节预算后冻结；后续变更必须同步本矩阵、用例和注册表，不能通过合并名称漏掉操作。
+业务名称、保留的14个名称与共用文件/模型工具去重后实际注册 **100 个工具名称**。通过注册表与tests/fixtures/capability-cases.json核对60类/88入口映射；这不代表所有参数组合都有穷尽测试；后续变更必须同步本矩阵、用例和注册表，不能通过合并名称漏掉操作。
 
 共用工具：`file_begin`, `file_chunk`, `file_commit`, `file_read`, `file_status`, `file_delete`, `input_fetch`, `ai_assist`, `ai_call_status`, `ai_call_cancel`。文件工具由 FULL-02 负责，input_fetch 由 FULL-09 负责，模型工具由 FULL-10 负责；FULL-00 统一命名与合同，FULL-11 核对全部 ai/mcp 标记、同输入结果和清单。
 

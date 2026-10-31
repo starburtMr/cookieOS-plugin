@@ -3,7 +3,24 @@
     "version": "0.1.0",
     "private": true,
     "type": "module",
-    "exports": "./src/index.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/types/index.d.ts",
+            "default": "./src/index.ts"
+        },
+        "./domains/*": {
+            "types": "./dist/types/domains/*.d.ts",
+            "default": "./src/domains/*.ts"
+        },
+        "./asn1/*": {
+            "types": "./dist/types/domains/asn1/*.d.ts",
+            "default": "./src/domains/asn1/*.js"
+        },
+        "./adapters/*": {
+            "types": "./dist/types/adapters/*.d.ts",
+            "default": "./src/adapters/*.ts"
+        }
+    },
     "dependencies": {
         "@ltd/j-toml": "1.38.0",
         "ajv": "8.20.0",
@@ -14,11 +31,73 @@
         "js-base64": "3.7.7",
         "js-yaml": "4.3.2",
         "uuid": "11.1.1",
-        "when-json-met-bigint": "0.27.0"
+        "when-json-met-bigint": "0.27.0",
+        "chinese-simple2traditional": "^2.3.2",
+        "lodash": "4.18.1",
+        "pinyin-pro": "^3.13.0",
+        "nzh": "^1.0.13",
+        "mathjs": "15.2.0",
+        "chardet": "^2.0.0",
+        "text-decoding": "^1.0.0",
+        "bs58": "^6.0.0",
+        "crc": "^4.2.0",
+        "js-htmlencode": "^0.3.0",
+        "punycode": "^2.3.1",
+        "pako": "^2.1.0",
+        "buffer": "6.0.3",
+        "sm-crypto": "0.5.8",
+        "ulid": "^2.3.0",
+        "chinese-days": "1.5.9",
+        "netmask": "^2.0.2",
+        "ip6": "^0.2.10",
+        "colord": "2.10.0",
+        "ua-parser-js": "1.0.41",
+        "bcryptjs": "^2.4.3",
+        "jsrsasign": "11.1.5",
+        "cronstrue": "^2.21.0",
+        "jsonrepair": "^3.0.2",
+        "qs": "6.16.1",
+        "php-array-reader": "^2.1.2",
+        "json-to-properties": "^1.1.3",
+        "csv-parse": "7.0.3",
+        "csv-stringify": "^6.2.3",
+        "x2js": "github:abdolence/x2js",
+        "dompurify": "3.4.17",
+        "prettier": "^3.3.0",
+        "@prettier/plugin-php": "^0.22.0",
+        "prettier-plugin-java": "2.6.4",
+        "terser": "^5.32.0",
+        "csso": "^5.0.5",
+        "html-minifier-terser": "^7.2.0",
+        "xml-formatter": "^3.6.0",
+        "sql-formatter": "^15.4.2",
+        "quicktype-core": "^23.0.0",
+        "@readme/httpsnippet": "^7.1.2",
+        "yargs-parser": "^21.1.1",
+        "@msgpack/msgpack": "^3.1.3",
+        "json-keys-sort": "^2.1.0",
+        "jmespath": "^0.16.0",
+        "jsonpath-plus": "11.2.2",
+        "recursive-diff": "^1.0.8",
+        "composerize-ts": "^0.6.2",
+        "qr-code-styling": "catalog:",
+        "decode-uri-component": "0.5.1",
+        "node-forge": "1.4.2"
     },
     "devDependencies": {
         "@types/crypto-js": "4.1.1",
         "@types/js-yaml": "^4.0.5",
-        "@types/uuid": "^10.0.0"
+        "@types/uuid": "^10.0.0",
+        "@types/lodash": "catalog:",
+        "@types/pako": "^2.0.0",
+        "@types/punycode": "^2.1.4",
+        "@types/sm-crypto": "^0.3.0",
+        "@types/netmask": "^2.0.5",
+        "@types/bcryptjs": "^2.4.2",
+        "@types/jsrsasign": "^10.5.4",
+        "vite-plugin-node-polyfills": "0.22.0"
+    },
+    "scripts": {
+        "types": "tsc -p tsconfig.json"
     }
 }

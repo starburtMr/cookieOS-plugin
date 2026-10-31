@@ -1,1 +1,1 @@
-export {yaml as default} from "ctool-tools";
+export {default} from "ctool-tools/domains/serialize/yaml";

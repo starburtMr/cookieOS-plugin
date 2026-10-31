@@ -93,7 +93,7 @@ catalog:
   prettier: ^3.3.0
   prettier-plugin-java: 2.6.4
   punycode: ^2.3.1
-  qr-code-styling: github:baiy/styled-qr-code
+  qr-code-styling: 1.9.2
   qrcode-parser: ^2.0.4
   qs: 6.16.1
   quicktype-core: ^23.0.0

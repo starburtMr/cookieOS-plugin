@@ -37,6 +37,7 @@
 </template>
 
 <script lang="ts" setup>
+import {aiPrompts} from "ctool-tools/domains/aiPrompts";
 import {useHostAi} from "@/helper/cookieos/ai";
 import {generate, targets, getTarget} from "./util";
 import {initialize, useAction} from "@/store/action";
@@ -86,7 +87,7 @@ const aiExplainRequest = async () => {
         const result = await chat([
             {
                 role: "system",
-                content: "你是一个 HTTP 请求分析助手。用户会提供 cURL 或 HAR 内容，请用简洁中文说明请求在做什么，并尽量覆盖请求方法、目标接口、关键请求头、鉴权方式、主要参数/请求体，以及明显的敏感信息或调试风险。",
+                content: aiPrompts.http_explain,
             },
             {
                 role: "user",

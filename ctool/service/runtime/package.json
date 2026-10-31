@@ -1,0 +1,17 @@
+{
+  "name": "ctool-service-runtime",
+  "version": "0.3.0",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": "^22.22.2"
+  },
+  "dependencies": {
+    "jsdom": "30.1.3",
+    "canvas": "3.2.3",
+    "sharp": "0.35.5",
+    "quickjs-emscripten-core": "0.32.0",
+    "@jitl/quickjs-wasmfile-release-sync": "0.32.0",
+    "lodash": "4.18.1"
+  }
+}

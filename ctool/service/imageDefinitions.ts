@@ -1,0 +1,10 @@
+import {objectSchema} from "ctool-tools";
+import {definition,choice,integer,boolean,fileRef} from "./definitions";
+const color={type:"string",pattern:"^(?:#[a-fA-F0-9]{3,8}|[a-zA-Z]{1,24})$",maxLength:24};
+const generateColor=objectSchema({is_gradient:boolean,simple:color,gradient:objectSchema({type:choice("linear","radial"),rotation:{type:"number",minimum:-360,maximum:360},colorStops:{type:"array",minItems:2,maxItems:8,items:objectSchema({offset:{type:"number",minimum:0,maximum:1},color})}})},[]);
+const style=(types:string[])=>objectSchema({type:choice(...types),color:generateColor},[]);
+export const imageTools=[
+    definition("qrcode_generate","生成样式二维码；UTF-8、渐变、角点、Logo；生成后回读校验",{text:{type:"string",minLength:1,maxLength:4096},logoRef:fileRef,size:integer(200,2000),format:choice("png","jpeg","webp"),options:objectSchema({margin:integer(0,100),error_correction_level:choice("L","M","Q","H"),image_options:objectSchema({size:{type:"number",minimum:0,maximum:10},margin:integer(0,50)},[]),dots_options:style(["square","dots","rounded","extra-rounded","classy","classy-rounded"]),corners_square_options:style(["square","dot","extra-rounded"]),corners_dot_options:style(["square","dot"]),background_options:objectSchema({color:generateColor},[])},[])},["text"],undefined,"read",30),
+    definition("qrcode_read","从图片解码二维码；最多8 MiB与400万像素",{fileRef},["fileRef"]),
+    definition("barcode_generate","生成条码图片；码制、文字、颜色、尺寸",{text:{type:"string",minLength:1,maxLength:2048},format:choice("png","jpeg","webp"),options:objectSchema({format:choice("CODE128","CODE128A","CODE128B","CODE128C","EAN13","EAN8","EAN5","EAN2","UPC","UPCE","CODE39","ITF14","ITF","MSI","MSI10","MSI11","MSI1010","MSI1110","pharmacode","codabar"),width:{type:"number",minimum:1,maximum:8},height:integer(10,1000),margin:integer(0,100),displayValue:boolean,text:{type:"string",maxLength:256},fontSize:integer(8,80),textAlign:choice("left","center","right"),textPosition:choice("top","bottom"),textMargin:integer(-15,50),font:choice("monospace","Sans-serif","Serif","Fantasy","Cursive"),fontOptions:choice("","bold","italic","bold italic"),background:color,lineColor:color},[])},["text"]),
+];

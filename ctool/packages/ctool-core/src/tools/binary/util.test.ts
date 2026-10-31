@@ -62,8 +62,8 @@ describe("binary/util", () => {
         });
 
         it("负数 -128 / 8 位（最小值）", () => {
-            // -128 补码在 8 位系统中为 100000000（9位，含溢出位）
-            expect(generate("-128", 8, "complement")).toBe("100000000");
+            // 最小负数恰好使用8位，不产生额外溢出位。
+            expect(generate("-128", 8, "complement")).toBe("10000000");
         });
     });
 

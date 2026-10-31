@@ -37,6 +37,8 @@
 </template>
 
 <script lang="ts" setup>
+import {aiPrompts} from "ctool-tools/domains/aiPrompts";
+import {fillSql} from "ctool-tools/domains/sql";
 import {useHostAi} from "@/helper/cookieos/ai";
 import {initialize, useAction} from "@/store/action";
 import {watch} from "vue";
@@ -50,7 +52,6 @@ import Message from "@/helper/message";
 const storeSetting = useSetting();
 
 // 1-String 2-NUMBER 3-Long,4-Timestamp
-const TYPE_STR = ['String', 'Integer', 'Long', 'Timestamp']
 
 const action = useAction(await initialize({input: "", params: ""}))
 
@@ -81,7 +82,7 @@ const aiExplainSql = async () => {
         const result = await chat([
             {
                 role: "system",
-                content: "你是一个 SQL 专家。用户会给你一段 SQL 语句（可能包含 ? 占位符或 #{name} 参数），请用简洁的中文解释这段 SQL 的作用。\n\n规则：\n1. 解释 SQL 的整体目的（查询/插入/更新/删除什么数据）\n2. 逐一解释 WHERE 条件、JOIN、子查询等关键部分\n3. 如果有性能风险（如全表扫描、缺少索引提示），简要指出",
+                content: aiPrompts.sql_explain,
             },
             { role: "user", content: sql },
         ], config)
@@ -99,216 +100,7 @@ const aiExplainSql = async () => {
  * @param params 参数字符串，字符串的格式为 value(type),value(type),.....
  * 实际例如： 1(String),2023-03-23 12:00:00(Timestamp)
  */
-const convertParam = (params: string) => {
-    if (params) {
-        const tempList = params.split(',', -1)
-        // 因为参数中可能存在逗号，例如json数据，为此采取的方案是先分割，后合并的策略
-        // 分割后是不包含,的，检查串是否为null或者)结尾，如果是则认为是正常的参数，如果不是则认为是分割后的串的一部分
-        // 举例{"goodsService":[],"goodsSpecs":{"id":"db6c56a224a788c5a7458017731c9255","imageFileId":"16925e7fc297452a984d4b3e2e9e6e40"}}(String),
-        // null, null, 1(Integer),1(Integer)
-        // paramStrList 为合并后的实际参数列表
-        const paramStrList:string[] = []
-        let paramIndex = 0
-        // 标记是否在合并中
-        let combining = false
-        tempList.forEach((x) => {
-            // 对null值采用endsWith的原因是因为有前置空格，直接判断endWith比去掉空格处理更方便
-            // 遇到null值直接作为参数
-            if (x.endsWith('null')) {
-              paramStrList.push(x)
-              paramIndex ++
-            } else if (x.endsWith(')')) {
-                // 前面的串处在合并过程中，遇到了）结尾的情况，说明合并结束
-                if (combining) {
-                    paramStrList[paramIndex] += ',' + x
-                    combining = false
-                } else {
-                    paramStrList.push(x)
-                }
-                paramIndex ++
-            } else {
-                const tempStr = paramStrList[paramIndex]
-                if (!tempStr) {
-                  paramStrList.push(x)
-                  combining= true
-                } else {
-                  paramStrList[paramIndex] +=  ',' + x
-                }
-            }
-        })
-        return paramStrList.map(x => {
-            const valueEndIndex = x.lastIndexOf('(')
-            if (valueEndIndex < 0) {
-                // 直接将整个串作为值，类型为其他
-                return {value: x, type: null}
-            }
-            // 从串中截取出值，并对前后空格进行清除
-            let value = x.substring(0, valueEndIndex)
-            value = value.trim();
-            // 对数据中的'进行转义，mybatis输出的参数中的'是不进行转义的
-            value = value.replaceAll('\'', '\\\'')
-            // 从串中截取出类型，并进行前后空格清除
-            let typeEndIndex = x.lastIndexOf(')')
-            if (typeEndIndex < 0) {
-                typeEndIndex = x.length
-            }
-            let type = x.substring(valueEndIndex + 1, typeEndIndex)
-            type = type.trim()
-            return {value, type}
-        })
-    } else {
-        return []
-    }
-}
-
-/**
- * 根据参数类型格式化参数值
- */
-const formatParamValue = (param: { value: string, type: string | null }) => {
-    switch (param.type) {
-        case TYPE_STR[0]: // String
-            return ' \'' + param.value + '\''
-        case TYPE_STR[1]: // Integer
-        case TYPE_STR[2]: // Long
-            return param.value
-        case TYPE_STR[3]: // Timestamp
-            return 'Timestamp \'' + param.value + '\''
-        default: // 其他类型直接拼接原始值
-            return param.value
-    }
-}
-
-/**
- * 检测 SQL 是否使用具名参数（:name 或 #{name} 格式）
- */
-const detectNamedParams = (sql: string): 'positional' | 'colon' | 'mybatis' => {
-    // 先检查 #{name} 格式（MyBatis 风格）
-    if (/#\{(\w+)\}/.test(sql)) {
-        return 'mybatis'
-    }
-    // 再检查 :name 格式（Spring JDBC / PostgreSQL 风格），排除 :: 类型转换
-    // 使用 (^|[^:]) 替代 lookbehind (?<!:) 以兼容旧版 Safari
-    if (/(^|[^:]):(\w+)/.test(sql)) {
-        return 'colon'
-    }
-    return 'positional'
-}
-
-/**
- * 将参数字符串解析为具名参数 Map
- * 格式：name=value(type),age=value(type)
- */
-const convertNamedParam = (params: string): Map<string, { value: string, type: string | null }> => {
-    const result = new Map<string, { value: string, type: string | null }>()
-    if (!params) return result
-
-    // 按逗号分割，处理值中包含逗号的情况（与 convertParam 类似的合并策略）
-    const tempList = params.split(',', -1)
-    const paramStrList: string[] = []
-    let paramIndex = 0
-    let combining = false
-
-    tempList.forEach((x) => {
-        if (x.endsWith('null') && x.includes('=')) {
-            paramStrList.push(x)
-            paramIndex++
-        } else if (x.endsWith(')')) {
-            if (combining) {
-                paramStrList[paramIndex] += ',' + x
-                combining = false
-            } else {
-                paramStrList.push(x)
-            }
-            paramIndex++
-        } else {
-            const tempStr = paramStrList[paramIndex]
-            if (!tempStr) {
-                paramStrList.push(x)
-                combining = true
-            } else {
-                paramStrList[paramIndex] += ',' + x
-            }
-        }
-    })
-
-    paramStrList.forEach(item => {
-        const eqIndex = item.indexOf('=')
-        if (eqIndex < 0) return
-        const name = item.substring(0, eqIndex).trim()
-        const rest = item.substring(eqIndex + 1)
-
-        const valueEndIndex = rest.lastIndexOf('(')
-        if (valueEndIndex < 0) {
-            result.set(name, { value: rest.trim(), type: null })
-            return
-        }
-        let value = rest.substring(0, valueEndIndex).trim()
-        value = value.replaceAll('\'', '\\\'')
-        const typeEndIndex = rest.lastIndexOf(')')
-        const type = rest.substring(valueEndIndex + 1, typeEndIndex < 0 ? rest.length : typeEndIndex).trim()
-        result.set(name, { value, type })
-    })
-
-    return result
-}
-
-const fill = () => {
-    if (!action.current.input || !action.current.params) {
-        return ""
-    }
-
-    const paramStyle = detectNamedParams(action.current.input)
-
-    // 具名参数模式：:name 或 #{name}
-    if (paramStyle === 'colon' || paramStyle === 'mybatis') {
-        const paramMap = convertNamedParam(action.current.params)
-        let result = action.current.input
-
-        if (paramStyle === 'mybatis') {
-            // 替换 #{name} 占位符
-            result = result.replace(/#\{(\w+)\}/g, (_match, name) => {
-                const param = paramMap.get(name)
-                if (!param) {
-                    throw new Error($t('sqlFillParameter_named_param_missing').replace('{name}', name))
-                }
-                return formatParamValue(param)
-            })
-        } else {
-            // 替换 :name 占位符，排除 :: 类型转换
-            // 使用 (::?) 匹配替代 lookbehind (?<!:) 以兼容旧版 Safari
-            result = result.replace(/(::?)(\w+)/g, (_match, prefix, name) => {
-                // :: 是 PostgreSQL 类型转换语法，原样保留
-                if (prefix === '::') return _match
-                const param = paramMap.get(name)
-                if (!param) {
-                    throw new Error($t('sqlFillParameter_named_param_missing').replace('{name}', name))
-                }
-                return formatParamValue(param)
-            })
-        }
-
-        return result
-    }
-
-    // 位置参数模式（原有逻辑）：?
-    const paramList = convertParam(action.current.params)
-    const tempSqlStr = action.current.input
-    let resultStr = ''
-    let paramIndex = 0
-    for (let i = 0; i < tempSqlStr.length; i++) {
-        const c = tempSqlStr.charAt(i)
-        if (c === '?') {
-            if (paramList.length <= paramIndex) {
-                throw new Error($t('sqlFillParameter_parameter_too_little'))
-            }
-            resultStr += formatParamValue(paramList[paramIndex])
-            paramIndex++
-        } else {
-            resultStr += c
-        }
-    }
-    return resultStr
-}
+const fill = () => fillSql(action.current.input,action.current.params);
 
 /**
  * 从串中分离sql模板和参数

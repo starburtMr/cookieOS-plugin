@@ -1,0 +1,2171 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "caseId": "text_operate-001",
+      "tool": "text_operate",
+      "args": {
+        "text": "ab",
+        "operation": "upper",
+        "options": {}
+      },
+      "expectedText": "AB"
+    },
+    {
+      "caseId": "text_operate-002",
+      "tool": "text_operate",
+      "args": {
+        "text": "AB",
+        "operation": "lower",
+        "options": {}
+      },
+      "expectedText": "ab"
+    },
+    {
+      "caseId": "text_operate-003",
+      "tool": "text_operate",
+      "args": {
+        "text": "ab\ncd",
+        "operation": "upperLineStart",
+        "options": {}
+      },
+      "expectedText": "Ab\nCd"
+    },
+    {
+      "caseId": "text_operate-004",
+      "tool": "text_operate",
+      "args": {
+        "text": "AB\nCD",
+        "operation": "lowerLineStart",
+        "options": {}
+      },
+      "expectedText": "aB\ncD"
+    },
+    {
+      "caseId": "text_operate-005",
+      "tool": "text_operate",
+      "args": {
+        "text": "ab cd",
+        "operation": "upperStart",
+        "options": {}
+      },
+      "expectedText": "Ab Cd"
+    },
+    {
+      "caseId": "text_operate-006",
+      "tool": "text_operate",
+      "args": {
+        "text": "AB CD",
+        "operation": "lowerStart",
+        "options": {}
+      },
+      "expectedText": "aB cD"
+    },
+    {
+      "caseId": "text_operate-007",
+      "tool": "text_operate",
+      "args": {
+        "text": "开发",
+        "operation": "zhTran",
+        "options": {
+          "type": "simplified"
+        }
+      },
+      "expectedText": "開發"
+    },
+    {
+      "caseId": "text_operate-008",
+      "tool": "text_operate",
+      "args": {
+        "text": "a b a",
+        "operation": "replace",
+        "options": {
+          "search": [
+            "a"
+          ],
+          "replace": [
+            "x"
+          ]
+        }
+      },
+      "expectedText": "x b x"
+    },
+    {
+      "caseId": "text_operate-009",
+      "tool": "text_operate",
+      "args": {
+        "text": "a1b2",
+        "operation": "regularReplace",
+        "options": {
+          "search": "[0-9]",
+          "replace": "_"
+        }
+      },
+      "expectedText": "a_b_"
+    },
+    {
+      "caseId": "text_operate-010",
+      "tool": "text_operate",
+      "args": {
+        "text": "a\nb\na",
+        "operation": "lineRemoveRepeat",
+        "options": {}
+      },
+      "expectedText": "a\nb"
+    },
+    {
+      "caseId": "text_operate-011",
+      "tool": "text_operate",
+      "args": {
+        "text": "1. a\n2. b",
+        "operation": "removeLineIndex",
+        "options": {}
+      },
+      "expectedText": " a\n b"
+    },
+    {
+      "caseId": "text_operate-012",
+      "tool": "text_operate",
+      "args": {
+        "text": "a\nb",
+        "operation": "addLineIndex",
+        "options": {}
+      },
+      "expectedText": "1. a\n2. b"
+    },
+    {
+      "caseId": "text_operate-013",
+      "tool": "text_operate",
+      "args": {
+        "text": "b\na",
+        "operation": "sort",
+        "options": {
+          "type": "line_asc"
+        }
+      },
+      "expectedText": "a\nb"
+    },
+    {
+      "caseId": "text_operate-014",
+      "tool": "text_operate",
+      "args": {
+        "text": " a \n b ",
+        "operation": "lineTrim",
+        "options": {}
+      },
+      "expectedText": "a\nb"
+    },
+    {
+      "caseId": "text_operate-015",
+      "tool": "text_operate",
+      "args": {
+        "text": "a\n \nb",
+        "operation": "filterBlankLine",
+        "options": {}
+      },
+      "expectedText": "a\nb"
+    },
+    {
+      "caseId": "text_operate-016",
+      "tool": "text_operate",
+      "args": {
+        "text": "a\nb",
+        "operation": "filterAllBr",
+        "options": {}
+      },
+      "expectedText": "ab"
+    },
+    {
+      "caseId": "text_operate-017",
+      "tool": "text_operate",
+      "args": {
+        "text": "a,b",
+        "operation": "replacePunctuation",
+        "options": {
+          "type": "zh"
+        }
+      },
+      "expectedText": "a，b"
+    },
+    {
+      "caseId": "text_operate-018",
+      "tool": "text_operate",
+      "args": {
+        "text": "a\\nb",
+        "operation": "escape",
+        "options": {
+          "lists": [
+            "new_line"
+          ]
+        }
+      },
+      "expectedText": "a\nb"
+    },
+    {
+      "caseId": "text_operate-019",
+      "tool": "text_operate",
+      "args": {
+        "text": "a\nb",
+        "operation": "unescape",
+        "options": {
+          "lists": [
+            "new_line"
+          ]
+        }
+      },
+      "expectedText": "a\\nb"
+    },
+    {
+      "caseId": "text_operate-020",
+      "tool": "text_operate",
+      "args": {
+        "text": "helloWorld",
+        "operation": "rename",
+        "options": {
+          "type": "lowerSnakeCase"
+        }
+      },
+      "expectedText": "hello_world"
+    },
+    {
+      "caseId": "text_operate-021",
+      "tool": "text_operate",
+      "args": {
+        "text": "ab",
+        "operation": "stat",
+        "options": {}
+      }
+    },
+    {
+      "caseId": "name_convert-022",
+      "tool": "name_convert",
+      "args": {
+        "text": "hello world",
+        "style": "spaceCase"
+      },
+      "expectedText": "hello world"
+    },
+    {
+      "caseId": "name_convert-023",
+      "tool": "name_convert",
+      "args": {
+        "text": "hello world",
+        "style": "pascalCaseSpace"
+      },
+      "expectedText": "Hello World"
+    },
+    {
+      "caseId": "name_convert-024",
+      "tool": "name_convert",
+      "args": {
+        "text": "hello world",
+        "style": "kebabCase"
+      },
+      "expectedText": "hello-world"
+    },
+    {
+      "caseId": "name_convert-025",
+      "tool": "name_convert",
+      "args": {
+        "text": "hello world",
+        "style": "upperSnakeCase"
+      },
+      "expectedText": "HELLO_WORLD"
+    },
+    {
+      "caseId": "name_convert-026",
+      "tool": "name_convert",
+      "args": {
+        "text": "hello world",
+        "style": "pascalCase"
+      },
+      "expectedText": "HelloWorld"
+    },
+    {
+      "caseId": "name_convert-027",
+      "tool": "name_convert",
+      "args": {
+        "text": "hello world",
+        "style": "camelCase"
+      },
+      "expectedText": "helloWorld"
+    },
+    {
+      "caseId": "name_convert-028",
+      "tool": "name_convert",
+      "args": {
+        "text": "hello world",
+        "style": "lowerSnakeCase"
+      },
+      "expectedText": "hello_world"
+    },
+    {
+      "caseId": "regex_execute-029",
+      "tool": "regex_execute",
+      "args": {
+        "text": "a1b2",
+        "pattern": "[0-9]",
+        "operation": "replace",
+        "replacement": "_"
+      },
+      "expectedText": "a_b_"
+    },
+    {
+      "caseId": "regex_execute-030",
+      "tool": "regex_execute",
+      "args": {
+        "text": "a1b2",
+        "pattern": "[0-9]",
+        "operation": "delete",
+        "replacement": "_"
+      },
+      "expectedText": "ab"
+    },
+    {
+      "caseId": "regex_execute-031",
+      "tool": "regex_execute",
+      "args": {
+        "text": "a1b2",
+        "pattern": "[0-9]",
+        "operation": "extract",
+        "replacement": "_"
+      },
+      "expectedText": "[\"1\",\"2\"]"
+    },
+    {
+      "caseId": "binary_convert-032",
+      "tool": "binary_convert",
+      "args": {
+        "value": "1",
+        "bits": 8,
+        "representation": "trueForm"
+      },
+      "expectedText": "00000001"
+    },
+    {
+      "caseId": "binary_convert-033",
+      "tool": "binary_convert",
+      "args": {
+        "value": "1",
+        "bits": 8,
+        "representation": "inverse"
+      },
+      "expectedText": "00000001"
+    },
+    {
+      "caseId": "binary_convert-034",
+      "tool": "binary_convert",
+      "args": {
+        "value": "1",
+        "bits": 8,
+        "representation": "complement"
+      },
+      "expectedText": "00000001"
+    },
+    {
+      "caseId": "time_operate-035",
+      "tool": "time_operate",
+      "args": {
+        "value": "2026-01-05T00:00:00Z",
+        "operation": "inspect"
+      }
+    },
+    {
+      "caseId": "time_operate-036",
+      "tool": "time_operate",
+      "args": {
+        "value": "2026-01-05T00:00:00Z",
+        "operation": "add",
+        "amount": 1,
+        "unit": "day"
+      }
+    },
+    {
+      "caseId": "time_operate-037",
+      "tool": "time_operate",
+      "args": {
+        "value": "2026-01-05T00:00:00Z",
+        "operation": "difference",
+        "other": "2026-01-01T00:00:00Z"
+      }
+    },
+    {
+      "caseId": "time_operate-038",
+      "tool": "time_operate",
+      "args": {
+        "value": "2026-01-05",
+        "operation": "workdays",
+        "other": "2026-01-09"
+      }
+    },
+    {
+      "caseId": "time_operate-039",
+      "tool": "time_operate",
+      "args": {
+        "value": "2026-01-05",
+        "operation": "addWorkdays",
+        "amount": 1
+      }
+    },
+    {
+      "caseId": "ip_calculate-040",
+      "tool": "ip_calculate",
+      "args": {
+        "address": "2001:db8::1",
+        "version": "ipv6",
+        "operation": "inspect"
+      }
+    },
+    {
+      "caseId": "ip_calculate-041",
+      "tool": "ip_calculate",
+      "args": {
+        "address": "2001:db8::1",
+        "version": "ipv6",
+        "operation": "subnet",
+        "mask": 32,
+        "toMask": 64,
+        "count": 2
+      }
+    },
+    {
+      "caseId": "ip_calculate-042",
+      "tool": "ip_calculate",
+      "args": {
+        "address": "2001:db8::1",
+        "version": "ipv6",
+        "operation": "range",
+        "mask": 64
+      }
+    },
+    {
+      "caseId": "ip_calculate-043",
+      "tool": "ip_calculate",
+      "args": {
+        "address": "2001:db8::1",
+        "version": "ipv6",
+        "operation": "ptr",
+        "mask": 64
+      }
+    },
+    {
+      "caseId": "ip_calculate-044",
+      "tool": "ip_calculate",
+      "args": {
+        "address": "192.0.2.1",
+        "version": "ipv4",
+        "operation": "wildcard",
+        "wildcard": "0.0.0.255"
+      }
+    },
+    {
+      "caseId": "uuid_operate-045",
+      "tool": "uuid_operate",
+      "args": {
+        "kind": "uuid",
+        "count": 2
+      }
+    },
+    {
+      "caseId": "uuid_operate-046",
+      "tool": "uuid_operate",
+      "args": {
+        "kind": "ulid",
+        "count": 2
+      }
+    },
+    {
+      "caseId": "uuid_operate-047",
+      "tool": "uuid_operate",
+      "args": {
+        "kind": "uuid",
+        "bytes": true
+      }
+    },
+    {
+      "caseId": "objectid_operate-048",
+      "tool": "objectid_operate",
+      "args": {
+        "operation": "generate"
+      }
+    },
+    {
+      "caseId": "json_query-049",
+      "tool": "json_query",
+      "args": {
+        "text": "{\"items\":[1,2]}",
+        "query": "items[1]",
+        "language": "jmespath"
+      },
+      "expectedText": "2"
+    },
+    {
+      "caseId": "json_operate-050",
+      "tool": "json_operate",
+      "args": {
+        "text": "{\"b\":2,\"a\":1}",
+        "operation": "format",
+        "style": "camelCase"
+      }
+    },
+    {
+      "caseId": "json_operate-051",
+      "tool": "json_operate",
+      "args": {
+        "text": "{\"b\":2,\"a\":1}",
+        "operation": "compress",
+        "style": "camelCase"
+      }
+    },
+    {
+      "caseId": "json_operate-052",
+      "tool": "json_operate",
+      "args": {
+        "text": "{\"b\":2,\"a\":1}",
+        "operation": "repair",
+        "style": "camelCase"
+      }
+    },
+    {
+      "caseId": "json_operate-053",
+      "tool": "json_operate",
+      "args": {
+        "text": "{\"b\":2,\"a\":1}",
+        "operation": "escape",
+        "style": "camelCase"
+      }
+    },
+    {
+      "caseId": "json_operate-054",
+      "tool": "json_operate",
+      "args": {
+        "text": "{\"b\":2,\"a\":1}",
+        "operation": "unescape",
+        "style": "camelCase"
+      }
+    },
+    {
+      "caseId": "json_operate-055",
+      "tool": "json_operate",
+      "args": {
+        "text": "{\"b\":2,\"a\":1}",
+        "operation": "unicodeDecode",
+        "style": "camelCase"
+      }
+    },
+    {
+      "caseId": "json_operate-056",
+      "tool": "json_operate",
+      "args": {
+        "text": "{\"b\":2,\"a\":1}",
+        "operation": "unicodeEncode",
+        "style": "camelCase"
+      }
+    },
+    {
+      "caseId": "json_operate-057",
+      "tool": "json_operate",
+      "args": {
+        "text": "{\"b\":2,\"a\":1}",
+        "operation": "sortAsc",
+        "style": "camelCase"
+      }
+    },
+    {
+      "caseId": "json_operate-058",
+      "tool": "json_operate",
+      "args": {
+        "text": "{\"b\":2,\"a\":1}",
+        "operation": "sortDesc",
+        "style": "camelCase"
+      }
+    },
+    {
+      "caseId": "json_operate-059",
+      "tool": "json_operate",
+      "args": {
+        "text": "{\"b\":2,\"a\":1}",
+        "operation": "rename",
+        "style": "camelCase"
+      }
+    },
+    {
+      "caseId": "serialize_transform-060",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "serialize_transform-061",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "a: x",
+        "from": "yaml",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "serialize_transform-062",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "a=\"x\"",
+        "from": "toml",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "serialize_transform-063",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "<root><a>x</a><b>y</b></root>",
+        "from": "xml",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "serialize_transform-064",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "a\nx",
+        "from": "csv",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "serialize_transform-065",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "<table><tr><th>a</th></tr><tr><td>x</td></tr></table>",
+        "from": "html_table",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "serialize_transform-066",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "['a'=>'x']",
+        "from": "php_array",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "serialize_transform-067",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "a:1:{s:1:\"a\";s:1:\"x\";}",
+        "from": "php_serialize",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "serialize_transform-068",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "a=x",
+        "from": "properties",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "serialize_transform-069",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "a=x",
+        "from": "http_query_string",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "serialize_transform-070",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "x\ny",
+        "from": "text",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "serialize_transform-071",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "serialize_transform-072",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "yaml"
+      }
+    },
+    {
+      "caseId": "serialize_transform-073",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "toml"
+      }
+    },
+    {
+      "caseId": "serialize_transform-074",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "xml"
+      }
+    },
+    {
+      "caseId": "serialize_transform-075",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "[{\"a\":\"x\"}]",
+        "from": "json",
+        "to": "csv"
+      }
+    },
+    {
+      "caseId": "serialize_transform-076",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "[{\"a\":\"x\"}]",
+        "from": "json",
+        "to": "html_table"
+      }
+    },
+    {
+      "caseId": "serialize_transform-077",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "php_array"
+      }
+    },
+    {
+      "caseId": "serialize_transform-078",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "php_serialize"
+      }
+    },
+    {
+      "caseId": "serialize_transform-079",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "properties"
+      }
+    },
+    {
+      "caseId": "serialize_transform-080",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "http_query_string"
+      }
+    },
+    {
+      "caseId": "serialize_transform-081",
+      "tool": "serialize_transform",
+      "args": {
+        "text": "[\"x\",\"y\"]",
+        "from": "json",
+        "to": "text"
+      },
+      "expectedText": "x,\ny"
+    },
+    {
+      "caseId": "config_transform-082",
+      "tool": "config_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "config_transform-083",
+      "tool": "config_transform",
+      "args": {
+        "text": "a: x",
+        "from": "yaml",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "config_transform-084",
+      "tool": "config_transform",
+      "args": {
+        "text": "a=\"x\"",
+        "from": "toml",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "config_transform-085",
+      "tool": "config_transform",
+      "args": {
+        "text": "<root><a>x</a><b>y</b></root>",
+        "from": "xml",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "config_transform-086",
+      "tool": "config_transform",
+      "args": {
+        "text": "a\nx",
+        "from": "csv",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "config_transform-087",
+      "tool": "config_transform",
+      "args": {
+        "text": "<table><tr><th>a</th></tr><tr><td>x</td></tr></table>",
+        "from": "html_table",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "config_transform-088",
+      "tool": "config_transform",
+      "args": {
+        "text": "['a'=>'x']",
+        "from": "php_array",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "config_transform-089",
+      "tool": "config_transform",
+      "args": {
+        "text": "a:1:{s:1:\"a\";s:1:\"x\";}",
+        "from": "php_serialize",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "config_transform-090",
+      "tool": "config_transform",
+      "args": {
+        "text": "a=x",
+        "from": "properties",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "config_transform-091",
+      "tool": "config_transform",
+      "args": {
+        "text": "a=x",
+        "from": "http_query_string",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "config_transform-092",
+      "tool": "config_transform",
+      "args": {
+        "text": "x\ny",
+        "from": "text",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "config_transform-093",
+      "tool": "config_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "json"
+      }
+    },
+    {
+      "caseId": "config_transform-094",
+      "tool": "config_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "yaml"
+      }
+    },
+    {
+      "caseId": "config_transform-095",
+      "tool": "config_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "toml"
+      }
+    },
+    {
+      "caseId": "config_transform-096",
+      "tool": "config_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "xml"
+      }
+    },
+    {
+      "caseId": "config_transform-097",
+      "tool": "config_transform",
+      "args": {
+        "text": "[{\"a\":\"x\"}]",
+        "from": "json",
+        "to": "csv"
+      }
+    },
+    {
+      "caseId": "config_transform-098",
+      "tool": "config_transform",
+      "args": {
+        "text": "[{\"a\":\"x\"}]",
+        "from": "json",
+        "to": "html_table"
+      }
+    },
+    {
+      "caseId": "config_transform-099",
+      "tool": "config_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "php_array"
+      }
+    },
+    {
+      "caseId": "config_transform-100",
+      "tool": "config_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "php_serialize"
+      }
+    },
+    {
+      "caseId": "config_transform-101",
+      "tool": "config_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "properties"
+      }
+    },
+    {
+      "caseId": "config_transform-102",
+      "tool": "config_transform",
+      "args": {
+        "text": "{\"a\":\"x\"}",
+        "from": "json",
+        "to": "http_query_string"
+      }
+    },
+    {
+      "caseId": "config_transform-103",
+      "tool": "config_transform",
+      "args": {
+        "text": "[\"x\",\"y\"]",
+        "from": "json",
+        "to": "text"
+      },
+      "expectedText": "x,\ny"
+    },
+    {
+      "caseId": "diff_compute-104",
+      "tool": "diff_compute",
+      "args": {
+        "original": "a",
+        "modified": "b",
+        "format": "text"
+      }
+    },
+    {
+      "caseId": "diff_compute-105",
+      "tool": "diff_compute",
+      "args": {
+        "original": "{\"a\":1}",
+        "modified": "{\"a\":2}",
+        "format": "json"
+      }
+    },
+    {
+      "caseId": "diff_compute-106",
+      "tool": "diff_compute",
+      "args": {
+        "original": "a: 1",
+        "modified": "a: 2",
+        "format": "yaml"
+      }
+    },
+    {
+      "caseId": "diff_compute-107",
+      "tool": "diff_compute",
+      "args": {
+        "original": "a=1",
+        "modified": "a=2",
+        "format": "toml"
+      }
+    },
+    {
+      "caseId": "diff_compute-108",
+      "tool": "diff_compute",
+      "args": {
+        "original": "<root><a>1</a><b>x</b></root>",
+        "modified": "<root><a>2</a><b>x</b></root>",
+        "format": "xml"
+      }
+    },
+    {
+      "caseId": "unicode_transform-109",
+      "tool": "unicode_transform",
+      "args": {
+        "text": "中",
+        "operation": "encode",
+        "format": "unicode_point_default"
+      }
+    },
+    {
+      "caseId": "unicode_transform-110",
+      "tool": "unicode_transform",
+      "args": {
+        "text": "中",
+        "operation": "encode",
+        "format": "unicode_point_wide"
+      }
+    },
+    {
+      "caseId": "unicode_transform-111",
+      "tool": "unicode_transform",
+      "args": {
+        "text": "中",
+        "operation": "encode",
+        "format": "unicode_point_wide_brace"
+      }
+    },
+    {
+      "caseId": "unicode_transform-112",
+      "tool": "unicode_transform",
+      "args": {
+        "text": "中",
+        "operation": "encode",
+        "format": "unicode_number"
+      }
+    },
+    {
+      "caseId": "unicode_transform-113",
+      "tool": "unicode_transform",
+      "args": {
+        "text": "中",
+        "operation": "encode",
+        "format": "html_entity_10"
+      }
+    },
+    {
+      "caseId": "unicode_transform-114",
+      "tool": "unicode_transform",
+      "args": {
+        "text": "中",
+        "operation": "encode",
+        "format": "html_entity_16"
+      }
+    },
+    {
+      "caseId": "unicode_transform-115",
+      "tool": "unicode_transform",
+      "args": {
+        "text": "中",
+        "operation": "encode",
+        "format": "css_entity"
+      }
+    },
+    {
+      "caseId": "url_transform-116",
+      "tool": "url_transform",
+      "args": {
+        "text": "a+b",
+        "operation": "encode",
+        "mode": "uri"
+      }
+    },
+    {
+      "caseId": "url_transform-117",
+      "tool": "url_transform",
+      "args": {
+        "text": "a+b",
+        "operation": "decode",
+        "mode": "uri"
+      }
+    },
+    {
+      "caseId": "url_transform-118",
+      "tool": "url_transform",
+      "args": {
+        "text": "%E4",
+        "operation": "decode",
+        "tolerant": true
+      },
+      "expectedText": "%E4"
+    },
+    {
+      "caseId": "gzip_transform-119",
+      "tool": "gzip_transform",
+      "args": {
+        "text": "abc",
+        "operation": "encode",
+        "format": "deflate"
+      }
+    },
+    {
+      "caseId": "gzip_transform-120",
+      "tool": "gzip_transform",
+      "args": {
+        "text": "abc",
+        "operation": "encode",
+        "format": "gzip"
+      }
+    },
+    {
+      "caseId": "checksum_compute-121",
+      "tool": "checksum_compute",
+      "args": {
+        "text": "123456789",
+        "algorithm": "bcc"
+      }
+    },
+    {
+      "caseId": "checksum_compute-122",
+      "tool": "checksum_compute",
+      "args": {
+        "text": "123456789",
+        "algorithm": "lrc"
+      }
+    },
+    {
+      "caseId": "checksum_compute-123",
+      "tool": "checksum_compute",
+      "args": {
+        "text": "123456789",
+        "algorithm": "crc1"
+      }
+    },
+    {
+      "caseId": "checksum_compute-124",
+      "tool": "checksum_compute",
+      "args": {
+        "text": "123456789",
+        "algorithm": "crc8"
+      }
+    },
+    {
+      "caseId": "checksum_compute-125",
+      "tool": "checksum_compute",
+      "args": {
+        "text": "123456789",
+        "algorithm": "crc81wire"
+      }
+    },
+    {
+      "caseId": "checksum_compute-126",
+      "tool": "checksum_compute",
+      "args": {
+        "text": "123456789",
+        "algorithm": "crc8dvbs2"
+      }
+    },
+    {
+      "caseId": "checksum_compute-127",
+      "tool": "checksum_compute",
+      "args": {
+        "text": "123456789",
+        "algorithm": "crc16"
+      }
+    },
+    {
+      "caseId": "checksum_compute-128",
+      "tool": "checksum_compute",
+      "args": {
+        "text": "123456789",
+        "algorithm": "crc16ccitt"
+      }
+    },
+    {
+      "caseId": "checksum_compute-129",
+      "tool": "checksum_compute",
+      "args": {
+        "text": "123456789",
+        "algorithm": "crc16modbus"
+      }
+    },
+    {
+      "caseId": "checksum_compute-130",
+      "tool": "checksum_compute",
+      "args": {
+        "text": "123456789",
+        "algorithm": "crc16xmodem"
+      }
+    },
+    {
+      "caseId": "checksum_compute-131",
+      "tool": "checksum_compute",
+      "args": {
+        "text": "123456789",
+        "algorithm": "crc16kermit"
+      }
+    },
+    {
+      "caseId": "checksum_compute-132",
+      "tool": "checksum_compute",
+      "args": {
+        "text": "123456789",
+        "algorithm": "crc24"
+      }
+    },
+    {
+      "caseId": "checksum_compute-133",
+      "tool": "checksum_compute",
+      "args": {
+        "text": "123456789",
+        "algorithm": "crc32"
+      }
+    },
+    {
+      "caseId": "checksum_compute-134",
+      "tool": "checksum_compute",
+      "args": {
+        "text": "123456789",
+        "algorithm": "crc32mpeg2"
+      }
+    },
+    {
+      "caseId": "checksum_compute-135",
+      "tool": "checksum_compute",
+      "args": {
+        "text": "123456789",
+        "algorithm": "crcjam"
+      }
+    },
+    {
+      "caseId": "pinyin_convert-136",
+      "tool": "pinyin_convert",
+      "args": {
+        "text": "你好",
+        "options": {
+          "tone": "num",
+          "pattern": "first"
+        }
+      }
+    },
+    {
+      "caseId": "zh_number_convert-137",
+      "tool": "zh_number_convert",
+      "args": {
+        "text": "一百",
+        "from": "lower",
+        "to": "number"
+      },
+      "expectedText": "100"
+    },
+    {
+      "caseId": "zh_number_convert-138",
+      "tool": "zh_number_convert",
+      "args": {
+        "text": "100",
+        "from": "number",
+        "to": "money"
+      }
+    },
+    {
+      "caseId": "permission_convert-139",
+      "tool": "permission_convert",
+      "args": {
+        "value": "rwxr-xr-x"
+      }
+    },
+    {
+      "caseId": "permission_convert-140",
+      "tool": "permission_convert",
+      "args": {
+        "matrix": [
+          [
+            true,
+            true,
+            true
+          ],
+          [
+            true,
+            false,
+            true
+          ],
+          [
+            true,
+            false,
+            true
+          ]
+        ]
+      }
+    },
+    {
+      "caseId": "color_convert-141",
+      "tool": "color_convert",
+      "args": {
+        "text": "rgb(255, 0, 0)",
+        "from": "rgb",
+        "to": "hex"
+      }
+    },
+    {
+      "caseId": "asn1_parse-142",
+      "tool": "asn1_parse",
+      "args": {
+        "text": "AgEq",
+        "encoding": "base64"
+      }
+    },
+    {
+      "caseId": "password_generate-143",
+      "tool": "password_generate",
+      "args": {
+        "length": 8,
+        "amount": 1,
+        "symbols": false
+      }
+    }
+  ],
+  "integrationSuites": {
+    "contract.test.mjs": "旧14合同、ARM/JDoodle错误与协议认证",
+    "extended.test.mjs": "核心转换、加密往返、精度与图像",
+    "files.test.mjs": "文件生命周期和8MiB边界",
+    "runtime.test.mjs": "真实CPU取消与健康恢复",
+    "connections.test.mjs": "网络适配与WebSocket文本/文件字节",
+    "models.test.mjs": "13模型操作、断线不重放与取消"
+  },
+  "coverage": [
+    {
+      "category": "hash",
+      "entrypoints": [
+        "hash"
+      ],
+      "tools": [
+        "hash_compute"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "aes",
+      "entrypoints": [
+        "encrypt",
+        "decrypt"
+      ],
+      "tools": [
+        "aes_crypt"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "des",
+      "entrypoints": [
+        "encrypt",
+        "decrypt"
+      ],
+      "tools": [
+        "des_crypt"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "tripleDes",
+      "entrypoints": [
+        "encrypt",
+        "decrypt"
+      ],
+      "tools": [
+        "triple_des_crypt"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "rc4",
+      "entrypoints": [
+        "encrypt",
+        "decrypt"
+      ],
+      "tools": [
+        "rc4_crypt"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "rabbit",
+      "entrypoints": [
+        "encrypt",
+        "decrypt"
+      ],
+      "tools": [
+        "rabbit_crypt"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "sm2",
+      "entrypoints": [
+        "encrypt",
+        "decrypt",
+        "sign",
+        "verify"
+      ],
+      "tools": [
+        "sm2_crypt",
+        "sm2_sign",
+        "sm2_verify"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "sm4",
+      "entrypoints": [
+        "encrypt",
+        "decrypt"
+      ],
+      "tools": [
+        "sm4_crypt"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "rsa",
+      "entrypoints": [
+        "encrypt",
+        "decrypt"
+      ],
+      "tools": [
+        "rsa_crypt"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "sign",
+      "entrypoints": [
+        "sign"
+      ],
+      "tools": [
+        "signature_sign",
+        "signature_verify",
+        "key_pair_generate"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "base64",
+      "entrypoints": [
+        "encoder",
+        "decoder"
+      ],
+      "tools": [
+        "base64_transform"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "base32",
+      "entrypoints": [
+        "encoder",
+        "decoder"
+      ],
+      "tools": [
+        "base32_transform"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "msgpack",
+      "entrypoints": [
+        "encoder",
+        "decoder"
+      ],
+      "tools": [
+        "msgpack_transform"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "json",
+      "entrypoints": [
+        "json"
+      ],
+      "tools": [
+        "json_operate",
+        "json_query",
+        "json_schema_validate",
+        "json_transform",
+        "json_to_type"
+      ],
+      "caseIds": [
+        "json_query-049",
+        "json_operate-050",
+        "json_operate-051",
+        "json_operate-052",
+        "json_operate-053",
+        "json_operate-054",
+        "json_operate-055",
+        "json_operate-056",
+        "json_operate-057",
+        "json_operate-058",
+        "json_operate-059"
+      ]
+    },
+    {
+      "category": "url",
+      "entrypoints": [
+        "encoder",
+        "decoder"
+      ],
+      "tools": [
+        "url_transform"
+      ],
+      "caseIds": [
+        "url_transform-116",
+        "url_transform-117",
+        "url_transform-118"
+      ]
+    },
+    {
+      "category": "qrCode",
+      "entrypoints": [
+        "generate",
+        "parse"
+      ],
+      "tools": [
+        "qrcode_generate",
+        "qrcode_read"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "barcode",
+      "entrypoints": [
+        "barcode"
+      ],
+      "tools": [
+        "barcode_generate"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "pinyin",
+      "entrypoints": [
+        "pinyin"
+      ],
+      "tools": [
+        "pinyin_convert"
+      ],
+      "caseIds": [
+        "pinyin_convert-136"
+      ]
+    },
+    {
+      "category": "ip",
+      "entrypoints": [
+        "ip"
+      ],
+      "tools": [
+        "ip_query"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "code",
+      "entrypoints": [
+        "code",
+        "run"
+      ],
+      "tools": [
+        "code_transform",
+        "code_run",
+        "code_credits"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "unicode",
+      "entrypoints": [
+        "encoder",
+        "decoder"
+      ],
+      "tools": [
+        "unicode_transform"
+      ],
+      "caseIds": [
+        "unicode_transform-109",
+        "unicode_transform-110",
+        "unicode_transform-111",
+        "unicode_transform-112",
+        "unicode_transform-113",
+        "unicode_transform-114",
+        "unicode_transform-115"
+      ]
+    },
+    {
+      "category": "radix",
+      "entrypoints": [
+        "radix"
+      ],
+      "tools": [
+        "radix_transform"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "regex",
+      "entrypoints": [
+        "regex"
+      ],
+      "tools": [
+        "regex_execute"
+      ],
+      "caseIds": [
+        "regex_execute-029",
+        "regex_execute-030",
+        "regex_execute-031"
+      ]
+    },
+    {
+      "category": "randomString",
+      "entrypoints": [
+        "randomString"
+      ],
+      "tools": [
+        "random_generate"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "serialize",
+      "entrypoints": [
+        "serialize"
+      ],
+      "tools": [
+        "serialize_transform"
+      ],
+      "caseIds": [
+        "serialize_transform-060",
+        "serialize_transform-061",
+        "serialize_transform-062",
+        "serialize_transform-063",
+        "serialize_transform-064",
+        "serialize_transform-065",
+        "serialize_transform-066",
+        "serialize_transform-067",
+        "serialize_transform-068",
+        "serialize_transform-069",
+        "serialize_transform-070",
+        "serialize_transform-071",
+        "serialize_transform-072",
+        "serialize_transform-073",
+        "serialize_transform-074",
+        "serialize_transform-075",
+        "serialize_transform-076",
+        "serialize_transform-077",
+        "serialize_transform-078",
+        "serialize_transform-079",
+        "serialize_transform-080",
+        "serialize_transform-081"
+      ]
+    },
+    {
+      "category": "diffs",
+      "entrypoints": [
+        "diffs"
+      ],
+      "tools": [
+        "diff_compute"
+      ],
+      "caseIds": [
+        "diff_compute-104",
+        "diff_compute-105",
+        "diff_compute-106",
+        "diff_compute-107",
+        "diff_compute-108"
+      ]
+    },
+    {
+      "category": "crontab",
+      "entrypoints": [
+        "crontab"
+      ],
+      "tools": [
+        "cron_inspect"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "websocket",
+      "entrypoints": [
+        "websocket"
+      ],
+      "tools": [
+        "websocket_open",
+        "websocket_send",
+        "websocket_receive",
+        "websocket_status",
+        "websocket_close"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "unit",
+      "entrypoints": [
+        "unit"
+      ],
+      "tools": [
+        "unit_convert"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "time",
+      "entrypoints": [
+        "timestamp",
+        "timezone",
+        "calculator"
+      ],
+      "tools": [
+        "time_operate"
+      ],
+      "caseIds": [
+        "time_operate-035",
+        "time_operate-036",
+        "time_operate-037",
+        "time_operate-038",
+        "time_operate-039"
+      ]
+    },
+    {
+      "category": "uuid",
+      "entrypoints": [
+        "uuid"
+      ],
+      "tools": [
+        "uuid_operate"
+      ],
+      "caseIds": [
+        "uuid_operate-045",
+        "uuid_operate-046",
+        "uuid_operate-047"
+      ]
+    },
+    {
+      "category": "ascii",
+      "entrypoints": [
+        "ascii"
+      ],
+      "tools": [
+        "ascii_lookup"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "variableConversion",
+      "entrypoints": [
+        "variableConversion"
+      ],
+      "tools": [
+        "name_convert"
+      ],
+      "caseIds": [
+        "name_convert-022",
+        "name_convert-023",
+        "name_convert-024",
+        "name_convert-025",
+        "name_convert-026",
+        "name_convert-027",
+        "name_convert-028"
+      ]
+    },
+    {
+      "category": "jwt",
+      "entrypoints": [
+        "decoder",
+        "encoder"
+      ],
+      "tools": [
+        "jwt_decode",
+        "jwt_sign"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "hexString",
+      "entrypoints": [
+        "stringToHex",
+        "hexToString"
+      ],
+      "tools": [
+        "hex_transform"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "text",
+      "entrypoints": [
+        "text"
+      ],
+      "tools": [
+        "text_operate"
+      ],
+      "caseIds": [
+        "text_operate-001",
+        "text_operate-002",
+        "text_operate-003",
+        "text_operate-004",
+        "text_operate-005",
+        "text_operate-006",
+        "text_operate-007",
+        "text_operate-008",
+        "text_operate-009",
+        "text_operate-010",
+        "text_operate-011",
+        "text_operate-012",
+        "text_operate-013",
+        "text_operate-014",
+        "text_operate-015",
+        "text_operate-016",
+        "text_operate-017",
+        "text_operate-018",
+        "text_operate-019",
+        "text_operate-020",
+        "text_operate-021"
+      ]
+    },
+    {
+      "category": "html",
+      "entrypoints": [
+        "html"
+      ],
+      "tools": [
+        "html_entities"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "binary",
+      "entrypoints": [
+        "binary"
+      ],
+      "tools": [
+        "binary_convert"
+      ],
+      "caseIds": [
+        "binary_convert-032",
+        "binary_convert-033",
+        "binary_convert-034"
+      ]
+    },
+    {
+      "category": "arm",
+      "entrypoints": [
+        "armToHex",
+        "hexToArm"
+      ],
+      "tools": [
+        "arm_convert"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "bcrypt",
+      "entrypoints": [
+        "bcrypt"
+      ],
+      "tools": [
+        "bcrypt_hash",
+        "bcrypt_verify"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "ipcalc",
+      "entrypoints": [
+        "ipv4",
+        "ipv6"
+      ],
+      "tools": [
+        "ip_calculate"
+      ],
+      "caseIds": [
+        "ip_calculate-040",
+        "ip_calculate-041",
+        "ip_calculate-042",
+        "ip_calculate-043",
+        "ip_calculate-044"
+      ]
+    },
+    {
+      "category": "sqlFillParameter",
+      "entrypoints": [
+        "sqlFillParameter"
+      ],
+      "tools": [
+        "sql_fill"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "httpSnippet",
+      "entrypoints": [
+        "httpSnippet"
+      ],
+      "tools": [
+        "http_code_convert"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "dataValidation",
+      "entrypoints": [
+        "bcc",
+        "crc",
+        "lrc"
+      ],
+      "tools": [
+        "checksum_compute"
+      ],
+      "caseIds": [
+        "checksum_compute-121",
+        "checksum_compute-122",
+        "checksum_compute-123",
+        "checksum_compute-124",
+        "checksum_compute-125",
+        "checksum_compute-126",
+        "checksum_compute-127",
+        "checksum_compute-128",
+        "checksum_compute-129",
+        "checksum_compute-130",
+        "checksum_compute-131",
+        "checksum_compute-132",
+        "checksum_compute-133",
+        "checksum_compute-134",
+        "checksum_compute-135"
+      ]
+    },
+    {
+      "category": "color",
+      "entrypoints": [
+        "color"
+      ],
+      "tools": [
+        "color_convert"
+      ],
+      "caseIds": [
+        "color_convert-141"
+      ]
+    },
+    {
+      "category": "hmac",
+      "entrypoints": [
+        "hmac"
+      ],
+      "tools": [
+        "hmac_compute"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "gzip",
+      "entrypoints": [
+        "encoder",
+        "decoder"
+      ],
+      "tools": [
+        "gzip_transform"
+      ],
+      "caseIds": [
+        "gzip_transform-119",
+        "gzip_transform-120"
+      ]
+    },
+    {
+      "category": "punycode",
+      "entrypoints": [
+        "encoder",
+        "decoder"
+      ],
+      "tools": [
+        "punycode_transform"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "urlParse",
+      "entrypoints": [
+        "urlParse"
+      ],
+      "tools": [
+        "url_parse"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "asn1",
+      "entrypoints": [
+        "asn1"
+      ],
+      "tools": [
+        "asn1_parse"
+      ],
+      "caseIds": [
+        "asn1_parse-142"
+      ]
+    },
+    {
+      "category": "dockerCompose",
+      "entrypoints": [
+        "dockerCompose"
+      ],
+      "tools": [
+        "docker_compose_convert"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "zhNumber",
+      "entrypoints": [
+        "zhNumber"
+      ],
+      "tools": [
+        "zh_number_convert"
+      ],
+      "caseIds": [
+        "zh_number_convert-137",
+        "zh_number_convert-138"
+      ]
+    },
+    {
+      "category": "base58",
+      "entrypoints": [
+        "encoder",
+        "decoder"
+      ],
+      "tools": [
+        "base58_transform"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "mongoObjectId",
+      "entrypoints": [
+        "mongoObjectId"
+      ],
+      "tools": [
+        "objectid_operate"
+      ],
+      "caseIds": [
+        "objectid_operate-048"
+      ]
+    },
+    {
+      "category": "numberCalc",
+      "entrypoints": [
+        "numberCalc"
+      ],
+      "tools": [
+        "number_statistics"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "chmod",
+      "entrypoints": [
+        "chmod"
+      ],
+      "tools": [
+        "permission_convert"
+      ],
+      "caseIds": [
+        "permission_convert-139",
+        "permission_convert-140"
+      ]
+    },
+    {
+      "category": "password",
+      "entrypoints": [
+        "password"
+      ],
+      "tools": [
+        "password_generate"
+      ],
+      "caseIds": [
+        "password_generate-143"
+      ]
+    },
+    {
+      "category": "userAgent",
+      "entrypoints": [
+        "userAgent"
+      ],
+      "tools": [
+        "ua_parse"
+      ],
+      "caseIds": []
+    },
+    {
+      "category": "configConvert",
+      "entrypoints": [
+        "configConvert"
+      ],
+      "tools": [
+        "config_transform"
+      ],
+      "caseIds": [
+        "config_transform-082",
+        "config_transform-083",
+        "config_transform-084",
+        "config_transform-085",
+        "config_transform-086",
+        "config_transform-087",
+        "config_transform-088",
+        "config_transform-089",
+        "config_transform-090",
+        "config_transform-091",
+        "config_transform-092",
+        "config_transform-093",
+        "config_transform-094",
+        "config_transform-095",
+        "config_transform-096",
+        "config_transform-097",
+        "config_transform-098",
+        "config_transform-099",
+        "config_transform-100",
+        "config_transform-101",
+        "config_transform-102",
+        "config_transform-103"
+      ]
+    },
+    {
+      "category": "stacktrace",
+      "entrypoints": [
+        "stacktrace"
+      ],
+      "tools": [
+        "stacktrace_parse"
+      ],
+      "caseIds": []
+    }
+  ]
+}

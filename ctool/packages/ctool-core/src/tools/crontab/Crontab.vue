@@ -45,6 +45,7 @@
 </template>
 
 <script lang="ts" setup>
+import {aiPrompts} from "ctool-tools/domains/aiPrompts";
 import {useHostAi} from "@/helper/cookieos/ai";
 import {initialize, useAction} from "@/store/action";
 import cronstrue from 'cronstrue/i18n';
@@ -104,7 +105,7 @@ const aiGenerateCron = async () => {
         const result = await chat([
             {
                 role: "system",
-                content: "你是一个 Cron 表达式专家。根据用户的自然语言描述，生成对应的标准 Cron 表达式（5 段格式：分 时 日 月 周）。\n\n规则：\n1. 只输出 Cron 表达式，不要输出任何解释或 Markdown 标记\n2. 使用标准 5 段 Cron 格式（分钟 小时 日 月 星期）\n3. 星期使用 0-7（0 和 7 都代表周日）",
+                content: aiPrompts.cron_generate,
             },
             { role: "user", content: aiPromptText.trim() },
         ], config)

@@ -26,6 +26,7 @@
 </template>
 
 <script lang="ts" setup>
+import {aiPrompts} from "ctool-tools/domains/aiPrompts";
 import {useHostAi} from "@/helper/cookieos/ai";
 import {initialize, useAction} from "@/store/action";
 import {watch} from "vue";
@@ -98,7 +99,7 @@ const aiExplainUrl = async () => {
         const result = await chat([
             {
                 role: "system",
-                content: "你是一个 URL 分析助手。请用简洁中文解释这个 URL 的作用，尽量覆盖域名、路径、关键查询参数、hash，以及可能暴露的业务含义或敏感信息。",
+                content: aiPrompts.url_explain,
             },
             {
                 role: "user",

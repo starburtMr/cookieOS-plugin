@@ -24,7 +24,7 @@
 import {useAction, initialize} from "@/store/action"
 import {createTextInput, createTextOutput} from "@/components/text"
 import Text from "@/helper/text"
-import jsrsasign from "jsrsasign";
+import {rsaBrowserDecrypt} from "ctool-tools/domains/rsaBrowser";
 import {watch} from "vue";
 
 const algNames = [
@@ -47,10 +47,8 @@ const output = $computed(() => {
         return action.current.input.text
     }
     try {
-        return Text.fromString(jsrsasign.KJUR.crypto.Cipher.decrypt(
-            action.current.input.text.toHexString(),
-            jsrsasign.KEYUTIL.getKey(action.current.key.trim()) as jsrsasign.RSAKey,
-            action.current.algName
+        return Text.fromString(rsaBrowserDecrypt(
+            action.current.input.text.toUint8Array(),action.current.key,action.current.algName
         ))
     } catch (e) {
         return Text.fromError($error(e))

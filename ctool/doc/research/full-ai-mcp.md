@@ -59,3 +59,24 @@ Node配置导出的dist/esm直接读取在本轮出现lodash CommonJS命名导�
 G0：完整操作清单与14旧合同冻结；G1：文件/Schema/取消真实MCP竖向路径；G2：完整QR样式/Logo和native依赖离线可运行；G3：SDK模型生命周期与缺默认错误；G4：全量业务/隔离宿主/更新回退。候选或Gate失败只阻塞依赖它的任务，不自动删功能，不把失败转成兼容承诺。
 
 不能保证零bug。用独立向量、真实链路、边界与失败注入、原接口回归和最终ZIP验收降低实际风险；没有执行的检查明确保持待验。
+
+
+## 实施选型补充（2026-10-31）
+
+- QR采用官方qr-code-styling 1.9.2，两端同一渲染选项；显式UTF-8字节字符串与Byte模式，经jsQR回读后才交付。Logo先转为本地PNG数据；不让Worker直接请求远端Logo。jsdom30.1.3/canvas3.2.3/sharp0.35.4使用锁定运行依赖，开发机准备，不在安装时运行钩子。
+- 新增BMP/ICO补缺采用icojs1.0.1与bmp-ts1.0.9（均MIT），来源为npm版本元数据及各自README/类型。只自写帧数/尺寸预算适配，不自研解码器；原PNG/JPEG/WebP/GIF使用sharp。
+- 实际安装的jsrsasign11.1.5 README明确自11.0.0移除RSA/RSAPAD/OAEP加解密。Node使用标准crypto；浏览器缺少PKCS1 Web Crypto能力，改用node-forge1.4.2（BSD-3-Clause OR GPL-2.0，选择BSD分支）。依据为digitalbazaar/forge官方README与锁定版本元数据；验证浏览器/Node交叉往返，密钥不因兼容适配传给服务。
+- SQL参数替换使用现有sql-formatter公开params/paramTypes接口，保留原MyBatis参数解析，避免在引号和注释中替换问号；生成结果会格式化，不执行SQL。已读取所装版本README及Tokenizer/Params实现。Context7查询因月度额度耗尽失败，后续依据为实际版本源码与官方资料，不以训练记忆补充API。
+- SDK客户端直接复制本地1.2.0的http.mjs/models.mjs/eventsource-parser3.1.1，保留MIT文本；不另写SSE或模型重试协议。
+- 服务共享包生成类型声明，保留原前端strict=true/noImplicitAny=false配置；服务自身strict=true，不用放宽整个服务类型规则绕过迁移错误。
+
+- 回归复现when-json-met-bigint0.27.0的Cache使用普通对象，使`__proto__`键在stringify时变成undefined并生成无效JSON。用pnpm正式补丁把Cache三处字典改成null-prototype；保留原解析、大整数和序列化算法。Properties树同样用null-prototype，页面和服务共享回归。
+- 部分圆点样式+Logo的二维码不能被jsQR识别。服务保留回读校验并明确失败，不声称任意样式组合都可扫码，不自动改变用户选项。
+
+## 提交前安全补强
+
+运行依赖npm audit发现sharp0.35.4命中GHSA-wq5f-xc86-pv6w（CVE-2026-96889，librsvg use-after-free），修复范围>=0.35.5。按npm版本元数据及GitHub官方advisory核实后，将开发和独立运行锁一同固定到0.35.5；不默认升级其他库。原生组件清单改为组装时从最终文件生成，避免依赖更新后保留旧摘要/版本。
+
+JSON Schema回归复现$async:true使Ajv返回Promise并被误认为有效结果；本工具仅同步校验，在编译前拒绝异步Schema。回归先红后绿；未重写Ajv或新建Schema校验器。
+
+- 安全更新后首次全量并行服务测试中，条码命中10秒截止；同输入独立冷启动275ms、后续15ms，隔离重跑通过。服务合同测试改为按文件串行，避免多个独立实例的CPU/超时压力测试互相干扰；同实例的并发、队列、取消与真实10秒超时仍由runtime.test专门验证。不提高产品执行上限。

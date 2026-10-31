@@ -57,6 +57,7 @@
 </template>
 
 <script lang="ts" setup>
+import {permissionFormat} from "ctool-tools/domains/permission";
 import { watch } from "vue";
 import { initialize, useAction } from "@/store/action";
 
@@ -73,30 +74,8 @@ const matrix = $ref(action.current.matrix);
 const special = $ref(action.current.special);
 
 // 八进制
-const octalStr = $computed(() => {
-    const sp = (special[0] ? 4 : 0) + (special[1] ? 2 : 0) + (special[2] ? 1 : 0);
-    const o = (matrix[0][0] ? 4 : 0) + (matrix[0][1] ? 2 : 0) + (matrix[0][2] ? 1 : 0);
-    const g = (matrix[1][0] ? 4 : 0) + (matrix[1][1] ? 2 : 0) + (matrix[1][2] ? 1 : 0);
-    const t = (matrix[2][0] ? 4 : 0) + (matrix[2][1] ? 2 : 0) + (matrix[2][2] ? 1 : 0);
-    return sp > 0 ? `${sp}${o}${g}${t}` : `${o}${g}${t}`;
-});
-
-// 符号表示
-const symbolic = $computed(() => {
-    const s = (r: boolean, w: boolean, x: boolean, sc: string, i: number) => {
-        let str = r ? "r" : "-";
-        str += w ? "w" : "-";
-        if (special[i]) {
-            str += x ? sc.toLowerCase() : sc.toUpperCase();
-        } else {
-            str += x ? "x" : "-";
-        }
-        return str;
-    };
-    return s(matrix[0][0], matrix[0][1], matrix[0][2], "s", 0)
-         + s(matrix[1][0], matrix[1][1], matrix[1][2], "s", 1)
-         + s(matrix[2][0], matrix[2][1], matrix[2][2], "t", 2);
-});
+const octalStr = $computed(() => permissionFormat(matrix,special).octal);
+const symbolic = $computed(() => permissionFormat(matrix,special).symbolic);
 
 // 命令示例
 const command = $computed(() => `chmod ${octalStr} path`);

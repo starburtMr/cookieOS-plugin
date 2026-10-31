@@ -1,6 +1,6 @@
 # FULL-11：完整覆盖与回归门禁
 
-状态：未开始；本文件是任务合同，实际进度只在 [Progress](../../../Progress.md) 记录。
+状态：实现与验收记录见文末；实际进度只在 [Progress](../../../Progress.md) 记录。
 
 ## 目标与输入
 
@@ -29,3 +29,9 @@ tests/contract.test.mjs、package.test.mjs、tests/browser/；各业务邻近单
 - 声明数、实际可发现数和能力说明一致；超过宿主单页100时测试nextCursor。
 - 测试接入现有 `pnpm test`、`pnpm test:contract`、`pnpm test:package`、`pnpm test:e2e` 对应入口，单模块先跑适用子集；命令与完整集成顺序见任务入口。不为无关代码造新检查器。
 - 记录样例、命令、退出状态、实际产物与未验证项；失败修复后重跑受影响检查，再做顺序两阶段审查。不以文字勾选替代证据。
+
+## 本轮落点与验收记录
+
+- 实际落点：tests/fixtures/capability-cases.json、capabilities.test.mjs、contract/package/browser tests。
+- 已执行：143可执行用例，60类/88路由/100工具映射；355单元+229服务+8包+26浏览器，非穷尽组合测试。
+- 统一命令和当前产物证据：[验证记录](../../verification/full-ai-mcp/README.md)、[检查收据](../../verification/full-ai-mcp/checks.json)。隔离宿主与真实外部供应商分开记录；限制不以完成标记掩盖。

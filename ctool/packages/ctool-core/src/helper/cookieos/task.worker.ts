@@ -2,7 +2,7 @@ import {Base64} from "js-base64";
 import bcrypt from "bcryptjs";
 import jsQR from "jsqr";
 import Ajv from "ajv";
-import pako from "pako";
+import {compressionBytes} from "ctool-tools/domains/encoding";
 import {newVariant, newQuickJSWASMModuleFromVariant} from "quickjs-emscripten-core";
 import RELEASE_SYNC from "@jitl/quickjs-wasmfile-release-sync";
 import wasmLocation from "@jitl/quickjs-wasmfile-release-sync/wasm?url";
@@ -44,14 +44,7 @@ self.onmessage = async ({data: {kind, args}}) => {
         } else if (kind === "inflate" || kind === "gzip") {
             const input = Base64.toUint8Array(args.base64);
             if (input.length > 8 * 1024 * 1024) throw new Error("文件超过 8 MiB，请减少内容");
-            const stream = kind === "inflate" ? new pako.Inflate({chunkSize: 65536}) : new pako.Deflate({gzip: !args.deflate, chunkSize: 65536});
-            const chunks: Uint8Array[] = []; let size = 0;
-            stream.onData = data => { const chunk = data as Uint8Array; size += chunk.length; if (size > 8 * 1024 * 1024) throw new Error("结果超过 8 MiB，请减少内容"); chunks.push(chunk as Uint8Array); };
-            stream.push(input, true);
-            if (stream.err) throw new Error("压缩数据格式不正确");
-            const merged = new Uint8Array(size); let offset = 0;
-            for (const chunk of chunks) { merged.set(chunk, offset); offset += chunk.length; }
-            value = merged;
+            value = compressionBytes(input,kind === "inflate",args.deflate);
         } else if (kind === "bcrypt_hash" || kind === "bcrypt_compare") {
             if (typeof args.input !== "string" || args.input.length > 8192) throw new Error("密码内容过长，请减少输入");
             if (kind === "bcrypt_hash") {

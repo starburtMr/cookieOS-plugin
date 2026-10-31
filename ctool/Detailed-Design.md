@@ -1,10 +1,10 @@
 # Ctool 完整 AI/MCP 详细设计
 
-本文件为2026-10-31新范围的待实现合同；不描述已完成能力。现有0.2.0的14个AI/MCP工具保留，目标版本0.3.0。上游业务范围以[覆盖矩阵](doc/tasks/full-ai-mcp/capability-matrix.md)为准，阶段见DEV-PLAN，步骤与验收仅在模块任务中。
+本文件定义0.3.0完整工具化合同；实际完成与测试结果见Progress和模块验收记录。原0.2.0的14个公开AI/MCP工具保留。上游业务范围以[覆盖矩阵](doc/tasks/full-ai-mcp/capability-matrix.md)为准，阶段见DEV-PLAN，步骤与验收仅在模块任务中。
 
 ## DD-FULL-01 边界与接口兼容
 
-- 运行ID维持io.cookieos.ctool、manifest/metadata schemaVersion=1、SDK1.2.0/hostApi ^1.0.0；运行版本在实际完成后递增，本次规划不改manifest。
+- 运行ID维持io.cookieos.ctool、manifest/metadata schemaVersion=1、SDK1.2.0/hostApi ^1.0.0；运行版本为0.3.0；仅在本地交付，不自动发布。
 - 目前60类/88登记入口不等于原子操作数；FULL-00必须把各页面的算法、按钮操作、选项、输入输出模式枚举成caseId。13个模块、100个去重工具名称候选并不代替operation覆盖。
 - 保留原14个名称、参数类型/枚举/错误与结果合同。扩展能力主要用新工具；旧接口调用同一业务函数，不复制旧实现和新实现。已有ARM/JDoodle三个工具保持参数和结果，仅按本轮范围开启ai/mcp并维持真实effect。
 - 新Schema统一显式声明Draft7以匹配现有Ajv8实例，嵌套用Draft7语法；宿主严格编译每份输入/输出Schema。不得混用2020-12的元组语法，也不得为通过检查吞掉unknown字段。
@@ -15,16 +15,16 @@
 
 file_begin中的mime是调用方提示，消费端必须核实实际格式；未知字节默认application/octet-stream，不据扩展名或声明直接内联渲染。
 
-普通输入保留现有text/string/JSON模式；二进制新增互斥输入形态：inlineBase64或fileRef（二选一）。from/to encoding按原工具实际支持枚举定义，不能把任意字符串作为编码。原14接口不接收新字段。
+普通输入保留现有text/string/JSON模式；二进制新增互斥输入形态：text或fileRef（二选一；编码文本由对应工具解释）。from/to encoding按原工具实际支持枚举定义，不能把任意字符串作为编码。原14接口不接收新字段。
 
 建议新增文件工具合同，由FULL-00冻结字段和Schema：
 
 | 工具 | 输入关键字段 | 输出/行为 | effect |
 |---|---|---|---|
-| file_begin | size:0..8388608、mime、sha256:64hex | fileRef、chunkBytes=49152、expiresAt；预留配额 | write |
-| file_chunk | fileRef、offset:非负整数、data:标准Base64 | nextOffset；同offset同内容可确认重试，冲突拒绝 | write |
+| file_begin | size:0..8388608、mime、sha256:64hex | fileRef、size、mime、sha256、expiresAt；预留配额 | write |
+| file_chunk | fileRef、offset:非负整数、dataBase64:标准Base64 | nextOffset；同offset同内容可确认重试，冲突拒绝 | write |
 | file_commit | fileRef | size/mime/sha256；仅完整且摘要一致可用 | write |
-| file_status | fileRef | uploading/ready/expired及nextOffset，绝不列出其他引用 | read |
+| file_status | fileRef | uploading/ready及nextOffset；过期返回resource_expired，绝不列出其他引用 | read |
 | file_read | fileRef、offset、length<=49152 | dataBase64、offset、nextOffset、eof、size/sha256 | read |
 | file_delete | fileRef | deleted；重复删除同引用保持可解释结果，不误删新对象 | write |
 | input_fetch | url:http/https、可选认证secretRef | 已提交fileRef/mime/size/sha256；15秒/8MiB | write |
@@ -43,7 +43,7 @@ file_begin中的mime是调用方提示，消费端必须核实实际格式；未
 
 当前取消接口始终accepted=false，扩展长任务前必须补齐：在接收合法callId时登记AbortController，SDK取消和连接中断触发同一取消信号；完成/失败时移除；取消与完成竞态只落一次终态。server.requestTimeout限制读请求，不当作业务计算截止；每个业务有独立总截止，包含排队。宿主timeoutSeconds实际允许1..300秒，模型SDK单次最多120秒。
 
-重任务使用现有Worker思路：浏览器Web Worker、Node固定Worker/子进程，两端共用纯操作；不是让Worker执行调用方提供的模块路径。同步死循环靠终止，不能只用Promise.race。Node resourceLimits不限制ArrayBuffer/原生库内存，不能称为RSS硬隔离。图像/解压/表达式均有输入、像素、输出与执行时间预算；原生工作必要时固定Node子进程，父进程结束后不得孤儿运行。初始并发2/队列16，超载返回有界错误，调参须有真实测量。
+重任务使用现有Worker思路：浏览器Web Worker、Node固定Worker/子进程，两端共用纯操作；不是让Worker执行调用方提供的模块路径。同步死循环靠终止，不能只用Promise.race。Node resourceLimits不限制ArrayBuffer/原生库内存，不能称为RSS硬隔离。图像/解压/表达式均有输入、像素、输出与执行时间预算；Node计算统一使用固定子进程；原生工作也在这些进程中，父进程结束后不得孤儿运行。初始并发2/队列16，超载返回有界错误，调参须有真实测量。
 
 临时文件、socket与模型句柄均与服务实例/版本绑定；服务停用/更新后原句柄明确expired/unknown，不迁移活动连接，不自动继续执行。现有ctool.pref.*配置键和JDoodle秘密字段不变；临时资源不作为用户永久数据迁移。
 
@@ -69,26 +69,26 @@ service/workers/* → 固定可信执行入口
 - Node密码工具只接收keyRef，从XHUB_SECRET_CONFIG的可选keys映射读取；保留jdoodleClientId/jdoodleClientSecret根字段。别名只做对象自有键查询，不解释路径，不返回完整秘密配置。
 - 浏览器已有直接输入密钥继续本地计算，不因共享算法自动上传；外部调用的明文/解密结果本来就可能进入调用方上下文，不能宣传为不上传。
 - 密钥对生成保留原功能，公开部分可返回，私钥以临时文件引用交付，不在普通日志/KV或常规摘要中展示。秘密配置的导入/更新仍由宿主既有入口完成，不建新密钥库或自动写回宿主配置。
-- effect是实际副作用说明，不是授权或确认机制。纯签名/加解密按实际read处理，密钥导出dangerous；文件暂存/抓取write；WebSocket发送write；代码运行dangerous；ai_assist触发外部模型生成按write、查询read、取消write声明。完整工具可以被宿主选择，但不得声称宿主仅凭effect就会替所有MCP调用弹确认框。
+- effect是实际副作用说明，不是授权或确认机制。纯签名/加解密按实际read处理，密钥导出dangerous；文件暂存/抓取write；WebSocket发送dangerous；代码运行dangerous；ai_assist触发外部模型生成按write、查询read、取消write声明。完整工具可以被宿主选择，但不得声称宿主仅凭effect就会替所有MCP调用弹确认框。
 - 旧弱密码算法只为兼容，已知向量必须通过；不自行“修正”填充/编码导致旧密文不能解。JWT解码不代表验签，SQL/Compose/chmod转换不执行系统操作。
 
 ## DD-FULL-06 网络、会话与写结果
 
 管理服务器后端与浏览器有不同网络位置。IP/server-current只指服务器出口；浏览器current保持原义。WebSocket默认只在调用方给出URL后创建，不扫描网络或自动重放。可信自用允许明确的内网目标，不添加未经要求的全局外网限制；http/https/ws/wss/TLS及秘密引用按实际能力验证，禁止URL内嵌凭据、file协议和跨origin重定向泄漏认证。
 
-WebSocket由ws8.21.0执行，关闭perMessageDeflate，maxPayload=256KiB，握手10秒；接收队列2MiB，发送bufferedAmount最多1MiB，最多8会话、空闲5分钟。receive按递增message sequence/cursor读取，返回是否丢失/关闭，不让外部AI永远阻塞在接收。二进制消息使用文件输出。close后有界等待再terminate。
+WebSocket由ws8.21.0执行，关闭perMessageDeflate，maxPayload=256KiB，握手10秒；接收队列最多64条/2MiB，发送bufferedAmount最多1MiB，最多8会话、空闲5分钟。receive按递增sequence/cursor读取，cursor确认并释放旧消息；同cursor可重复读取尚保留消息，返回nextCursor/earliestCursor/gap/丢失与关闭状态，不让外部AI永远阻塞在接收。二进制消息使用文件输出。主动close后最多250ms再terminate；溢出明确关闭并保留可读队列与dropped状态。
 
-send要求调用方提供稳定messageId；实例内缓存已发送ID与内容摘要，重复同ID同内容返回已知状态，冲突拒绝。callback成功只说明交给socket，不代表对端业务成功；断线后查询原ID可返回unknown，服务重启后不自动发送“未找到”的消息。
+send要求调用方提供稳定messageId；每会话最多128条发送ID与内容摘要记录；达到上限时明确拒绝新增消息号，重复同ID同内容返回已知状态，冲突拒绝。callback成功只说明交给socket，不代表对端业务成功；断线后websocket_status可查询messageId的pending/sent/unknown状态，服务重启后不自动发送“未找到”的消息。
 
 ARM保留逐架构成功/失败；JDoodle保留既有语言/versionIndex/script/stdin，秘密仍只在后端。HTTP成功、平台接收成功、编译/运行成功和用户程序业务正确分开。执行/发送可能已发生时的超时、断线、上游5xx或结果结构损坏都不自动重试。JDoodle未提供已核定幂等查询合同，不编造补偿或“查询后续跑”。真实JDoodle执行需已有费用测试授权；模拟与真实记录分开。
 
 ## DD-FULL-07 模型辅助
 
-现有12类提示词复用为ai_assist(operation,业务输入,modelSelection)。正则生成与解释两个operation；其他按原界面，不额外发明新的AI业务。默认模式由宿主逐次解析，指定模式用稳定ref。
+现有12类提示词复用为ai_assist(feature,text,modelRef及公开预算参数)。正则生成与解释两个operation；其他按原界面，不额外发明新的AI业务。默认模式由宿主逐次解析，指定模式用稳定ref。
 
-operation冻结候选为json_extract、regex_generate、regex_explain、cron_generate、sql_explain、stacktrace_analyze、config_detect、http_explain、code_explain、text_transform、diff_summarize、url_explain、ua_explain，共13项；每项payload有独立严格Schema，不用自由JSON承接全部操作。
+operation冻结候选为json_extract、regex_generate、regex_explain、cron_generate、sql_explain、stacktrace_analyze、config_detect、http_explain、code_explain、text_process、diff_summarize、url_explain、ua_explain，共13项；每项payload有独立严格Schema，不用自由JSON承接全部操作。
 
-Node使用SDK client/http.mjs、models.mjs、vendor；UI保持window.xhub.models。ai_assist创建/启动一次并尽快返回modelCallId，ai_call_status与ai_call_cancel复用SDK原句柄，不增加第二套SSE或供应商API。标准工具外层callId与模型modelCallId分开；宿主真实ownership/过期行为以FULL-00验证为准。
+Node使用SDK client/http.mjs、models.mjs、vendor；UI保持window.xhub.models。ai_assist创建/启动一次并尽快返回JSON文本中的callId，ai_call_status与ai_call_cancel复用SDK原句柄，不增加第二套SSE或供应商API。标准工具外层callId与模型callId（位于结果JSON内）分开；宿主真实ownership/过期行为以FULL-00验证为准。
 
 状态必须保留排队/运行/部分文本/截断/完成/失败/取消/超时/未知。缺默认模型时准确提示选择模型，不能隐藏成统一“生成失败”；指定模型失效不自动切换。流断开只查询原模型调用，不能因查询失败再请求一次。普通计算不调用模型；模型辅助可能产生费用。UI显式采用结果逻辑与旧输入保护保留。
 
@@ -109,3 +109,12 @@ native生产依赖不适合当前noExternal全部合并的方式。FULL-12精确
 顺序：模块单测→HTTP合同→干净包→既有浏览器回归→隔离宿主安装→内置AI调度/真实MCP→实际模型/外部服务（有授权时）→更新/回退/停用。旧14合同、17后端工具语义、配置键和用户数据必须保留。新版本沿0.2.0更新，不重写原0.1.0不兼容事实。
 
 最终ZIP只打包一次作为验收对象，任何字节变化都重做受影响验收与摘要/市场条目。缺环境可交候选并标未验，不能关闭完整验收。只在本版本有发布授权后上传GitHub或更新签名市场，不能将历史发布授权扩为未来所有版本。
+
+## 本轮落点与冻结合同补充
+
+- 固定执行入口为service/worker.ts，调度在service/runtime.ts；网络会话在service/connections.ts，模型在service/models.ts；没有为候选文件名强建目录。纯模块位于ctool-tools/src/domains，DOM只在src/adapters/tableDom与Node入口装配。
+- 文件/密钥/网络/模型定义位于service/*Definitions与对应运行模块，旧14纯工具定义保留原公开包入口；allTools是打包manifest、AI与MCP的唯一注册来源。最终运行manifest以紧凑JSON输出并断言<=256KiB，避免排版使100工具清单无法安装。
+- HTTP/WS认证仅从秘密配置requestHeaders[secretRef]读取，拒绝URL内嵌凭据、跳转及无效头；不提供任意HTTP写操作。
+- key_pair_generate为dangerous，返回publicKey与privateKey文件元数据；私钥只通过file_read取得。新摘要接口返回Hex文本，RSA签名用signatureEncoding；未实现的output参数不进入其Schema。AES/DES/3DES/RC4/Rabbit均支持Base64文本密文或临时字节文件，浏览器密钥保持本地。
+- Schema按13个feature分别收窄：diff_summarize必须modified，可选language；其余feature拒绝无用modified/language。模型并发上限包括正在创建调用的请求，防止并发穿透。
+- 静态预算不代替原生RSS隔离。原生组件的发布来源/许可记录见third-party/native；公开再分发前仍需归档精确对应源码及解决上游未附独立MIT声明的记录，不能宣称公开发布条件已齐。

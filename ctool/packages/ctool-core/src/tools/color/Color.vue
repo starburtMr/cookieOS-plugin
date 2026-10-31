@@ -12,6 +12,7 @@
 </template>
 
 <script lang="ts" setup>
+import {convertColor} from "ctool-tools/domains/color";
 import { initialize, useAction } from "@/store/action";
 import { colord, extend } from "colord";
 import { computed, onMounted, watch } from "vue";
@@ -59,52 +60,7 @@ onMounted(() => {
     }
 });
 
-const getHandle = (target: string) => {
-    if (action.current.input === "") {
-        return "";
-    }
-    if (action.current.type === target) {
-        return action.current.input;
-    }
-    try {
-        const color = colord(["hsv", "lab", "xyz"].includes(action.current.type) ? JSON.parse(action.current.input) : action.current.input);
-        let result = "";
-        
-        if (target === "name") {
-            result = color.toName({ closest: true }) ?? "";
-        }
-        if (target === "hex") {
-            result = color.toHex();
-        }
-        if (target === "rgb") {
-            result = color.toRgbString();
-        }
-        if (target === "hsl") {
-            result = color.toHslString();
-        }
-        if (target === "hwb") {
-            result = color.toHwbString();
-        }
-        if (target === "cmyk") {
-            result = color.toCmykString();
-        }
-        if (target === "lch") {
-            result = color.toLchString();
-        }
-        if (target === "hsv") {
-            result = JSON.stringify(color.toHsv());
-        }
-        if (target === "lab") {
-            result = JSON.stringify(color.toLab());
-        }
-        if (target === "xyz") {
-            result = JSON.stringify(color.toXyz());
-        }
-        return result;
-    } catch (e) {
-        return $error(e);
-    }
-};
+const getHandle = (target: string) => {try{return convertColor(action.current.input,action.current.type,target);}catch(e){return $error(e);}};
 
 const setHandle = (source: string, value: string) => {
     action.current.input = value;

@@ -23,6 +23,7 @@
 </template>
 
 <script lang="ts" setup>
+import {aiPrompts} from "ctool-tools/domains/aiPrompts";
 import {useHostAi} from "@/helper/cookieos/ai";
 import {ref, computed, watch} from "vue"
 import {useAction, initialize} from "@/store/action"
@@ -125,7 +126,7 @@ const aiExplainCode = async () => {
         const result = await chat([
             {
                 role: "system",
-                content: "你是一个代码讲解助手。请用简洁中文说明这段代码的主要目的、关键逻辑、潜在风险，并补充 2-3 个值得验证的测试点。避免逐行翻译，优先帮助开发者快速理解。",
+                content: aiPrompts.code_explain,
             },
             {
                 role: "user",

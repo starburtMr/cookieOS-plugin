@@ -1,6 +1,6 @@
 # FULL-01：服务取消、资源与生命周期
 
-状态：未开始；本文件是任务合同，实际进度只在 [Progress](../../../Progress.md) 记录。
+状态：实现与验收记录见文末；实际进度只在 [Progress](../../../Progress.md) 记录。
 
 ## 目标与输入
 
@@ -29,3 +29,9 @@ service/main.ts；service/runtime.ts；service/workers/；tsup.extension.config.
 - 进程退出后无遗留Worker、socket、子进程或timer。
 - 测试接入现有 `pnpm test`、`pnpm test:contract`、`pnpm test:package`、`pnpm test:e2e` 对应入口，单模块先跑适用子集；命令与完整集成顺序见任务入口。不为无关代码造新检查器。
 - 记录样例、命令、退出状态、实际产物与未验证项；失败修复后重跑受影响检查，再做顺序两阶段审查。不以文字勾选替代证据。
+
+## 本轮落点与验收记录
+
+- 实际落点：service/runtime.ts、worker.ts、main.ts；tests/runtime.test.mjs。
+- 已执行：固定2子进程/16队列，真实取消/超载/10秒截止、健康和恢复；RSS样本不作硬限制。
+- 统一命令和当前产物证据：[验证记录](../../verification/full-ai-mcp/README.md)、[检查收据](../../verification/full-ai-mcp/checks.json)。隔离宿主与真实外部供应商分开记录；限制不以完成标记掩盖。

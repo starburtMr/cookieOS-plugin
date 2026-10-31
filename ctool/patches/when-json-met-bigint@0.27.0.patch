@@ -1,0 +1,50 @@
+diff --git a/dist/lib.js b/dist/lib.js
+index c6757594089780e15c4d1a1dc29bc52c1cd59529..57f2d9b6b78d947f0061af551ba9e55a92be5866 100644
+--- a/dist/lib.js
++++ b/dist/lib.js
+@@ -15,9 +15,9 @@ exports.isNonNullObject = isNonNullObject;
+ class Cache {
+     constructor(_max = 1e6 / 2) {
+         this._max = _max;
+-        this._cache = {};
++        this._cache = Object.create(null);
+         this._size = 0;
+-        this._old = {};
++        this._old = Object.create(null);
+     }
+     get(key) {
+         return this.has(key) ? this._cache[key] : undefined;
+@@ -25,7 +25,7 @@ class Cache {
+     set(key, value) {
+         if (this._size >= this._max) {
+             this._old = this._cache;
+-            this._cache = {};
++            this._cache = Object.create(null);
+             this._size = 0;
+         }
+         this._cache[key] = value;
+diff --git a/src/lib.ts b/src/lib.ts
+index e84ddb77951c248c3a6c27f76c69c38942a70ed2..5adf15496d0c6ab19475fd03c5cc56ac165e2b39 100644
+--- a/src/lib.ts
++++ b/src/lib.ts
+@@ -41,9 +41,9 @@ export const isNonNullObject = (o: unknown): o is Record<string, unknown> | unkn
+ };
+ 
+ export class Cache<K extends string | number | symbol, V> {
+-    private _cache = {} as Record<K, V>;
++    private _cache = Object.create(null) as Record<K, V>;
+     private _size = 0;
+-    private _old = {} as Record<K, V>;
++    private _old = Object.create(null) as Record<K, V>;
+ 
+     constructor(private readonly _max = 1e6 / 2) {}
+ 
+@@ -54,7 +54,7 @@ export class Cache<K extends string | number | symbol, V> {
+     set(key: K, value: V): V {
+         if (this._size >= this._max) {
+             this._old = this._cache;
+-            this._cache = {} as Record<K, V>;
++            this._cache = Object.create(null) as Record<K, V>;
+             this._size = 0;
+         }
+         this._cache[key] = value;

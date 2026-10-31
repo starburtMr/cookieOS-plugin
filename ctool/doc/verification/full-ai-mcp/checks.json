@@ -1,0 +1,55 @@
+{
+  "command": "npx --yes pnpm@10.34.9 run verify",
+  "completed": true,
+  "typechecks": [
+    "Vue/shared package",
+    "strict Node service"
+  ],
+  "lint": {
+    "errors": 0,
+    "warnings": 195,
+    "configuredWarningBudget": 300
+  },
+  "vitest": {
+    "files": 25,
+    "passed": 355
+  },
+  "serviceContract": {
+    "passed": 229,
+    "failed": 0,
+    "fileConcurrency": 1
+  },
+  "package": {
+    "passed": 8,
+    "failed": 0
+  },
+  "browser": {
+    "passed": 26,
+    "failed": 0,
+    "routesMounted": 88,
+    "model": "mocked host bridge"
+  },
+  "duplicates": {
+    "newClones": 0,
+    "baselineChanged": false,
+    "exceptions": [
+      "moved third-party ASN1 vendor (same original exclusion)",
+      "frozen/generated JSON fixtures"
+    ]
+  },
+  "capabilityCases": {
+    "executableCases": 143,
+    "categories": 60,
+    "entrypoints": 88
+  },
+  "sdkCheck": "passed; not installation proof",
+  "sdkPack": "passed",
+  "runtimeAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  }
+}

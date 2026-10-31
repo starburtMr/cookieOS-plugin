@@ -1,6 +1,6 @@
 # Ctool 完整 AI/MCP 任务入口
 
-本轮交付的是开发方案；全部 FULL 任务均未开始实现。当前可运行版本仍为0.2.0，14个AI/MCP工具。规划基线源码3cef7b1，SDK1.2.0/hostApi ^1.0.0，Node22.22.2。
+本轮在独立worktree实现0.3.0；运行注册表含100个AI/MCP工具，保留旧14公开合同。实现基线6380408，SDK1.2.0/hostApi ^1.0.0，运行Node ^22.22.2。实际结果与未验证项见Progress及各模块文末。
 
 权威范围：[Product-Spec](../../../Product-Spec.md) 当前完整工具化条目。
 设计：[High-Level-Design](../../../High-Level-Design.md)、[Detailed-Design](../../../Detailed-Design.md)。
@@ -59,7 +59,7 @@ npx --yes pnpm@10.34.9 test:e2e
 npx --yes pnpm@10.34.9 check:duplicates
 ```
 
-最终使用现有`npx --yes pnpm@10.34.9 verify`跑同一门禁。不要跳过其lint；原项目lint有存量告警预算，新增问题仍需解决。此处列出的是未来执行入口，本轮规划没有重新运行整套业务测试。
+最终使用现有`npx --yes pnpm@10.34.9 verify`跑同一门禁。不要跳过其lint；原项目lint有存量告警预算，新增问题仍需解决。同一入口用于本轮验证；具体输出与最终ZIP摘要见本轮验收记录。
 
 设置`SDK_DIR`为实际检查sdk.json=1.2.0的完整开发包目录，版本变化先记差异，参考源码目录缺少manifest.schema时不可伪造。使用已下载完整包的dev.py --help核对命令。最终0.3.0实现完成且输出尚不存在时：
 

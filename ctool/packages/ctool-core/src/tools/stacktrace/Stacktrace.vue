@@ -91,6 +91,7 @@
 </template>
 
 <script lang="ts" setup>
+import {aiPrompts} from "ctool-tools/domains/aiPrompts";
 import {useHostAi} from "@/helper/cookieos/ai";
 import { initialize, useAction } from "@/store/action";
 import { reactive, watch } from "vue";
@@ -201,7 +202,7 @@ const aiAnalyzeStacktrace = async () => {
         const result = await chat([
             {
                 role: "system",
-                content: "你是一个资深故障排查助手。用户会提供结构化后的堆栈信息和原始日志，请用简洁中文输出三部分：1. 最可能的根因 2. 最值得优先看的业务帧/模块 3. 下一步排查建议。避免泛泛而谈，优先引用输入里的异常名、消息和业务帧。",
+                content: aiPrompts.stacktrace_analyze,
             },
             { role: "user", content: buildAiContext() },
         ], config)

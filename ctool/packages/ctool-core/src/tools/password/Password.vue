@@ -34,15 +34,9 @@
 </template>
 
 <script lang="ts" setup>
-import {secureRandomInt, checkRandomSize} from "@/helper/cookieos/random";
+import {generatePasswords,SYMBOLS,AMBIGUOUS} from "ctool-tools/domains/password";
 import { initialize, useAction } from "@/store/action";
 import { onMounted, watch, computed } from "vue";
-
-const UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const LOWER = "abcdefghijklmnopqrstuvwxyz";
-const DIGITS = "0123456789";
-const SYMBOLS = "!@#$%^&*()-_=+[]{}|;:,.<>?";
-const AMBIGUOUS = "0Oo1lI";
 
 const action = useAction(await initialize({
     length: 16,
@@ -56,46 +50,7 @@ const action = useAction(await initialize({
     result: [] as string[],
 }));
 
-const secureRandom = secureRandomInt;
-
-const filterAmbiguous = (chars: string): string => {
-    return chars.split("").filter(c => !AMBIGUOUS.includes(c)).join("");
-};
-
-const generate = () => {
-    checkRandomSize(action.current.length, action.current.amount);
-    const opt = action.current;
-    // 构建字符池
-    let pool = "";
-    const pools: string[] = [];
-    if (opt.uppercase) { const p = opt.excludeAmbiguous ? filterAmbiguous(UPPER) : UPPER; pool += p; pools.push(p); }
-    if (opt.lowercase) { const p = opt.excludeAmbiguous ? filterAmbiguous(LOWER) : LOWER; pool += p; pools.push(p); }
-    if (opt.digits) { const p = opt.excludeAmbiguous ? filterAmbiguous(DIGITS) : DIGITS; pool += p; pools.push(p); }
-    if (opt.symbols) { pool += SYMBOLS; pools.push(SYMBOLS); }
-    if (pool.length === 0) return;
-
-    const results: string[] = [];
-    for (let i = 0; i < opt.amount; i++) {
-        const pwd: string[] = [];
-        // 确保每类至少 1 个
-        if (opt.ensureEachType && opt.length >= pools.length) {
-            for (const p of pools) {
-                pwd.push(p[secureRandom(p.length)]);
-            }
-        }
-        // 填充剩余
-        while (pwd.length < opt.length) {
-            pwd.push(pool[secureRandom(pool.length)]);
-        }
-        // Fisher-Yates 洗牌
-        for (let j = pwd.length - 1; j > 0; j--) {
-            const k = secureRandom(j + 1);
-            [pwd[j], pwd[k]] = [pwd[k], pwd[j]];
-        }
-        results.push(pwd.join(""));
-    }
-    action.current.result = results;
-};
+const generate = () => { action.current.result = generatePasswords(action.current); };
 
 const output = computed(() => action.current.result.join("\n"));
 

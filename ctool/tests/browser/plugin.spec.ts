@@ -1,5 +1,7 @@
+import {Buffer} from "node:buffer";
 import {test,expect} from '@playwright/test';
 import {readFileSync} from 'node:fs';
+import {generateKeyPairSync,privateDecrypt,publicEncrypt,constants} from 'node:crypto';
 import {getTool} from 'ctool-config';
 const generated=readFileSync('packages/ctool-core/src/buildDataTemp.ts','utf8');
 const routes=[...generated.matchAll(/tool: "([^"]+)",\s*feature: "([^"]+)"/g)].map(([,tool,feature])=>({tool,feature,path:getTool(tool as any).getFeature(feature as any).getRouter()}));
@@ -232,6 +234,25 @@ test('browser SM2 uses Web Crypto and round trips after removing Node crypto pol
     await page.locator('.ctool-page-option input').first().fill(key);
     await expect(page.locator('.ctool-main-tool textarea').last()).toHaveValue('ctool-sm2-fixture');
     expect(await page.evaluate(()=>(window as any).fixture.writes.some(([name])=>!name.startsWith('ctool.pref.')))).toBe(false);
+});
+
+test('RSA original PKCS1 and OAEP pages interoperate with Node crypto without uploading keys',async({page})=>{
+    await fixture(page);const keys=generateKeyPairSync('rsa',{modulusLength:2048,publicKeyEncoding:{type:'spki',format:'pem'},privateKeyEncoding:{type:'pkcs8',format:'pem'}});
+    const text='Ctool RSA 中文';
+    for(const [mode,padding] of [['pkcs1',constants.RSA_PKCS1_PADDING],['oaep',constants.RSA_PKCS1_OAEP_PADDING]] as const){
+        await page.goto('/#'+getTool('rsa').getFeature('encrypt').getRouter()+'?input='+encodeURIComponent(text));
+        if(mode==='oaep'){await page.getByRole('button',{name:'PKCS1',exact:true}).click();await page.getByText('PKCS1_OAEP',{exact:true}).click({timeout:5000});}
+        await page.getByPlaceholder('公钥(PEM格式)',{exact:true}).fill(keys.publicKey);
+        const output=page.locator('.ctool-main-tool textarea').last();await expect(output).toHaveValue(/^[a-z0-9+/]+=*$/i);
+        const cipher=Buffer.from(await output.inputValue(),'base64');assertPlain(privateDecrypt({key:keys.privateKey,padding},cipher).toString());
+        const encrypted=publicEncrypt({key:keys.publicKey,padding},Buffer.from(text)).toString('base64');
+        await page.goto('/#'+getTool('rsa').getFeature('decrypt').getRouter()+'?input='+encodeURIComponent(encrypted));
+        if(mode==='oaep'){await page.getByRole('button',{name:'PKCS1',exact:true}).click();await page.getByText('PKCS1_OAEP',{exact:true}).click({timeout:5000});}
+        await page.getByPlaceholder('私钥(PEM格式)',{exact:true}).fill(keys.privateKey);
+        await expect(page.locator('.ctool-main-tool textarea').last()).toHaveValue(text);
+    }
+    function assertPlain(value:string){expect(value).toBe(text);}
+    expect(await page.evaluate(()=>(window as any).fixture.writes.some(([,value])=>typeof value==='string'&&value.includes('PRIVATE KEY')))).toBe(false);
 });
 
 test('Bcrypt hashes and checks without logging the password',async({page})=>{

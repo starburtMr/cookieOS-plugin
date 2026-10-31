@@ -1,6 +1,6 @@
 # FULL-04：JSON、序列化与数据
 
-状态：未开始；本文件是任务合同，实际进度只在 [Progress](../../../Progress.md) 记录。
+状态：实现与验收记录见文末；实际进度只在 [Progress](../../../Progress.md) 记录。
 
 ## 目标与输入
 
@@ -29,3 +29,9 @@ packages/ctool-tools/src/domains/data/；JSON/Serialize UI调用方；Node DOM�
 - Node端不能直接导入依赖$t/$error/window的UI文件；抽离后原页面回归通过。
 - 测试接入现有 `pnpm test`、`pnpm test:contract`、`pnpm test:package`、`pnpm test:e2e` 对应入口，单模块先跑适用子集；命令与完整集成顺序见任务入口。不为无关代码造新检查器。
 - 记录样例、命令、退出状态、实际产物与未验证项；失败修复后重跑受影响检查，再做顺序两阶段审查。不以文字勾选替代证据。
+
+## 本轮落点与验收记录
+
+- 实际落点：ctool-tools/src/domains/data、serialize、msgpack、toObject；service/worker。
+- 已执行：11格式互转用例、JSON查询/类型/Schema/QuickJS；原型名、超安全整数、异步Schema、DOM隔离回归。
+- 统一命令和当前产物证据：[验证记录](../../verification/full-ai-mcp/README.md)、[检查收据](../../verification/full-ai-mcp/checks.json)。隔离宿主与真实外部供应商分开记录；限制不以完成标记掩盖。

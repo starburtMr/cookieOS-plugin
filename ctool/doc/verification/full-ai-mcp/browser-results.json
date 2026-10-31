@@ -1,0 +1,13 @@
+{
+  "passed": [
+    "real iframe bridge: view",
+    "real UI model action uses isolated cookieOS provider",
+    "real iframe bridge: window",
+    "real iframe bridge: drawer",
+    "real iframe bridge: module",
+    "module stays mounted without horizontal overflow at desktop, phone and short phone sizes"
+  ],
+  "pageErrors": [],
+  "model": "local protocol fixture; no real provider inference",
+  "frontend": "existing cookieOS dist, real isolated API via Playwright route.fetch"
+}

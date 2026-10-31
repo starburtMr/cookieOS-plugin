@@ -1,3 +1,4 @@
+import {createHash} from 'node:crypto';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {mkdtemp,cp,readFile,readdir,rm} from 'node:fs/promises';
@@ -13,12 +14,13 @@ test('runtime identity has one source and all existing tool/data contracts remai
     const source=JSON.parse(await readFile('manifest.json','utf8'));
     const previous=JSON.parse(await readFile('contracts/runtime-v0.1.0.json','utf8'));
     assert.deepEqual(manifest,{...source,tools:manifest.tools});
-    for(const key of ['id','hostApi','requires','permissions','ui','service'])assert.deepEqual(manifest[key],previous[key],key);
+    for(const key of ['id','hostApi','requires','permissions','ui'])assert.deepEqual(manifest[key],previous[key],key);
+    assert.deepEqual(manifest.service,{...previous.service,nodeVersion:'^22.22.2'});
     const tools=structuredClone(manifest.tools);
     delete tools.find(t=>t.name==='arm_convert').outputSchema.$schema;
-    assert.deepEqual(tools,previous.tools,'only the explicit ARM output dialect annotation may change');
+    for(const old of previous.tools){const actual=tools.find(t=>t.name===old.name);assert.deepEqual(actual,{...old,ai:true,mcp:true},old.name);}
     for(const key of ['name','description','author','category'])assert.ok(manifest[key].trim(),key);
-    assert.equal(manifest.version,'0.2.0');assert.equal(manifest.category,'开发工具');
+    assert.equal(manifest.version,'0.3.0');assert.equal(manifest.category,'开发工具');
 });
 test('every tool schema compiles with its declared dialect and ARM tuple behavior stays unchanged',async()=>{
     for(const tool of manifest.tools)for(const key of ['inputSchema','outputSchema']){
@@ -43,13 +45,14 @@ test('presentation uses the SDK schema and references bounded real package files
     for(const [name,limit] of [[metadata.icon,512*1024],...metadata.screenshots.map(s=>[s.path,2*1024*1024])])assert.ok((await readFile(join(root,name))).length<=limit);
 });
 test('package manifest, stable entrypoints, WASM and safe file set',async()=>{
-    assert.equal(manifest.id,'io.cookieos.ctool');assert.equal(manifest.tools.length,17);
+    assert.ok((await readFile(join(root,'manifest.json'))).length<=262144,'host manifest byte limit');
+    assert.equal(manifest.id,'io.cookieos.ctool');assert.equal(manifest.tools.length,100);
     for(const file of [manifest.ui.entry,...manifest.ui.styles,manifest.service.entry])assert.ok((await readFile(join(root,file))).length,file);
     const files=[];
     async function walk(dir){for(const item of await readdir(dir,{withFileTypes:true})){assert.equal(item.isSymbolicLink(),false);const f=join(dir,item.name);if(item.isDirectory())await walk(f);else files.push(f)}}await walk(root);
     assert.ok(files.some(f=>f.endsWith('.wasm')));
     assert.ok(files.some(f=>f.includes('editor.worker')));
-    for(const f of files)assert.doesNotMatch(f.slice(root.length),/(^|\/)(\.env|\.agents|\.codex|AGENTS\.md|privatekey|node_modules|Product-Spec\.md|DEV-PLAN\.md)/);
+    for(const f of files){const name=f.slice(root.length);assert.doesNotMatch(name,/(^|\/)(\.env|\.agents|\.codex|AGENTS\.md|privatekey|Product-Spec\.md|DEV-PLAN\.md)/);assert.doesNotMatch(name,/(?:\.tsbuildinfo|\.o)$/);if(name.includes('/node_modules/'))assert.ok(name.startsWith('/service/node_modules/'));}
 });
 test('SDK manifest schema validates the installation manifest',async()=>{
     const schema=JSON.parse(await readFile('contracts/manifest.schema.json','utf8'));
@@ -58,9 +61,9 @@ test('SDK manifest schema validates the installation manifest',async()=>{
 });
 test('fixed tool schemas compile and UI/AI/MCP definitions are generated once',async()=>{
     const {allTools}=await import('../dist/extension/service/main.mjs');assert.deepEqual(manifest.tools,allTools);
-    assert.equal(manifest.tools.filter(t=>t.ai).length,14);
+    assert.equal(manifest.tools.filter(t=>t.ai).length,100);
 });
-test('bundled Node service starts from clean directory without node_modules',async()=>{
+test('bundled service runs codecs, QuickJS and native images from an isolated directory and shipped dependencies',async()=>{
     const folder=await mkdtemp(join(tmpdir(),'ctool-package-'));
     let child;
     try{
@@ -70,6 +73,18 @@ test('bundled Node service starts from clean directory without node_modules',asy
         const ready=await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error('service readiness timeout: '+errors)),10000);child.once('exit',code=>{clearTimeout(timer);reject(new Error('service exit '+code+': '+errors))});child.stdout.on('data',d=>{output+=d;const m=output.match(/COOKIEOS_READY (\{[^\n]+\})/);if(m){clearTimeout(timer);resolve(JSON.parse(m[1]))}})});
         assert.equal(ready.instanceId,'isolated-fixture');assert.ok(ready.port>0);
         const response=await fetch(`http://127.0.0.1:${ready.port}/healthz`,{headers:{Authorization:'Bearer package-fixture'}});assert.equal(response.status,200);assert.equal((await response.json()).version,manifest.version);
+        const invoke=async(tool,args)=>{const r=await fetch(`http://127.0.0.1:${ready.port}/xhub/agent-tool`,{method:'POST',headers:{Authorization:'Bearer package-fixture'},body:JSON.stringify({tool,args,callId:'package-call'})}).then(r=>r.json());assert.equal(r.ok,true,JSON.stringify(r));return r.result;};
+        assert.equal((await invoke('json_transform',{text:'{"x":1}',expression:'_.mapValues(data,x=>x+1)'})).text,'{"value":{"x":2}}');
+        const qr=await invoke('qrcode_generate',{text:'离线包校验',size:600});
+        assert.equal((await invoke('qrcode_read',{fileRef:qr.file.fileRef})).text,'离线包校验');
+        assert.equal((await invoke('serialize_transform',{text:'<table><tr><th>a</th></tr><tr><td>x</td></tr></table>',from:'html_table',to:'json'})).text,'[{"a":"x"}]');
         assert.equal(errors,'');
     }finally{if(child?.exitCode===null){child.kill('SIGTERM');await once(child,'exit')}await rm(folder,{recursive:true,force:true})}
+});
+
+test('native inventory identifies the exact prepared binaries and libvips component versions',async()=>{
+    const records=JSON.parse(await readFile(join(root,'licenses/native/binary-inventory.json'),'utf8'));
+    assert.ok(records.length>0);
+    for(const r of records){const data=await readFile(join(root,r.path));assert.equal(data.length,r.size);assert.equal(createHash('sha256').update(data).digest('hex'),r.sha256,r.path);}
+    assert.deepEqual(JSON.parse(await readFile(join(root,'licenses/native/sharp-versions.json'),'utf8')),JSON.parse(await readFile(join(root,'service/node_modules/@img/sharp-libvips-linux-x64/versions.json'),'utf8')));
 });

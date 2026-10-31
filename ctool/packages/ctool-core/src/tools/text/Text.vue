@@ -177,6 +177,7 @@
 </template>
 
 <script lang="ts" setup>
+import {aiPrompts} from "ctool-tools/domains/aiPrompts";
 import {useHostAi} from "@/helper/cookieos/ai";
 import { initialize, useAction } from "@/store/action";
 import TextHandle, { escapeChars, EscapeCharsType } from "./util";
@@ -272,7 +273,7 @@ const aiProcessText = async () => {
         const result = await chat([
             {
                 role: "system",
-                content: "你是一个文本处理助手。请严格按照用户要求改写或提取文本，只输出处理后的最终文本，不要解释、不要加标题、不要使用 Markdown 代码块。",
+                content: aiPrompts.text_process,
             },
             {
                 role: "user",

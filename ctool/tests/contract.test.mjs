@@ -36,9 +36,9 @@ test('authentication and instance health', async () => {
     assert.equal((await invoke('json_validate',{text:'{}'},base,'wrong')).status,401);
     const health = await fetch(base+'/healthz',{headers:{Authorization:`Bearer ${token}`}}).then(r=>r.json());
     assert.deepEqual(health,{instanceId:'fixture-instance',version:'0.1.0',toolsHash:'fixture-hash'});
-    assert.equal(allTools.filter(t=>t.ai&&t.mcp).length,14);
+    assert.equal(allTools.filter(t=>t.ai&&t.mcp).length,100);
     assert.equal(allTools.find(t=>t.name==='code_run').effect,'dangerous');
-    assert.equal(allTools.find(t=>t.name==='code_run').ai,false);
+    assert.equal(allTools.find(t=>t.name==='code_run').ai,true);
 });
 test('every tool rejects extra and missing parameters', async () => {
     for(const t of allTools){const r=await invoke(t.name,{unexpected:true});assert.equal(r.ok,false,t.name);assert.equal(r.error.code,'invalid_arguments',t.name)}

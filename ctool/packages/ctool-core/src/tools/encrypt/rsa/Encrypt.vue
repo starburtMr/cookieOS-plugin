@@ -23,7 +23,7 @@
 import {useAction, initialize} from "@/store/action"
 import {createTextInput, createTextOutput} from "@/components/text"
 import Text from "@/helper/text"
-import jsrsasign from "jsrsasign";
+import {rsaBrowserEncrypt} from "ctool-tools/domains/rsaBrowser";
 import {watch} from "vue";
 
 const algNames = [
@@ -49,10 +49,8 @@ const output = $computed(() => {
         if (!action.current.input.text.isText()) {
             throw new Error("input content must text / text file")
         }
-        return Text.fromHex(jsrsasign.KJUR.crypto.Cipher.encrypt(
-            action.current.input.text.toString(),
-            jsrsasign.KEYUTIL.getKey(action.current.key.trim()) as jsrsasign.RSAKey,
-            action.current.algName
+        return Text.fromUint8Array(rsaBrowserEncrypt(
+            action.current.input.text.toString(),action.current.key,action.current.algName
         ))
     } catch (e) {
         return Text.fromError($error(e))

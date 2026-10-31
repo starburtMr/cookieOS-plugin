@@ -8,7 +8,7 @@
 
 Node 服务用于结构化工具和需要秘密配置的外部请求。仅调用宿主模型的界面使用 `window.xhub.models`，不需要经过插件后端。Node主上下文不加载用户代码或执行调用方系统命令；既有JSON表达式仅在受限QuickJS中执行。
 
-开发机基线 Node 22.22.2、Python 3.13.7。原项目声明 pnpm >=10，而本机是 9.15.3；项目以局部命令固定 `pnpm@10.34.9`，不升级全局工具。运行端声明 `nodeVersion: >=22.0.0` 并以真实宿主安装验证为准。
+开发机基线 Node 22.22.2、Python 3.13.7。原项目声明 pnpm >=10，而本机是 9.15.3；项目以局部命令固定 `pnpm@10.34.9`，不升级全局工具。0.3.0运行端声明 `nodeVersion: ^22.22.2`（jsdom实际最低要求） 并以真实宿主安装验证为准。
 
 ## 2. 源码、模块与产物
 
@@ -29,7 +29,7 @@ ctool/
 └── dist/extension/                  # 唯一可交给 SDK pack 的干净产物目录
     ├── manifest.json
     ├── ui/                          # main.js、style.css、chunks、workers、wasm
-    ├── service/main.mjs             # 携带全部必要运行依赖的构建产物
+    ├── service/                     # main/worker/chunks与已准备的node_modules运行依赖
     └── licenses/                    # 上游与实际分发依赖的许可
 ```
 

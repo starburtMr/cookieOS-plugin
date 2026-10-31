@@ -142,6 +142,7 @@
 </template>
 
 <script lang="ts" setup>
+import {jsonExtractPrompt} from "ctool-tools/domains/aiPrompts";
 import {useHostAi} from "@/helper/cookieos/ai";
 import { StyleValue, watch } from "vue";
 import Json from "@/helper/json";
@@ -432,14 +433,7 @@ const aiExtractJson = async () => {
         const result = await chat([
             {
                 role: "system",
-                content: `你是一个 JSON 提取专家。用户会给你一段包含 JSON 数据的文本（可能混杂日志、时间戳、转义字符等干扰内容）。你的任务是从中提取出合法的 JSON 数据。
-
-规则：
-1. 只输出提取到的 JSON，不要输出任何解释、注释或 Markdown 标记
-2. 如果有多层转义（如 \\\" 或 \\\\\"），请自动还原
-3. 如果文本中有多个独立的 JSON 片段，合并为一个 JSON 数组
-4. 输出的 JSON 必须是合法的、格式化的（带缩进）
-5. 如果文本里没有任何合法 JSON，必须只输出 ${AI_NO_JSON_FOUND}，不要输出 []、{}、null 或任何解释`,
+                content: jsonExtractPrompt(AI_NO_JSON_FOUND),
             },
             {
                 role: "user",

@@ -1,0 +1,71 @@
+Upstream to-data-view@1.1.0 declares MIT in its package.json.
+The npm package and published source revision contain no standalone copyright/license notice.
+Package metadata follows; no copyright year or holder is invented.
+
+
+{
+  "name": "to-data-view",
+  "version": "1.1.0",
+  "license": "MIT",
+  "repository": "LinusU/to-data-view"
+}
+
+MIT license terms:
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the 'Software'), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+Published README:
+
+# To DataView
+
+Create a `DataView` over an `ArrayBuffer`/8-bit typed array (commonly used in the browsers) or a `Buffer` (commonly used in Node.js).
+
+Supported inputs:
+
+- [`ArrayBuffer`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)
+- [`Buffer`](https://nodejs.org/docs/latest/api/buffer.html#buffer_class_buffer)
+- [`Int8Array`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Int8Array)
+- [`Uint8Array`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array)
+- [`Uint8ClampedArray`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray)
+
+## Installation
+
+```sh
+npm install --save to-data-view
+```
+
+## Usage
+
+```js
+const toDataView = require('to-data-view')
+
+// This function will accept both `ArrayBuffer` and `Buffer` as input
+function awesomeParser (source) {
+  const view = toDataView(source)
+
+  // ...
+}
+```
+
+## API
+
+### `toDataView(data: ArrayBuffer | Buffer | Int8Array | Uint8Array | Uint8ClampedArray): DataView`
+
+Return a `DataView` instance that uses the same memory as the provided `ArrayBuffer`, 8-bit typed array or `Buffer`.

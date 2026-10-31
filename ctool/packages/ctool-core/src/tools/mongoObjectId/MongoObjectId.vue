@@ -46,9 +46,9 @@
 </template>
 
 <script lang="ts" setup>
+import {parseObjectId,createObjectId} from "ctool-tools/domains/objectId";
 import { initialize, useAction } from "@/store/action";
 import { watch } from "vue";
-import dayjs from "dayjs";
 
 const action = useAction(await initialize({ input: "" }));
 
@@ -60,37 +60,7 @@ const action = useAction(await initialize({ input: "" }));
  * - 最后 3 字节: 递增计数器
  */
 const result = $computed(() => {
-    const input = action.current.input.trim();
-    if (!input) {
-        return { valid: false, timestamp: '', datetime: '', machineId: '', processId: '', counter: '' };
-    }
-    // 校验是否为合法的 24 位十六进制字符串
-    if (!/^[0-9a-f]{24}$/i.test(input)) {
-        return { valid: false, timestamp: '', datetime: '', machineId: '', processId: '', counter: '' };
-    }
-
-    try {
-        // 提取时间戳（前 8 个字符 = 4 字节）
-        const timestampHex = input.substring(0, 8);
-        const unixTimestamp = parseInt(timestampHex, 16);
-        const datetime = dayjs.unix(unixTimestamp).format('YYYY-MM-DD HH:mm:ss');
-
-        // 提取机器标识（中间 10 个字符 = 5 字节，旧版为机器ID+进程ID）
-        const machineId = input.substring(8, 14);
-        const processId = input.substring(14, 18);
-        const counter = input.substring(18, 24);
-
-        return {
-            valid: true,
-            timestamp: String(unixTimestamp),
-            datetime,
-            machineId,
-            processId,
-            counter: String(parseInt(counter, 16)),
-        };
-    } catch {
-        return { valid: false, timestamp: '', datetime: '', machineId: '', processId: '', counter: '' };
-    }
+    return parseObjectId(action.current.input);
 });
 
 // 解析成功时保存历史记录（避免在 computed 中产生副作用）
@@ -101,10 +71,5 @@ watch(() => result.valid, (valid) => {
 });
 
 // 生成一个新的 ObjectId
-const generate = () => {
-    const timestamp = Math.floor(Date.now() / 1000).toString(16).padStart(8, '0');
-    const random = Array.from({ length: 10 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
-    const counter = Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6, '0');
-    action.current.input = timestamp + random + counter;
-};
+const generate = () => { action.current.input = createObjectId(); };
 </script>
