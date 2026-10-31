@@ -88,3 +88,11 @@ python3 "$SDK_DIR/dev.py" market-sign market/registry.json --key .local/market-p
 ```
 
 以上占位参数引用本节真实产物，并非SDK参数或虚构发布地址；实际文件路径、时间、版本和摘要均在本轮JSON收据。
+
+## 公网市场及最终清理
+
+清单与签名已在473fc6f81588ea3320ec4d8192db63b927f9f058同次推送；公开固定提交和main的清单/签名/公钥原始字节一致、原公钥验签通过，远程运行清单版本0.3.1，见[公网清单收据](public-registry.json)。
+
+使用`.local/ctool-release031-market-check.py 473fc6f`一次性命令复用宿主RemoteFixture/Checks，在全新隔离实例真实刷新GitHub仓库来源并下载，七项通过，见[市场验收](market-results.json)：发现0.3.1及固定意图能力；从不可变0.3.0市场升级到最终ZIP，保留配置/秘密配置/暗色主题/KV及100工具；Node执行真实Base32；已安装展示digest及3截图正确；固定公钥刷新成功；错误摘要409且不替换旧包；自有进程/端口/PG容器卷/临时数据清理通过。没有拦截GitHub响应或编造安装成功。
+
+实现合回后主目录构建、14项包/预算与SDK预检通过，最终ZIP未重新打包。保留main原0.3.0发布记录，工作区正常三方合并，未reset/stash或覆盖并行内容。本轮worktree及codex/ctool-loading-performance分支已删除，[清理收据](merge-cleanup.json)记录具体提交和结果。后续仅文档收据推送不改变安装包、市场sequence 5或签名；正式cookieOS未安装/重启。

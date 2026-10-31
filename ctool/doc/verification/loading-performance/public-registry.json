@@ -1,0 +1,21 @@
+{
+  "commit": "473fc6f81588ea3320ec4d8192db63b927f9f058",
+  "verifiedAt": "2026-10-31T09:56:01.550909+00:00",
+  "registries": [
+    {
+      "ref": "473fc6f81588ea3320ec4d8192db63b927f9f058",
+      "registrySha256": "046401d4d06121326ae663efeabadb16dabb8b435f2073130982008e6046edb2",
+      "signatureVerified": true,
+      "sequence": 5,
+      "version": "0.3.1"
+    },
+    {
+      "ref": "main",
+      "registrySha256": "046401d4d06121326ae663efeabadb16dabb8b435f2073130982008e6046edb2",
+      "signatureVerified": true,
+      "sequence": 5,
+      "version": "0.3.1"
+    }
+  ],
+  "remoteSourceVersion": "0.3.1"
+}

@@ -1,0 +1,24 @@
+{
+  "version": "0.3.1",
+  "sequence": 5,
+  "registryCommit": "473fc6f81588ea3320ec4d8192db63b927f9f058",
+  "packageSha256": "b3be4cc91da085bc5c8b94f280b67cbcde8ec730abb5ff2aaa62c3c32d5ff464",
+  "hostSha256": "4497bcae6d67501c1b939d431cfe4e0662e39254dba3e639481c18c1beb02e17",
+  "passed": [
+    "real public GitHub repository source discovers exact 0.3.1 and supports pinned installation",
+    "public market downloads exact final ZIP, upgrades immutable 0.3.0 and preserves config/secrets/preferences with all 100 tools",
+    "market-installed real Node service executes a representative shared operation",
+    "market-installed presentation matches final digest and includes all three screenshots",
+    "fixed-key public registry refresh accepts sequence 5 with the original public key",
+    "changed installation intent is rejected without replacing the installed version",
+    "owned processes, ports, PostgreSQL container/volume and temporary data cleaned"
+  ],
+  "unverified": [
+    "production cookieOS instance",
+    "real paid model or JDoodle",
+    "other OS/CPU/libc and older hosts",
+    "full market detail UI matrix"
+  ],
+  "verifiedAt": "2026-10-31T09:57:27.841203+00:00",
+  "testedFixedRegistryUrl": "https://raw.githubusercontent.com/starburtMr/cookieOS-plugin/473fc6f/market/registry.json"
+}
