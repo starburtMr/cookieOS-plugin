@@ -1,0 +1,9 @@
+{
+  "commit": "4bf850a",
+  "zipSha256": "b3be4cc91da085bc5c8b94f280b67cbcde8ec730abb5ff2aaa62c3c32d5ff464",
+  "runtimeFilesMatch": true,
+  "auxiliaryDocumentationDifferences": [
+    "ui/README.md"
+  ],
+  "reason": "Merged main preserves newer 0.3.0 publication README; ui/README.md is its unused public mirror. Declared root README, UI/service code, workers, assets, manifest and dependencies match the validated final ZIP."
+}

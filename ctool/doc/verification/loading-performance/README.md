@@ -68,3 +68,5 @@ python3 tests/host_acceptance.py --cookieos-root "$COOKIEOS_ROOT" --server-binar
 ## 未验证与限制
 
 真实付费模型/JDoodle及ARM/GeoJS长期可用性、其他OS/CPU/libc、旧宿主、Firefox/WebKit、手机实测性能、24小时资源趋势和所有语言/参数组合未验。完整性能组为view；其他surface只做实际功能回归，没有给它们独立毫秒结论；重工具直达冷开也未单独量化。市场详情的坏图/无截图等宿主UI矩阵沿用历史记录，本轮不冒充重新完成。正式cookieOS安装/更新和服务重启不在本轮操作范围。
+
+主目录复验：build:extension、14项包/预算检查及SDK check通过；运行文件、声明的README、媒体和依赖与已验收ZIP逐字节一致。仅未声明的ui/README.md镜像因保留主目录较新的0.3.0发布文档而不同，详见[合回复验](merge-verification.json)，未修改已冻结ZIP。
