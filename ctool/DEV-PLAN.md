@@ -61,3 +61,15 @@ flowchart LR
 | FULL-E | 完整覆盖、离线打包、隔离宿主与交付 | FULL-C/FULL-D；11 → 12 | [11](doc/tasks/full-ai-mcp/11-coverage-regression.md)、[12](doc/tasks/full-ai-mcp/12-package-and-host-acceptance.md) |
 
 具体范围、文件归属、步骤、合同与验收只在[模块入口](doc/tasks/full-ai-mcp/README.md)及各模块文件，实际进度只在Progress维护。
+
+## 加载性能与稳定性阶段与依赖
+
+| 阶段 | 阶段范围 | 前置依赖 | 模块入口 |
+|---|---|---|---|
+| PERF-A | 同条件基线与预算 | 无 | [01](doc/tasks/loading-performance/01-baseline.md) |
+| PERF-B | 轻量依赖与设置并行启动 | PERF-A；02 → 03 | [02](doc/tasks/loading-performance/02-dependencies.md)、[03](doc/tasks/loading-performance/03-preferences-startup.md) |
+| PERF-C | 编辑器/Worker生命周期与失败恢复 | PERF-A、02；03/04 → 05 | [04](doc/tasks/loading-performance/04-editor-workers.md)、[05](doc/tasks/loading-performance/05-recovery-navigation.md) |
+| PERF-D | 功能回归与性能门禁 | PERF-B、PERF-C | [06](doc/tasks/loading-performance/06-regression-budgets.md) |
+| PERF-E | 最终包隔离验收与合回 | PERF-D | [07](doc/tasks/loading-performance/07-package-acceptance.md) |
+
+具体步骤与验收见[模块目录](doc/tasks/loading-performance/README.md)，实时状态见Progress。
