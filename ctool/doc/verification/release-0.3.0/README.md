@@ -30,7 +30,31 @@ tar -xzf ctool-0.3.0-third-party-sources.tar.gz
 
 GitHub 预发布 [ctool-v0.3.0](https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.3.0) 已于 2026-10-31T07:23:48Z 公开，冻结运行源码提交为 `6ba6c23878a457568c8d0dc76dbd3a29fe2c2859`。使用该实际发布时间及同一 ZIP 运行 SDK `market-item`，导出正式 [item.json](item.json) 和四份内容摘要命名的媒体；全部 22 个资产已通过匿名 HTTPS 全量下载核对，见 [github-release.json](github-release.json)。
 
-清单由 sequence 3 递增到 4，有效期至 2027-01-29T07:29:02Z。新签名和篡改失败验证通过，原公钥保持不变，见 [registry.json](registry.json)。清单和签名将同次提交；远程发布及隔离市场安装在推送后单独记录。
+清单由 sequence 3 递增到 4，有效期至 2027-01-29T07:29:02Z。新签名和篡改失败验证通过，原公钥保持不变，见 [registry.json](registry.json)。清单和签名在提交 `7465b6a2e69ae2767cb3b81aaef406763f3e25f2` 同次推送到 main；随后从公开固定提交地址重新读取清单、签名和公钥，原始字节一致且验签通过。
+
+## 推送后的真实市场验收
+
+复用宿主现有 `RemoteFixture` 和 `Checks`，在独立实例中以真实公开地址刷新、下载和安装，不使用重定向/响应拦截夹具替代 GitHub。七项实际检查通过，详见 [market-results.json](market-results.json)：
+
+1. 仓库首页地址发现 0.3.0，AI/MCP 工具数量均为100，宿主报告 pinnedInstall 能力。
+2. 安装不可变0.2.0并保存测试配置/KV后，通过市场按 id/version/sha256 固定意图下载升级；安装状态 succeeded，安装 digest 与最终 ZIP 相同，配置及暗色主题保留。
+3. 市场安装后的 Node 服务执行 Base32 编码，`foo` 得到 `MZXW6===`。
+4. 已安装展示 API 指向最终包 digest，三张截图齐全。
+5. 公开固定提交清单使用原公钥刷新成功。
+6. 错误摘要的安装意图返回409，已安装包不被替换。
+7. 自有进程、PostgreSQL容器、端口和临时数据清理完成。
+
+本轮关键执行入口：
+
+```sh
+python3 .local/cookieos-extension-sdk-1.2.0/dev.py check ctool/dist/extension
+python3 ctool/tests/host_acceptance.py --cookieos-root "$COOKIEOS_ROOT" --server-binary "$HOST_BINARY" --archive dist/ctool-0.3.0/ctool-0.3.0.zip --previous dist/ctool-0.2.0/ctool-0.2.0.zip --output .local/ctool-release030-install-check
+python3 .local/cookieos-extension-sdk-1.2.0/dev.py market-item dist/ctool-0.3.0/ctool-0.3.0.zip --download-url https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.0/ctool-0.3.0.zip --asset-base-url https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.0 --published-at 2026-10-31T07:23:48Z --output dist/ctool-0.3.0-publication/item.json --assets-output dist/ctool-0.3.0-publication/market-assets
+python3 .local/cookieos-extension-sdk-1.2.0/dev.py market-sign market/registry.json --key .local/market-private.pem --output .local/ctool-release030-registry.sig.new
+git push origin main
+```
+
+以上 SDK 输出均在首次执行时不存在；已生成路径不可直接重跑覆盖。`COOKIEOS_ROOT` 指本机权威宿主源码根目录，`HOST_BINARY` 对应前述摘要的现有二进制，不重编译或重启正式宿主。真实市场检查由本轮一次性 Python 命令复用同一宿主测试夹具，逐项结果保存在 market-results.json；本轮未新增另一套检查器。
 
 ## 限制
 

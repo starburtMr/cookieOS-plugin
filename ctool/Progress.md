@@ -276,4 +276,4 @@ GitHub发布收尾：本轮元数据已合回主目录，发布worktree及分支
 - 沿用此前最终 ZIP，SHA-256 保持 2a42f6a4b858c131e9db4fc6aa43e25a3e9e722b13adf1f61e4acd1ae4dcb1ac，安装包约40.9 MB；本轮未实施加载性能优化或修改正式宿主。
 - GitHub预发布0.3.0、正式SDK市场条目及媒体已公开；全部22个资产通过匿名HTTPS下载与摘要核对。第三方源码独立分卷提供，补齐固定源码/构建配方/补丁及原生来源核对；安装无需下载源码。
 - 本轮重新运行最终ZIP隔离验收，九项通过，含0.2.0升级保留配置/数据、100工具MCP与文件往返、模型桥、停启、坏包保护、回退及保留数据重装；模型仍是本地协议夹具。
-- 市场清单sequence 4与新签名已生成并验签，原公钥不变；推送后的公开清单及市场安装结果在[发布记录](doc/verification/release-0.3.0/README.md)与[模块任务](doc/tasks/release-0.3.0/market-publication.md)回写。
+- 市场清单sequence 4与新签名已随7465b6a推送，原公钥不变；公开清单原始字节及验签通过。真实公开仓库发现、固定意图下载升级、配置/KV保留、Node工具、展示、固定公钥及错误摘要保护等七项市场回归通过，自有测试资源已清理，见[发布记录](doc/verification/release-0.3.0/README.md)与[模块任务](doc/tasks/release-0.3.0/market-publication.md)。
