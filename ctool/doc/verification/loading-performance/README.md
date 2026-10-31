@@ -70,3 +70,21 @@ python3 tests/host_acceptance.py --cookieos-root "$COOKIEOS_ROOT" --server-binar
 真实付费模型/JDoodle及ARM/GeoJS长期可用性、其他OS/CPU/libc、旧宿主、Firefox/WebKit、手机实测性能、24小时资源趋势和所有语言/参数组合未验。完整性能组为view；其他surface只做实际功能回归，没有给它们独立毫秒结论；重工具直达冷开也未单独量化。市场详情的坏图/无截图等宿主UI矩阵沿用历史记录，本轮不冒充重新完成。正式cookieOS安装/更新和服务重启不在本轮操作范围。
 
 主目录复验：build:extension、14项包/预算检查及SDK check通过；运行文件、声明的README、媒体和依赖与已验收ZIP逐字节一致。仅未声明的ui/README.md镜像因保留主目录较新的0.3.0发布文档而不同，详见[合回复验](merge-verification.json)，未修改已冻结ZIP。
+
+## 公开发布记录
+
+[GitHub预发布ctool-v0.3.1](https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.3.1)已于2026-10-31T09:49:21Z公开，标签指向1633827的完整提交（实际SHA见[公网资产收据](github-release.json)）。ZIP、摘要、源码复用说明、SDK从最终ZIP生成的item.json和4份内容摘要PNG，全部8资产经匿名HTTPS全量下载核对。未重新构建/改动已验收ZIP，没有覆盖旧版或其他候选。正式条目见[item.json](item.json)。
+
+清单由sequence 4递增为5，有效期至2027-01-29T09:53:09Z，原Ed25519公钥不变。SDK market-sign签原始字节，新签名、篡改清单和篡改签名的反例验证均通过，见[签名收据](registry.json)。清单/签名在同一提交推送；公网清单和隔离市场安装的后续结果另行追加。
+
+发布命令（SDK输出初始不存在，gh不使用clobber）：
+
+```sh
+git push origin refs/tags/ctool-v0.3.1
+gh release create ctool-v0.3.1 <ZIP> <SHA256> <SOURCE_REUSE_NOTICE> --repo starburtMr/cookieOS-plugin --verify-tag --prerelease --title 'Ctool 0.3.1 — 完整工具与加载优化' --notes-file <NOTES>
+python3 "$SDK_DIR/dev.py" market-item "$ZIP" --download-url https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.1/ctool-0.3.1.zip --asset-base-url https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.1 --published-at 2026-10-31T09:49:21Z --output dist/ctool-0.3.1-publication/item.json --assets-output dist/ctool-0.3.1-publication/market-assets
+gh release upload ctool-v0.3.1 <ITEM_JSON> <FOUR_EXPORTED_MEDIA> --repo starburtMr/cookieOS-plugin
+python3 "$SDK_DIR/dev.py" market-sign market/registry.json --key .local/market-private.pem --output .local/ctool-release031-registry.sig.new
+```
+
+以上占位参数引用本节真实产物，并非SDK参数或虚构发布地址；实际文件路径、时间、版本和摘要均在本轮JSON收据。

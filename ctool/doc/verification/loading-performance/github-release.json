@@ -1,0 +1,58 @@
+{
+  "releaseUrl": "https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.3.1",
+  "publishedAt": "2026-10-31T09:49:21Z",
+  "sourceCommit": "1633827b4f75e52a958dcded81321a2b9449f462",
+  "isPrerelease": true,
+  "verifiedAt": "2026-10-31T09:51:43.490993+00:00",
+  "anonymousHttpsDownloads": true,
+  "assets": [
+    {
+      "name": "ctool-0.3.1-source-reuse.md",
+      "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.1/ctool-0.3.1-source-reuse.md",
+      "bytes": 1231,
+      "sha256": "e42bd0a2ca3a3ca3e7f5c0894d46ff4d482082e6eddf2313e233aac50a27c7c1"
+    },
+    {
+      "name": "ctool-0.3.1.zip",
+      "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.1/ctool-0.3.1.zip",
+      "bytes": 40731428,
+      "sha256": "b3be4cc91da085bc5c8b94f280b67cbcde8ec730abb5ff2aaa62c3c32d5ff464"
+    },
+    {
+      "name": "ctool-0.3.1.zip.sha256",
+      "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.1/ctool-0.3.1.zip.sha256",
+      "bytes": 82,
+      "sha256": "a659e330301283f4ca151638bf4b2571e9d2566a245d39b125c0c2229eee6046"
+    },
+    {
+      "name": "item.json",
+      "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.1/item.json",
+      "bytes": 7056,
+      "sha256": "ff15b19de8c9d0bc6261dd8a67077148f66f68f472d7c796d41ac71189eb1495"
+    },
+    {
+      "name": "0e2fe02a32d04b130c55bb07b8e59d55834d28e93edc56644d6c30089965cc25.png",
+      "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.1/0e2fe02a32d04b130c55bb07b8e59d55834d28e93edc56644d6c30089965cc25.png",
+      "bytes": 59310,
+      "sha256": "0e2fe02a32d04b130c55bb07b8e59d55834d28e93edc56644d6c30089965cc25"
+    },
+    {
+      "name": "13b6310e2af35495a862437f7a730b2b42d560709c08a43124d08015f429b25e.png",
+      "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.1/13b6310e2af35495a862437f7a730b2b42d560709c08a43124d08015f429b25e.png",
+      "bytes": 84255,
+      "sha256": "13b6310e2af35495a862437f7a730b2b42d560709c08a43124d08015f429b25e"
+    },
+    {
+      "name": "440988fefe03787809ef3823ae9c52e0d4930711a25b19e067e1cf7d7a1574e6.png",
+      "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.1/440988fefe03787809ef3823ae9c52e0d4930711a25b19e067e1cf7d7a1574e6.png",
+      "bytes": 82513,
+      "sha256": "440988fefe03787809ef3823ae9c52e0d4930711a25b19e067e1cf7d7a1574e6"
+    },
+    {
+      "name": "9c7b6a1df3e9feb0ffd24d39c09ff910c85f59d2906929e0bd66b7c2fae04b15.png",
+      "url": "https://github.com/starburtMr/cookieOS-plugin/releases/download/ctool-v0.3.1/9c7b6a1df3e9feb0ffd24d39c09ff910c85f59d2906929e0bd66b7c2fae04b15.png",
+      "bytes": 81268,
+      "sha256": "9c7b6a1df3e9feb0ffd24d39c09ff910c85f59d2906929e0bd66b7c2fae04b15"
+    }
+  ]
+}

@@ -8,7 +8,7 @@ cookieOS 插件的公开开发与分发仓库。每个插件直接放在根目�
 |---|---|---|---|
 | Ctool 开发者工具箱 | [ctool](ctool/README.md) | 0.3.1 | 100个AI/MCP工具，完整功能保留与加载优化；耗时目标及未验项见验证记录 |
 
-Ctool 0.3.1 已完成最终包隔离验收，正在按预发布流程同步市场，安装包通过 [GitHub Release](https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.3.1) 分发。安装 ZIP 约40.7 MB；独立第三方源码分卷用于查阅与重建，无需随插件安装。
+市场提供 Ctool 0.3.1 预发布版本，安装包通过 [GitHub Release](https://github.com/starburtMr/cookieOS-plugin/releases/tag/ctool-v0.3.1) 分发。安装 ZIP 约40.7 MB；独立第三方源码分卷用于查阅与重建，无需随插件安装。
 
 最终ZIP已通过隔离安装、四种界面、AI/MCP及升级回退验证；本次公开下载、签名和市场同步结果见[发布记录](ctool/doc/verification/loading-performance/README.md)，原功能验证见[完整AI/MCP记录](ctool/doc/verification/full-ai-mcp/README.md)。模型供应商为本地协议夹具，真实外部模型和旧宿主仍待验证。
 

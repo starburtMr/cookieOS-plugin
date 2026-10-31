@@ -2,7 +2,7 @@
 
 cookieOS 扩展 `io.cookieos.ctool`。运行名称、版本、作者、分类和能力以 [manifest.json](manifest.json) 为准，工具定义由现有业务模块生成。基于 Ctool 2.9.1，界面工具、入口和 AI/MCP 数量的实际口径见 [SDK 1.2 盘点](docs/sdk-1.2-inventory.json)。
 
-Ctool 0.3.1 已完成最终包隔离验收，正在按 GitHub 预发布流程交付，包含 SDK 1.2.0 展示资料及 100 个 AI/MCP 工具；发行产物与本轮核对见 [市场发布记录](doc/verification/loading-performance/README.md)，原展示资料验收见 [SDK 1.2 记录](doc/verification/sdk-1.2/README.md)。
+Ctool 0.3.1 已作为 GitHub 预发布提供，包含 SDK 1.2.0 展示资料及 100 个 AI/MCP 工具；发行产物与本轮核对见 [市场发布记录](doc/verification/loading-performance/README.md)，原展示资料验收见 [SDK 1.2 记录](doc/verification/sdk-1.2/README.md)。
 
 ## 安装
 

@@ -1,0 +1,13 @@
+{
+  "sequence": 5,
+  "version": "0.3.1",
+  "issuedAt": "2026-10-31T09:53:09Z",
+  "expiresAt": "2027-01-29T09:53:09Z",
+  "registrySha256": "046401d4d06121326ae663efeabadb16dabb8b435f2073130982008e6046edb2",
+  "signatureSha256": "7e062a0c44cc5f81b81ebcec38fef324b2a5fa09e39fdc78978abbc88787200d",
+  "originalPublicKey": true,
+  "signatureVerified": true,
+  "tamperedRegistryRejected": true,
+  "tamperedSignatureRejected": true,
+  "verifiedAt": "2026-10-31T09:53:10.206311+00:00"
+}
