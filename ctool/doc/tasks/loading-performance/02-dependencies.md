@@ -31,4 +31,11 @@ packages/ctool-tools/src/index.ts及反向引用它的实际domains；只抽取�
 ## 检查与结果
 
 在ctool依次执行现有check、test、build:extension、test:contract、test:package、test:e2e；新增测试贴近语言辅助/基础模块。先运行目标测试，再按PERF-06集成verify。
-当前仅有计划，未修改代码、未得到缩包结果。构建前后图与运行请求证据待实施归档。
+规划时仅有静态分析；本轮实现与产物证据见下文。
+
+
+## 本轮实际实施与结果
+
+已移动primitives并保留旧导出同一对象，修复radix与YAML二级旁路；91项语言元数据独立于Monaco。序列化/编辑器异步，JSON代码生成器按区域加载；28语言/302选项与真实处理器逐项对照。GBK原表与算法保留，构建仅剔除无消费路径的其他编码索引。
+
+完整命令、当前产物、逐次样本与未验证项见[本轮验证](../../verification/loading-performance/README.md)，发布和清理不得以构建成功替代。

@@ -1,5 +1,6 @@
-import * as monaco from "monaco-editor";
-const supportedLanguages = monaco.languages.getLanguages();
+import type * as monaco from "monaco-editor";
+import {languageMetadata} from "./languageMetadata";
+const supportedLanguages: monaco.languages.ILanguageExtensionPoint[] = languageMetadata;
 
 // 获取编辑器编辑语言对象
 const getSourceLanguage = (land: string) => {

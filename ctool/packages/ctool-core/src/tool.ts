@@ -1,18 +1,22 @@
+import {prepareHostTheme} from "@/store/setting";
 import { createApp } from "vue";
 import { pinia } from "@/helper/pinia";
 import platform from "@/helper/platform";
 import ctool from "@/helper/plugin";
-import router from "@/helper/router";
+import router, {preloadInitialTool} from "@/helper/router";
 import "@/statics/style.css";
 import Tool from "@/Tool.vue";
-import { initPermission as initClipboardPermission } from "@/helper/clipboard";
-import {loadPreferences} from "@/helper/cookieos/storage";
+import {loadPreferences, waitForPreferences} from "@/helper/cookieos/storage";
 import Message from "@/helper/message";
 
 (async () => {
     if (!window.xhub) throw new Error("请从 cookieOS 扩展中心打开 Ctool");
-    try { await loadPreferences(); } catch { window.setTimeout(() => Message.error("偏好读取失败，本次使用默认设置"), 0); }
-    await initClipboardPermission();
+    const loading = document.createElement("div");
+    loading.setAttribute("role", "status"); loading.textContent = "正在打开工具…";
+    document.getElementById("app")?.appendChild(loading);
+    void loadPreferences().catch(() => {});
+    void preloadInitialTool().catch(() => {});
+    const hostTheme = prepareHostTheme();
     if (!document.getElementById("ctool-append")) {
         const portal = document.createElement("div"); portal.id = "ctool-append"; document.body.appendChild(portal);
     }
@@ -27,6 +31,8 @@ import Message from "@/helper/message";
     }
     const app = createApp(Tool);
     app.use(pinia).use(router).use(ctool);
-    await router.isReady();
+    void router.isReady().catch(() => {});
+    await Promise.all([hostTheme, waitForPreferences(["common", "locale", "theme", "zoom", "layout"])]);
     app.mount("#app");
+    window.addEventListener("pagehide", (event) => { if (!event.persisted) app.unmount(); }, {once: true});
 })();

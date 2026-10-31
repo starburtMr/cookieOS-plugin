@@ -24,13 +24,16 @@
         "only-release": "node release.cjs && pnpm -r run platform-release",
         "vercel-build": "pnpm run build && pnpm --filter ctool-site run build",
         "clear": "node clear.cjs",
-        "build:extension": "pnpm run initialize && pnpm --filter ctool-core run check && pnpm --filter ctool-core exec vite build && tsup --config tsup.extension.config.ts && node scripts/prepare-runtime.mjs && node scripts/assemble.mjs",
+        "build:extension": "pnpm run initialize && pnpm --filter ctool-core run check && pnpm --filter ctool-core exec vite build && node scripts/check-startup.mjs && tsup --config tsup.extension.config.ts && node scripts/prepare-runtime.mjs && node scripts/assemble.mjs",
         "test:contract": "node --test --test-concurrency=1 tests/contract.test.mjs tests/files.test.mjs tests/runtime.test.mjs tests/extended.test.mjs tests/connections.test.mjs tests/models.test.mjs tests/capabilities.test.mjs",
-        "test:package": "node --test tests/package.test.mjs",
+        "test:package": "node --test tests/package.test.mjs tests/startup.test.mjs",
         "test:e2e": "playwright test",
         "check:duplicates": "jscpd packages/ctool-core/src packages/ctool-config/src packages/ctool-tools/src service tests scripts --baseline .jscpd-baseline.json --fail-on-new-clones 0 --fail-on-empty --min-tokens 100 --ignore \"**/buildDataTemp*,**/tools/asn1/lib/**,**/domains/asn1/**,**/tools/qrCode/lib/**,**/xhub.d.ts,**/fixtures/*.json\" --reporters json --output .cache/duplicates",
         "verify": "pnpm run check && pnpm run check:service && pnpm run lint && pnpm run test && pnpm run build:extension && pnpm run test:contract && pnpm run test:package && pnpm run test:e2e && pnpm run check:duplicates",
-        "check:service": "tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --esModuleInterop --strict --skipLibCheck service/main.ts service/network.ts service/worker.ts"
+        "check:service": "tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --esModuleInterop --strict --skipLibCheck service/main.ts service/network.ts service/worker.ts",
+        "check:startup": "node scripts/check-startup.mjs",
+        "test:performance": "python3 tests/performance_host.py",
+        "check:performance": "node scripts/check-performance.mjs"
     },
     "devDependencies": {
         "@antfu/eslint-config": "^7.4.3",

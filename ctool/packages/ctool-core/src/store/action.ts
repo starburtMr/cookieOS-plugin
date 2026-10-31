@@ -1,3 +1,4 @@
+import {preferenceReady} from "@/helper/cookieos/storage";
 // 工具操作
 import { reactive, toRaw, onUnmounted } from "vue";
 import dayjs from "dayjs";
@@ -153,7 +154,7 @@ export const initialize = async <T extends Record<string, any>>(
 
     // 剪贴板数据
     const pasteInput = await (async () => {
-        if (inputField && pasteCheck !== false && storeSetting.items.auto_read_copy) {
+        if (inputField && pasteCheck !== false && preferenceReady("auto_read_copy") && storeSetting.items.auto_read_copy) {
             const pasteInput = await paste();
             if (pasteInput.trim() && pasteCheck(pasteInput)) {
                 return storeSetting.items.auto_read_copy_filter ? pasteInput.trim() : pasteInput;
@@ -246,13 +247,13 @@ export const useAction = <T extends Record<string, any>>(input: InitializeReturn
         // 自动保存
         is_save && save();
         // 复制文本
-        if (copy_text !== "" && storeSetting.items.auto_save_copy) {
+        if (copy_text !== "" && preferenceReady("auto_save_copy") && storeSetting.items.auto_save_copy) {
             return copyText(copy_text, () => {
                 Message.success($t("main_ui_copy_text_ok"));
             });
         }
         // 复制图片
-        if (copy_image !== "" && storeSetting.items.auto_save_copy) {
+        if (copy_image !== "" && preferenceReady("auto_save_copy") && storeSetting.items.auto_save_copy) {
             return copyImage(copy_image, () => {
                 Message.success($t("main_ui_copy_image_ok"));
             });

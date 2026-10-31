@@ -16,7 +16,7 @@
       "alt": "二维码生成：将示例文本转换为二维码"
     }
   ],
-  "releaseNotes": "新增分块文件传输、服务取消及临时会话；将现有工具的服务能力扩展为100个AI/MCP工具，保留原有工具合同。补充编码、密码学、数据转换、开发处理、时间计算、图像、联网及宿主模型辅助接口；修正二维码中文编码和SQL占位符处理，保持已有配置及用户数据。",
+  "releaseNotes": "优化首次打开与工具切换的按需加载；设置读取与工具资源并行，补齐设置读取恢复、局部加载重试以及编辑器和任务 Worker 的资源清理。保留现有工具、AI/MCP 合同和用户配置。",
   "homepage": "https://github.com/starburtMr/cookieOS-plugin/tree/main/ctool",
   "repository": "https://github.com/starburtMr/cookieOS-plugin",
   "supportUrl": "https://github.com/starburtMr/cookieOS-plugin/issues",

@@ -1,18 +1,11 @@
 import {Base64} from "js-base64";
-import bcrypt from "bcryptjs";
-import jsQR from "jsqr";
-import Ajv from "ajv";
-import {compressionBytes} from "ctool-tools/domains/encoding";
-import {newVariant, newQuickJSWASMModuleFromVariant} from "quickjs-emscripten-core";
-import RELEASE_SYNC from "@jitl/quickjs-wasmfile-release-sync";
-import wasmLocation from "@jitl/quickjs-wasmfile-release-sync/wasm?url";
-import lodashSource from "lodash/lodash.js?raw";
-import {checkTree} from "ctool-tools";
+import {checkTree} from "ctool-tools/domains/primitives";
 
 self.onmessage = async ({data: {kind, args}}) => {
     try {
         let value: unknown;
         if (kind === "transform") {
+            const [{newVariant, newQuickJSWASMModuleFromVariant}, {default: RELEASE_SYNC}, {default: wasmLocation}, {default: lodashSource}] = await Promise.all([import("quickjs-emscripten-core"), import("@jitl/quickjs-wasmfile-release-sync"), import("@jitl/quickjs-wasmfile-release-sync/wasm?url"), import("lodash/lodash.js?raw")]);
             if (JSON.stringify(args).length > 204800) throw new Error("内容过大，请减少输入");
             checkTree(args.data);
             const memory = new WebAssembly.Memory({initial: 256, maximum: 512});
@@ -36,16 +29,19 @@ self.onmessage = async ({data: {kind, args}}) => {
             const regex = new RegExp(args.pattern, args.flags);
             value = args.replace === false ? args.content.match(regex) : args.content.replace(regex, args.replace);
         } else if (kind === "schema") {
+            const {default: Ajv} = await import("ajv");
             if (args.schema.length > 204800 || JSON.stringify(args.value).length > 204800) throw new Error("内容过大，请减少输入");
             const schema = JSON.parse(args.schema); checkTree(schema); checkTree(args.value);
             const ajv = new Ajv({allErrors: false});
             const validate = ajv.compile(schema);
             value = validate(args.value) ? "ok ^o^" : ajv.errorsText(validate.errors, {separator: "\n"});
         } else if (kind === "inflate" || kind === "gzip") {
+            const {compressionBytes} = await import("ctool-tools/domains/encoding");
             const input = Base64.toUint8Array(args.base64);
             if (input.length > 8 * 1024 * 1024) throw new Error("文件超过 8 MiB，请减少内容");
             value = compressionBytes(input,kind === "inflate",args.deflate);
         } else if (kind === "bcrypt_hash" || kind === "bcrypt_compare") {
+            const {default: bcrypt} = await import("bcryptjs");
             if (typeof args.input !== "string" || args.input.length > 8192) throw new Error("密码内容过长，请减少输入");
             if (kind === "bcrypt_hash") {
                 if (!Number.isSafeInteger(args.rounds) || args.rounds < 4 || args.rounds > 30 || !["2a", "2b", "2y"].includes(args.version)) throw new Error("加密参数不正确");
@@ -56,6 +52,7 @@ self.onmessage = async ({data: {kind, args}}) => {
                 value = bcrypt.compareSync(args.input, args.hash);
             }
         } else if (kind === "qr") {
+            const {default: jsQR} = await import("jsqr");
             const bytes = Base64.toUint8Array(args.base64);
             if (bytes.length > 8 * 1024 * 1024) throw new Error("图片超过 8 MiB");
             const bitmap = await createImageBitmap(new Blob([bytes as BlobPart]));

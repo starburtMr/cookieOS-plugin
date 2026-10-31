@@ -158,7 +158,7 @@ import util from "./util";
 import { getDisplayName } from "@/helper/code";
 import { jsonrepair } from "jsonrepair";
 import { ComponentSizeType } from "@/types";
-import ToObject from "./toObject/ToObject.vue";
+import {retryableComponent} from "@/helper/asyncComponent";
 import { languages as toObjectLangLists, getOption as getToObjectOption } from "./toObject";
 import useOperate from "@/store/operate";
 import useTransfer from "@/store/transfer";
@@ -168,6 +168,8 @@ import type {AiConfig} from "@/helper/llm";
 import Message from "@/helper/message";
 import { copy } from "@/helper/clipboard";
 import { findJsonNodeAtOffset, formatJsonNodeValue, formatJsonPath } from "./pathUtil";
+
+const ToObject = retryableComponent(() => import("./toObject/ToObject.vue"));
 
 const operate = useOperate();
 const transfer = useTransfer();

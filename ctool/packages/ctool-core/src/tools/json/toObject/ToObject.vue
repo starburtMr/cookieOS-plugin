@@ -30,7 +30,8 @@
 import { PropType, watch } from "vue"
 import Serialize from "@/helper/serialize"
 import { getDisplayName } from "@/helper/code";
-import { transform, Option } from "./index";
+import { Option } from "./index";
+import {transform} from "ctool-tools/domains/toObject/index";
 
 const props = defineProps({
     modelValue: {

@@ -1,3 +1,4 @@
+import {preferenceReady, preferenceStatus} from "./storage";
 import {onUnmounted, reactive, watch} from "vue";
 import type {AiConfig, ChatMessage, ChatResult} from "../llm";
 
@@ -12,6 +13,7 @@ export function useHostAi(snapshot: () => string) {
     onUnmounted(stop);
     return async (messages: ChatMessage[], config: AiConfig): Promise<ChatResult> => {
         stop();
+        if (preferenceStatus.ai_model && !preferenceReady("ai_model")) throw new Error("模型选择尚未读取，请稍后重试");
         if (!window.xhub?.models) throw new Error("请更新 cookieOS 后使用 AI 辅助");
         const before = snapshot();
         const controller = new AbortController(); current = controller;

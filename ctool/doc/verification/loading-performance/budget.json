@@ -1,0 +1,95 @@
+{
+  "source": "immutable 0.3.0 baseline before-5",
+  "coldRatio": 0.7,
+  "initialJSRatio": 0.4,
+  "warmMaxRegressionRatio": 0.1,
+  "warmMaxRegressionMs": 50,
+  "heavyMaxRegressionRatio": 0.1,
+  "heavyMaxRegressionMs": 100,
+  "baseline": {
+    "cold-default": {
+      "n": 5,
+      "median": 2781.301772,
+      "min": 2664.919108,
+      "max": 2905.3227229999998
+    },
+    "warm-prime": {
+      "n": 1,
+      "median": 3124.555819000001,
+      "min": 3124.555819000001,
+      "max": 3124.555819000001
+    },
+    "warm-reopen": {
+      "n": 10,
+      "median": 2730.870436000001,
+      "min": 2652.679286999999,
+      "max": 5123.412255000003
+    },
+    "tool-prime": {
+      "n": 1,
+      "median": 2704.4743210000015,
+      "min": 2704.4743210000015,
+      "max": 2704.4743210000015
+    },
+    "tool:base64/encoder:first": {
+      "n": 1,
+      "median": 1100.7795339999939,
+      "min": 1100.7795339999939,
+      "max": 1100.7795339999939
+    },
+    "tool:base64/encoder:repeat": {
+      "n": 9,
+      "median": 1105.2175819999975,
+      "min": 1096.1332790000015,
+      "max": 1114.559678000005
+    },
+    "tool:json:first": {
+      "n": 1,
+      "median": 1057.1259040000004,
+      "min": 1057.1259040000004,
+      "max": 1057.1259040000004
+    },
+    "tool:json:repeat": {
+      "n": 9,
+      "median": 867.379522999996,
+      "min": 858.4997460000013,
+      "max": 886.983223999996
+    },
+    "tool:code:first": {
+      "n": 1,
+      "median": 838.3536429999949,
+      "min": 838.3536429999949,
+      "max": 838.3536429999949
+    },
+    "tool:code:repeat": {
+      "n": 9,
+      "median": 835.5438009999925,
+      "min": 831.988605999999,
+      "max": 838.7364510000043
+    },
+    "tool:unit:first": {
+      "n": 1,
+      "median": 463.9909489999991,
+      "min": 463.9909489999991,
+      "max": 463.9909489999991
+    },
+    "tool:unit:repeat": {
+      "n": 9,
+      "median": 387.70201700000325,
+      "min": 372.36254099999496,
+      "max": 426.9526760000008
+    },
+    "tool:numberCalc:first": {
+      "n": 1,
+      "median": 849.3843650000053,
+      "min": 849.3843650000053,
+      "max": 849.3843650000053
+    },
+    "tool:numberCalc:repeat": {
+      "n": 9,
+      "median": 834.8570979999931,
+      "min": 363.1402919999964,
+      "max": 839.7812200000044
+    }
+  }
+}

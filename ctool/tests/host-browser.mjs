@@ -41,7 +41,8 @@ async function main(){
         await expect(frame().locator('.monaco-editor').first()).toBeVisible();
         await expect(frame().locator('.ctool-main-tool')).toContainText('a');
         await content.evaluate(()=>{location.hash='#/tool/text?input=hello';});
-        await frame().getByRole('button',{name:/✨.*AI/}).first().click();
+        const textAction=await content.evaluate(()=>window.$t('main_text_ai_process'));
+        await frame().getByRole('button',{name:'✨ '+textAction,exact:true}).click();
         const modal=frame().locator('.ctool-modal:visible, .ctool-modal-mask:visible').last();
         await modal.locator('textarea').fill('改写文本');
         await modal.getByRole('button',{name:/确定|确认/}).click();

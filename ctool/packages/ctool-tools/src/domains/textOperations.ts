@@ -3,7 +3,7 @@ import pinyin from "./pinyin";
 import {convent} from "./nameConvert";
 import {convert} from "./zhNumber";
 import {parseStackTrace, preprocessInput} from "./stacktrace";
-import {ToolError} from "../index";
+import {ToolError} from "./primitives";
 
 export const textMethods = ["upper","lower","upperLineStart","lowerLineStart","upperStart","lowerStart","zhTran","replace","regularReplace","lineRemoveRepeat","removeLineIndex","addLineIndex","sort","lineTrim","filterBlankLine","filterAllBr","replacePunctuation","escape","unescape","rename","stat"] as const;
 export function textOperation(name: string, a: Record<string, any>) {

@@ -1,5 +1,5 @@
 import {parseObjectId,createObjectId} from "./objectId";
-import {convertRadix,ToolError} from "../index";
+import {convertRadix,ToolError} from "./primitives";
 import {generate as binary} from "./binary";
 import {calculate} from "./unit";
 import {numberStatistics} from "./statistics";

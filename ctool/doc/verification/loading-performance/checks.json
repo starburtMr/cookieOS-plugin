@@ -1,0 +1,15 @@
+{
+  "version": "0.3.1",
+  "command": "npx --yes pnpm@10.34.9 run verify",
+  "exitCode": 0,
+  "unitTests": 365,
+  "contractTests": 229,
+  "packageAndBudgetTests": 14,
+  "browserTests": 40,
+  "lintErrors": 0,
+  "lintWarnings": 195,
+  "lintWarningBudget": 300,
+  "newClones": 0,
+  "duplicateBaselineChanged": false,
+  "independentReviewer": false
+}

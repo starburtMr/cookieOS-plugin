@@ -1,5 +1,5 @@
 import crc from "crc";
-import {ToolError} from "../index";
+import {ToolError} from "./primitives";
 export const crcAlgorithms=Object.keys(crc).filter(key=>typeof crc[key as keyof typeof crc]==="function");
 export function checksumBytes(bytes:Uint8Array,algorithm:string) {
     let n=0;

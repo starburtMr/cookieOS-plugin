@@ -1,0 +1,23 @@
+{
+  "version": "0.3.1",
+  "sha256": "b3be4cc91da085bc5c8b94f280b67cbcde8ec730abb5ff2aaa62c3c32d5ff464",
+  "hostSha256": "4497bcae6d67501c1b939d431cfe4e0662e39254dba3e639481c18c1beb02e17",
+  "passed": [
+    "0.2.0 upgrade preserves identity, config, secret config and storage",
+    "installed presentation and authenticated packaged images match final ZIP",
+    "real installed Node service runs shared codecs, QuickJS and native QR",
+    "real MCP discovers all 100 tools and executes codec/file/hash round trip",
+    "real host model bridge and built-in AI dispatcher use the same installed tools (local protocol model)",
+    "disable/enable preserves presentation and expires temporary file references",
+    "invalid presentation package cannot replace or break current version",
+    "rollback to immutable 0.2.0, upgrade again and retained-data reinstall work",
+    "owned fixture processes, ports, database container and temporary data cleaned"
+  ],
+  "unverified": [
+    "real external model provider",
+    "JDoodle credentials and paid execution",
+    "ARM/GeoJS live availability",
+    "other OS/CPU/libc",
+    "formal market publication"
+  ]
+}

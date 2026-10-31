@@ -4,6 +4,7 @@
             <SimpleHeader v-if="storeSetting.items.layout === `simple`" />
             <ComplexHeader v-else />
             <Content />
+            <PreferenceRecovery />
             <AiActivity />
             <SimpleBottom v-if="storeSetting.items.layout === `simple`" />
             <ComplexBottom v-else />
@@ -12,6 +13,7 @@
 </template>
 
 <script setup lang="ts">
+import PreferenceRecovery from "@/block/PreferenceRecovery.vue";
 import Content from "@/block/Content.vue";
 import AiActivity from "@/block/AiActivity.vue";
 import Message from "@/helper/message";

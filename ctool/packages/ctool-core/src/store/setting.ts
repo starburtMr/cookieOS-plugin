@@ -1,5 +1,5 @@
 // 设置
-import {preferenceDefaults} from "@/helper/cookieos/storage";
+import {preferenceDefaults, onPreference, savePreference} from "@/helper/cookieos/storage";
 import {defineStore} from '@/helper/pinia'
 import {Locale, ThemeType, ThemeRawType} from "@/types"
 import {commonTool, ToolType} from "@/config"
@@ -40,6 +40,23 @@ interface Setting {
 }
 
 let hostTheme: ThemeRawType = "light";
+let stopHostTheme: (() => void) | undefined;
+export async function prepareHostTheme() {
+    let revision = 0;
+    const apply = (value: Record<string, string>) => {
+        hostTheme = value.colorScheme === "dark" || value.mode === "dark" || value.theme === "dark" ? "dark" : "light";
+        event.dispatch("theme_change", "host");
+    };
+    stopHostTheme?.();
+    stopHostTheme = window.xhub.theme.onChange(value => { revision++; apply(value); });
+    const before = revision;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    try {
+        const value = await Promise.race([window.xhub.theme.get(), new Promise<never>((_r, reject) => { timer = setTimeout(() => reject(new Error("Theme timeout")), 3000); })]);
+        if (before === revision) apply(value);
+    } catch { /* Auto theme retains the current scheme until the next host event. */ }
+    finally { clearTimeout(timer); }
+}
 const getSystemTheme = (): ThemeRawType => {
     if (window.xhub) return hostTheme;
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -51,14 +68,18 @@ const getSystemTheme = (): ThemeRawType => {
 const defaultValue: Setting = {...preferenceDefaults, common: [...preferenceDefaults.common], proxy_enable: false, proxy_url: proxy.defaultProxyUrl};
 
 const useSetting = defineStore('setting', () => {
-    const items = $ref<Setting>(defaultValue)
+    const items = $ref<Setting>({...defaultValue, common: [...defaultValue.common]})
+    const stopPreferences = onPreference((key, value) => { items[key] = value; });
+    onUnmounted(stopPreferences);
 
     // 保存
     const save = <K extends keyof Setting>(key: K, value: Setting[K]) => {
         if (key === 'common' && (value as string[]).length < 1) {
             items['common'] = [...new Set(commonTool)]
+            savePreference('common', items.common);
             return;
         }
+        savePreference(key, value)
         items[key] = value
     }
 
@@ -80,22 +101,17 @@ const useSetting = defineStore('setting', () => {
     }
     watch(() => items.zoom, (zoom) => applyZoom(zoom))
 
-    let stopTheme: (() => void) | undefined;
-    onUnmounted(() => stopTheme?.());
+    const localeResize = async () => { await nextTick(); window.dispatchEvent(new Event('resize')); };
+    const systemTheme = () => { if (items.theme === 'auto') event.dispatch('theme_change', 'system change'); };
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    onUnmounted(() => { event.removeListener('locale_change', localeResize); media.removeEventListener('change', systemTheme); });
+    onUnmounted(() => stopHostTheme?.());
     onMounted(() => {
-        event.addListener('locale_change', async () => {
-            await nextTick()
-            // 语言变化重新计算窗口尺寸
-            window.dispatchEvent(new Event('resize'));
-        })
-        void window.xhub.theme.get().then(value => { hostTheme = value.colorScheme === "dark" || value.mode === "dark" || value.theme === "dark" ? "dark" : "light"; event.dispatch("theme_change", "host"); });
-        stopTheme = window.xhub.theme.onChange(value => { hostTheme = value.colorScheme === "dark" || value.mode === "dark" || value.theme === "dark" ? "dark" : "light"; event.dispatch("theme_change", "host"); });
+        event.addListener('locale_change', localeResize);
         // 初始化语言
         setCurrentLocale(items.locale)
         // 监控系统主题变化
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-            items.theme === 'auto' && event.dispatch('theme_change', 'system change')
-        })
+        media.addEventListener('change', systemTheme);
         // 应用初始缩放比例
         if (items.zoom !== 100) {
             applyZoom(items.zoom);

@@ -20,7 +20,7 @@ test('runtime identity has one source and all existing tool/data contracts remai
     delete tools.find(t=>t.name==='arm_convert').outputSchema.$schema;
     for(const old of previous.tools){const actual=tools.find(t=>t.name===old.name);assert.deepEqual(actual,{...old,ai:true,mcp:true},old.name);}
     for(const key of ['name','description','author','category'])assert.ok(manifest[key].trim(),key);
-    assert.equal(manifest.version,'0.3.0');assert.equal(manifest.category,'开发工具');
+    assert.equal(manifest.version,JSON.parse(await readFile('manifest.json','utf8')).version);assert.equal(manifest.category,'开发工具');
 });
 test('every tool schema compiles with its declared dialect and ARM tuple behavior stays unchanged',async()=>{
     for(const tool of manifest.tools)for(const key of ['inputSchema','outputSchema']){

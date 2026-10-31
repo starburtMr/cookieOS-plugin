@@ -7,7 +7,7 @@ import Json from "./json";
 import jsonUtil from "./jsonUtil";
 import Serialize from "./serialize/index";
 import {transform as toType} from "./toObject/index";
-import {checkTree,ToolError,decodeBase64Bytes} from "../index";
+import {checkTree,ToolError,decodeBase64Bytes} from "./primitives";
 
 const sources={json:"formJson",yaml:"formYaml",toml:"formToml",xml:"formXml",csv:"formCsv",html_table:"formTable",php_array:"formPhpArray",php_serialize:"formPhpSerialize",properties:"formProperties",http_query_string:"formQueryString",text:"formText"} as const;
 const targets={json:"toJson",yaml:"toYaml",toml:"toToml",xml:"toXml",csv:"toCsv",html_table:"toTable",php_array:"toPhpArray",php_serialize:"toPhpSerialize",properties:"toProperties",http_query_string:"toQueryString",text:"toText"} as const;

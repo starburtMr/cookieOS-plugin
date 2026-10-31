@@ -31,4 +31,11 @@ helper/cookieos/{task.ts,task.worker.ts}、实际调用这些任务的页面。�
 ## 检查与结果
 
 相邻单测覆盖生命周期代次和取消，Playwright覆盖真实编辑/Worker，现有test:e2e及verify复验。
-当前未实施，无运行时泄漏或速度改善的定量结论。
+本轮已实施；只报告实际计数/切换测试，不作24小时无泄漏保证。
+
+
+## 本轮实际实施与结果
+
+Editor/Diff等待真实monacoInit，创建代次/销毁标记保护，自建模型、completion、事件和observer对称释放，移除轮询。任务Worker按kind动态导入并保持4秒总截止和幂等终止；JSON Worker真实诊断、10轮模型释放、任务取消/超时/重建测试通过。
+
+完整命令、当前产物、逐次样本与未验证项见[本轮验证](../../verification/loading-performance/README.md)，发布和清理不得以构建成功替代。

@@ -1,6 +1,6 @@
 # Ctool 加载性能与稳定性任务入口
 
-本轮交付是可执行方案和模块任务，运行代码仍为0.3.0，尚未实施性能优化。
+本轮已在独立worktree实现0.3.1；实际结果与未达目标见[验证记录](../../verification/loading-performance/README.md)。7个模块任务及阶段依赖继续作为本轮唯一入口。
 需求见[Product-Spec](../../../Product-Spec.md#加载性能与稳定性优化2026-10-31)，技术契约见[DD-PERF](../../../Detailed-Design.md#dd-perf-01-边界与复用)，证据与官方依据见[研究记录](../../research/loading-performance.md)。阶段只在[DEV-PLAN](../../../DEV-PLAN.md)，实际状态只在[Progress](../../../Progress.md)。
 
 | 模块 | 目标 | 依赖 |
@@ -36,7 +36,7 @@ rtk proxy npx --yes pnpm@10.34.9 run verify
 ~~~
 
 build:extension已包含原生部署依赖准备，环境条件仍遵循原[验收文档](../../verification/full-ai-mcp/README.md)。构建和verify共用输出目录，不并发执行。
-拟新增check:startup与test:performance要在PERF-06接入后才可调用；当前不存在，不把它们写成已执行命令。
+check:startup已集成build:extension/verify；test:performance测真实隔离宿主，check:performance对同环境报告执行冻结预算比较。具体参数与实际结果见验证记录。
 
 ## 总完成条件
 

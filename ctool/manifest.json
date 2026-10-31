@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "io.cookieos.ctool",
   "name": "Ctool 开发者工具箱",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "hostApi": "^1.0.0",
   "description": "用于编码转换、数据处理、文本编辑、加密校验和开发调试的工具箱，支持 cookieOS 模型辅助。",
   "author": "cookieOS-plugin contributors",

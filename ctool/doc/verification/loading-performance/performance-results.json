@@ -1,0 +1,105 @@
+{
+  "allBudgetsPassed": false,
+  "results": [
+    {
+      "name": "cold-default",
+      "beforeMs": 2729.2064630000004,
+      "afterMs": 2152.637014,
+      "limitMs": 1910.4445241,
+      "passed": false,
+      "beforeJS": 6451046,
+      "afterJS": 1152884
+    },
+    {
+      "name": "warm-reopen",
+      "beforeMs": 2671.3137865000026,
+      "afterMs": 2169.943985500002,
+      "limitMs": 2938.445165150003,
+      "passed": true
+    },
+    {
+      "name": "tool:base64/encoder:first",
+      "beforeMs": 1118.3310979999987,
+      "afterMs": 1119.9224300000024,
+      "limitMs": 1230.1642077999986,
+      "passed": true
+    },
+    {
+      "name": "tool:base64/encoder:repeat",
+      "beforeMs": 1109.5119524999973,
+      "afterMs": 1106.3441810000004,
+      "limitMs": 1220.463147749997,
+      "passed": true
+    },
+    {
+      "name": "tool:json:first",
+      "beforeMs": 1363.4237624999987,
+      "afterMs": 1605.1663009999993,
+      "limitMs": 1499.7661387499986,
+      "passed": false
+    },
+    {
+      "name": "tool:json:repeat",
+      "beforeMs": 1014.5753089999989,
+      "afterMs": 992.5916674999999,
+      "limitMs": 1116.0328398999989,
+      "passed": true
+    },
+    {
+      "name": "tool:code:first",
+      "beforeMs": 1116.8503230000006,
+      "afterMs": 1446.0195250000033,
+      "limitMs": 1228.5353553000007,
+      "passed": false
+    },
+    {
+      "name": "tool:code:repeat",
+      "beforeMs": 939.9642000000022,
+      "afterMs": 935.6462379999994,
+      "limitMs": 1039.9642000000022,
+      "passed": true
+    },
+    {
+      "name": "tool:unit:first",
+      "beforeMs": 469.70158450000235,
+      "afterMs": 557.9459010000019,
+      "limitMs": 569.7015845000024,
+      "passed": true
+    },
+    {
+      "name": "tool:unit:repeat",
+      "beforeMs": 390.2870010000006,
+      "afterMs": 392.9204519999994,
+      "limitMs": 490.2870010000006,
+      "passed": true
+    },
+    {
+      "name": "tool:numberCalc:first",
+      "beforeMs": 851.9572694999988,
+      "afterMs": 854.034391000002,
+      "limitMs": 951.9572694999988,
+      "passed": true
+    },
+    {
+      "name": "tool:numberCalc:repeat",
+      "beforeMs": 837.742354,
+      "afterMs": 840.2847679999977,
+      "limitMs": 937.742354,
+      "passed": true
+    },
+    {
+      "name": "tool:diffs:first",
+      "beforeMs": 1156.188990999999,
+      "afterMs": 1605.1924719999997,
+      "limitMs": 1271.807890099999,
+      "passed": false
+    },
+    {
+      "name": "tool:diffs:repeat",
+      "beforeMs": 1163.1737125,
+      "afterMs": 1142.8838309999992,
+      "limitMs": 1279.49108375,
+      "passed": true
+    }
+  ]
+}

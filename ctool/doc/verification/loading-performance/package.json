@@ -1,0 +1,11 @@
+{
+  "version": "0.3.1",
+  "sha256": "b3be4cc91da085bc5c8b94f280b67cbcde8ec730abb5ff2aaa62c3c32d5ff464",
+  "bytes": 40731428,
+  "unpackedBytes": 130424652,
+  "files": 4195,
+  "runtimeManifestExceptVersion": "identical to immutable 0.3.0",
+  "nativeBinaryInventory": "28 records identical to immutable 0.3.0",
+  "sdkVersion": "1.2.0",
+  "hostApi": "^1.0.0"
+}

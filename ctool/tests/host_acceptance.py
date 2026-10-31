@@ -61,16 +61,22 @@ def main():
     parser.add_argument("--browser", action="store_true")
     parser.add_argument("--cookieos-root", type=Path, required=True)
     parser.add_argument("--server-binary", type=Path, required=True)
+    parser.add_argument("--frontend-root", type=Path)
     parser.add_argument("--archive", type=Path, required=True)
     parser.add_argument("--previous", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     root, archive, previous, output, binary = (p.resolve() for p in (args.cookieos_root, args.archive, args.previous, args.output, args.server_binary))
+    frontend = args.frontend_root.resolve() if args.frontend_root else root / "cookieOS/web/apps/web-antd/dist"
     if output.exists():
         raise ValueError("Output must not already exist")
     test_root = Path(__file__).resolve().parent
     host = load_checks(root)
-    report = {"version": "0.3.0", "sha256": hashlib.sha256(archive.read_bytes()).hexdigest(), "hostSha256": hashlib.sha256(binary.read_bytes()).hexdigest(), "passed": [], "unverified": ["real external model provider", "JDoodle credentials and paid execution", "ARM/GeoJS live availability", "other OS/CPU/libc", "formal market publication"]}
+    with zipfile.ZipFile(archive) as package:
+        version = json.loads(package.read("manifest.json"))["version"]
+    with zipfile.ZipFile(previous) as package:
+        previous_version = json.loads(package.read("manifest.json"))["version"]
+    report = {"version": version, "sha256": hashlib.sha256(archive.read_bytes()).hexdigest(), "hostSha256": hashlib.sha256(binary.read_bytes()).hexdigest(), "passed": [], "unverified": ["real external model provider", "JDoodle credentials and paid execution", "ARM/GeoJS live availability", "other OS/CPU/libc", "formal market publication"]}
 
     def passed(name):
         report["passed"].append(name)
@@ -92,11 +98,11 @@ def main():
             checks.api("PUT", "/extensions/" + eid + "/storage", {"action": "set", "key": "ctool.pref.fixture", "value": "retained", "digest": checks.read(eid)["digest"]})
             installed = checks.upload(archive)
             assert installed["extensionId"] == eid
-            assert checks.read(eid)["manifest"]["version"] == "0.3.0"
+            assert checks.read(eid)["manifest"]["version"] == version
             assert checks.read(eid)["config"] == {"retained": True}
             assert checks.api("GET", "/extensions/" + eid + "/storage")["ctool.pref.fixture"] == "retained"
             assert checks.read(eid)["hasSecretConfig"]
-            passed("0.2.0 upgrade preserves identity, config, secret config and storage")
+            passed(previous_version + " upgrade preserves identity, config, secret config and storage")
             presentation = checks.api("GET", "/extensions/" + eid + "/presentation")
             assert presentation["status"] == "available" and presentation["digest"] == report["sha256"]
             assert len(presentation["presentation"]["screenshots"]) == 3
@@ -169,7 +175,7 @@ def main():
                 if args.browser:
                     browser_config = fixture.directory / "browser.json"
                     browser_config.touch(mode=0o600)
-                    browser_config.write_text(json.dumps({"origin": ui_origin, "apiOrigin": fixture.origin, "uiRoot": str(root / "cookieOS/web/apps/web-antd/dist"), "cookie": fixture.cookie, "extensionId": eid, "output": str(output.parent / "host-browser")}))
+                    browser_config.write_text(json.dumps({"origin": ui_origin, "apiOrigin": fixture.origin, "uiRoot": str(frontend), "cookie": fixture.cookie, "extensionId": eid, "output": str(output.parent / "host-browser")}))
                     subprocess.run(["node", str(test_root / "host-browser.mjs"), str(browser_config)], cwd=test_root.parent, check=True, timeout=180)
                     passed("real host frontend: four UI surfaces, model action and three viewport sizes")
             finally:
@@ -193,7 +199,7 @@ def main():
             passed("invalid presentation package cannot replace or break current version")
             current = checks.read(eid)
             checks.api("POST", "/extensions/" + eid + "/rollback", {"digest": old_digest}, **{"If-Match": '"' + str(current["version"]) + '"'})
-            assert checks.read(eid)["manifest"]["version"] == "0.2.0"
+            assert checks.read(eid)["manifest"]["version"] == previous_version
             assert checks.read(eid)["config"] == {"retained": True}
             assert invoke("json_format", {"text": '{"a":1}', "indent": 0})["text"] == '{"a":1}'
             checks.upload(archive)
@@ -204,7 +210,7 @@ def main():
             assert checks.api("GET", "/extensions/" + eid + "/storage")["ctool.pref.fixture"] == "retained"
             assert invoke("hmac_compute", {"text": "abc", "algorithm": "sha256", "keyRef": "fixture"})["text"] == hmac.new(b"fixture-key", b"abc", hashlib.sha256).hexdigest()
             checks.api("DELETE", "/mcp-tokens/" + token["id"])
-            passed("rollback to immutable 0.2.0, upgrade again and retained-data reinstall work")
+            passed("rollback to immutable " + previous_version + ", upgrade again and retained-data reinstall work")
         passed("owned fixture processes, ports, database container and temporary data cleaned")
     finally:
         output.parent.mkdir(parents=True, exist_ok=True)

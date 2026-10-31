@@ -1,3 +1,4 @@
+import {reactive} from "vue";
 import {commonTool, toolExists} from "ctool-config";
 import type {StorageDataStructureInterface} from "@/types";
 
@@ -10,7 +11,20 @@ export const preferenceDefaults = {
 const memory = new Map<string, StorageDataStructureInterface<unknown>>();
 const preferenceKeys = ["common", "locale", "theme", "auto_read_copy", "auto_read_copy_filter", "auto_save_copy", "layout", "fill_history_expire", "history_icon_badge_hidden", "zoom", "ai_model"];
 const writes = new Map<string, Promise<unknown>>();
-let last = new Map<string, string>();
+const reads = new Map<string, Promise<void>>();
+const revisions = new Map<string, number>();
+const generations = new Map<string, number>();
+const observed = new Map<string, string>();
+const scheduled = new Map<string, string>();
+export const preferenceStatus = reactive<Record<string, "loading" | "loaded" | "missing" | "invalid" | "failed">>({});
+const listeners = new Set<(key: string, value: unknown) => void>();
+export function onPreference(listener: (key: string, value: unknown) => void) {
+    listeners.add(listener); return () => { listeners.delete(listener); };
+}
+export function preferenceReady(key: string) {
+    return (revisions.get(key) ?? 0) > 0 || ["loaded", "missing"].includes(preferenceStatus[key]);
+}
+export function waitForPreferences(keys: string[]) { return Promise.all(keys.map(key => reads.get(key)?.catch(() => {}))); }
 
 function valid(key: string, value: unknown) {
     if (key === "common") return Array.isArray(value) && value.length <= 100 && value.every(v => typeof v === "string" && toolExists(v));
@@ -23,35 +37,64 @@ function valid(key: string, value: unknown) {
     return typeof value === "boolean";
 }
 
-export async function loadPreferences() {
-    const items: Record<string, unknown> = {};
-    let failed = false;
-    await Promise.all(preferenceKeys.map(async key => {
-        try {
-            const value = await window.xhub.storage.get(`ctool.pref.${key}`);
-            if (valid(key, value)) items[key] = value;
-        } catch { failed = true; }
-    }));
-    last = new Map(Object.entries({...preferenceDefaults, ...items}).map(([k, v]) => [k, JSON.stringify(v)]));
-    memory.set("nv_setting", {v: {items}, u: "", e: 0, es: ""});
-    if (failed) throw new Error("Some preferences could not be loaded");
+async function readPreference(key: string, timeoutMs: number) {
+    const generation = (generations.get(key) ?? 0) + 1;
+    generations.set(key, generation);
+    const revision = revisions.get(key) ?? 0;
+    preferenceStatus[key] = "loading";
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    try {
+        const value = await Promise.race([
+            window.xhub.storage.get("ctool.pref." + key),
+            new Promise<never>((_resolve, reject) => { timer = setTimeout(() => reject(new Error("Preference read timeout")), timeoutMs); }),
+        ]);
+        if (generations.get(key) !== generation || (revisions.get(key) ?? 0) !== revision) return;
+        preferenceStatus[key] = value === null ? "missing" : valid(key, value) ? "loaded" : "invalid";
+        if (!valid(key, value)) return;
+        observed.set(key, JSON.stringify(value));
+        const old = memory.get("nv_setting") ?? {v: {items: {}}, u: "", e: 0, es: ""};
+        const items = {...(old.v as {items: Record<string, unknown>}).items, [key]: value};
+        memory.set("nv_setting", {...old, v: {items}});
+        for (const listener of listeners) listener(key, value);
+    } catch {
+        if (generations.get(key) !== generation || (revisions.get(key) ?? 0) !== revision) return;
+        preferenceStatus[key] = "failed";
+        throw new Error("Some preferences could not be loaded");
+    } finally { clearTimeout(timer); }
 }
-
+export async function loadPreferences({retryFailed = false, timeoutMs = 3000} = {}) {
+    if (!retryFailed) {
+        memory.set("nv_setting", {v: {items: {}}, u: "", e: 0, es: ""});
+        for (const [key, value] of Object.entries(preferenceDefaults)) observed.set(key, JSON.stringify(value));
+        revisions.clear(); scheduled.clear();
+    }
+    const pending = preferenceKeys.filter(key => !retryFailed || ["failed", "invalid"].includes(preferenceStatus[key])).map(key => {
+        const read = readPreference(key, timeoutMs); reads.set(key, read); return read;
+    });
+    const results = await Promise.allSettled(pending);
+    if (results.some(r => r.status === "rejected")) throw new Error("Some preferences could not be loaded");
+}
+export function savePreference(key: string, value: unknown) {
+    if (!preferenceKeys.includes(key) || !valid(key, value)) return;
+    const encoded = JSON.stringify(value);
+    observed.set(key, encoded);
+    revisions.set(key, (revisions.get(key) ?? 0) + 1);
+    preferenceStatus[key] = "loaded";
+    if (scheduled.get(key) === encoded) return;
+    scheduled.set(key, encoded);
+    const snapshot: unknown = JSON.parse(encoded);
+    const next = (writes.get(key) ?? Promise.resolve()).catch(() => {}).then(() => window.xhub.storage.set("ctool.pref." + key, snapshot));
+    writes.set(key, next);
+    void next.catch(() => {
+        if (scheduled.get(key) === encoded) scheduled.delete(key);
+        window.dispatchEvent(new CustomEvent("ctool:save-error"));
+    });
+}
 function persist(value: StorageDataStructureInterface<unknown>) {
     const items = (value.v as {items?: Record<string, unknown>})?.items;
     if (!items) return;
     for (const key of preferenceKeys) {
-        if (!(key in items) || !valid(key, items[key])) continue;
-        const encoded = JSON.stringify(items[key]);
-        if (last.get(key) === encoded) continue;
-        last.set(key, encoded);
-        const snapshot: unknown = JSON.parse(encoded);
-        const next = (writes.get(key) ?? Promise.resolve()).catch(() => {}).then(() => window.xhub.storage.set(`ctool.pref.${key}`, snapshot));
-        writes.set(key, next);
-        void next.catch(() => {
-            if (last.get(key) === encoded) last.delete(key);
-            window.dispatchEvent(new CustomEvent("ctool:save-error"));
-        });
+        if (key in items && valid(key, items[key]) && observed.get(key) !== JSON.stringify(items[key])) savePreference(key, items[key]);
     }
 }
 

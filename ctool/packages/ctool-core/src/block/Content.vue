@@ -1,5 +1,6 @@
 <template>
     <div class="ctool-content">
+        <div v-if="failedNavigation || navigationPending" class="ctool-route-progress"><LoadingState :failed="!!failedNavigation" @retry="retryNavigation" /></div>
         <div class="ctool-main-tool">
             <router-view v-slot="{Component, route}">
                     <Suspense :key="route.path">
@@ -31,6 +32,8 @@
 
 <script setup lang="ts">
 import {useRouter} from 'vue-router'
+import LoadingState from "@/components/LoadingState.vue";
+import {failedNavigation, navigationPending, retryNavigation} from "@/helper/router";
 import {onMounted, onUnmounted} from 'vue'
 import {report} from '@/helper/stat'
 import {RouteMeta} from '@/types'
@@ -56,9 +59,9 @@ onMounted(() => {
 // 打开设置页面
 let openSetting = $ref(false)
 
-event.addListener('open_setting', () => {
-    openSetting = !openSetting
-})
+const toggleSetting = () => { openSetting = !openSetting; };
+event.addListener('open_setting', toggleSetting);
+onUnmounted(() => event.removeListener('open_setting', toggleSetting));
 
 const accessRoute = (to) => {
     const meta = to.meta as RouteMeta
@@ -80,6 +83,9 @@ onUnmounted(stopGuard);
 
 </script>
 <style>
+.ctool-route-progress { position:absolute; right:.5rem; top:.5rem; z-index:10; max-width:calc(100% - 1rem); background:var(--ctool-background-color); }
+.ctool-route-progress .ctool-loading-state { min-height:2rem; }
+.ctool-content { position:relative; }
 .ctool-content {
     box-sizing: border-box;
     width: 100%;

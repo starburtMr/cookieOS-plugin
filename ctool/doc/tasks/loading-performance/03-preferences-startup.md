@@ -33,4 +33,11 @@ src/tool.ts、helper/cookieos/storage.ts及storage.test.ts、helper/pinia.ts、s
 ## 检查与结果
 
 复用storage.test.ts并补受控Promise/假时钟测试；现有test、check、test:e2e覆盖保存后重开和双窗口，不以内存单窗口自证并发。
-当前未实施。恢复期限、宿主延迟基线与多窗口证据待PERF-01和本模块记录。
+本轮恢复期限为3秒；实现与多窗口证据见下文。
+
+
+## 本轮实际实施与结果
+
+逐键状态、读取代次、本地修改代次、3秒失败反馈、显式重读和同值保存重试已接入。必要5键/主题与路由并行；默认选中工具在常用与语言就绪后预载，其余偏好不阻塞普通工具。仍有11个SDK get，不编造批量接口；不同键保存及晚到响应保护测试通过。
+
+完整命令、当前产物、逐次样本与未验证项见[本轮验证](../../verification/loading-performance/README.md)，发布和清理不得以构建成功替代。

@@ -1,0 +1,25 @@
+{
+  "before": {
+    "requests": 17,
+    "transfer": 6705168,
+    "decodedJS": 6451046,
+    "longTaskCountMedian": 2,
+    "longTaskTotalMedianMs": 892,
+    "storageReadsMedian": 1,
+    "storageReadMedianMs": 24.200000017881393
+  },
+  "after": {
+    "requests": 17,
+    "transfer": 1407854,
+    "decodedJS": 1152884,
+    "longTaskCountMedian": 2,
+    "longTaskTotalMedianMs": 280,
+    "storageReadsMedian": 1,
+    "storageReadMedianMs": 37.099999994039536
+  },
+  "hostSha256": "4497bcae6d67501c1b939d431cfe4e0662e39254dba3e639481c18c1beb02e17",
+  "hostFrontendIndexSha256": "c120a4d2f518bdca9c73b30d218c10e242a26c9962ca0d9971370bf24fc52084",
+  "browser": "156.0.8078.4",
+  "profile": "Chromium CPU4x, 1074x884, real isolated host via streaming HTTP proxy, no Playwright routing; provider not invoked",
+  "platform": "Linux-6.17.0-41-generic-x86_64-with-glibc2.42"
+}

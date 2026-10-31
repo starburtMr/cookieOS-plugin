@@ -1,1 +1,1 @@
-export {convertRadix as default} from "./index";
+export {convertRadix as default} from "./domains/primitives";

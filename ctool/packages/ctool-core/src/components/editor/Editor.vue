@@ -6,6 +6,10 @@
         :style="{ height: `${sizeConvert(props.height)}`, width: `100%` }"
         toggle
     >
+        <div v-if="loading || failed" class="ctool-editor-loading" role="status">
+            <span>{{ failed ? '编辑器未能打开' : '正在打开编辑器…' }}</span>
+            <Button v-if="failed" text="重试" @click="container && create(container)" />
+        </div>
         <div ref="container" style="height: 100%; width: 100%"></div>
         <template #extra>
             <slot></slot>
@@ -112,6 +116,16 @@ const container = ref<HTMLElement | null>(null);
 const editorView = shallowRef<monacoEditor.editor.IStandaloneCodeEditor | null>(null);
 const lineWrapping = ref(lineWrappingModel.value ?? !props.disableLineWrapping);
 const lineNumbers = ref(!props.disableLineNumbers);
+const loading = ref(true);
+const failed = ref(false);
+let disposed = false;
+let generation = 0;
+const models = new Set<monacoEditor.editor.ITextModel>();
+const releaseEditor = () => {
+    editorView.value?.dispose(); editorView.value = null;
+    for (const model of models) model.dispose();
+    models.clear();
+};
 let completionProviderDisposable: monacoEditor.IDisposable | null = null;
 
 const setLineWrapping = (value: boolean) => {
@@ -153,13 +167,14 @@ const updateEditorConfig = async () => {
 };
 
 const create = async (element: HTMLElement) => {
-    if (editorView.value) {
-        editorView.value.dispose();
-    }
+    const current = ++generation;
+    releaseEditor(); loading.value = true; failed.value = false;
     completionProviderDisposable?.dispose();
-    monacoInit({
+    try {
+    const monaco = await monacoInit({
         "vs/nls": { availableLanguages: { "*": $t("main_locale") === "zh_CN" ? "zh-cn" : "en" } },
-    }).then(monaco => {
+    });
+    if (disposed || current !== generation) return;
         const editor = monaco.editor.create(element, {
             value: unref(modelValue.value),
             minimap: {
@@ -174,6 +189,8 @@ const create = async (element: HTMLElement) => {
             automaticLayout: true,
         });
         
+        editorView.value = editor;
+        if (editor.getModel()) models.add(editor.getModel()!);
         // 内容更新
         editor.onDidChangeModelContent(() => {
             if (editor.getValue() !== unref(modelValue.value)) {
@@ -223,17 +240,22 @@ const create = async (element: HTMLElement) => {
         
         // 编辑器配置
         updateEditorConfig();
-    });
+    } catch {
+        if (!disposed && current === generation) { releaseEditor(); failed.value = true; }
+    } finally { if (!disposed && current === generation) loading.value = false; }
 };
 
+const clearContent = () => updateEditor();
 onMounted(async () => {
-    !props.disableClear && event.addListener("content_clear", () => updateEditor());
+    !props.disableClear && event.addListener("content_clear", clearContent);
     await create(<HTMLElement>container.value);
 });
 
 onUnmounted(() => {
+    disposed = true; generation++;
+    event.removeListener("content_clear", clearContent);
     completionProviderDisposable?.dispose();
-    editorView.value?.dispose();
+    releaseEditor();
 });
 
 const updateEditor = (text = "") => {
@@ -257,13 +279,7 @@ watch(
             return updateEditor(value);
         }
         
-        // 防止初始内容变更 编辑器还没有初始化成功
-        const timer = setInterval(() => {
-            if (editorView.value) {
-                clearInterval(timer);
-            }
-            updateEditor(value);
-        }, 50);
+
     },
 );
 
@@ -290,6 +306,8 @@ watch(
 );
 </script>
 <style>
+.ctool-code-editor, .ctool-code-diff { position:relative; }
+.ctool-editor-loading { position:absolute; inset:0; z-index:1; display:flex; gap:.5rem; align-items:center; justify-content:center; background:var(--ctool-background-color); }
 .ctool-code-editor {
     border-color: var(--ctool-border-color);
     border-style: solid;

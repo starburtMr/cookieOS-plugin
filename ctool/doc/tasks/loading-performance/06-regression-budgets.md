@@ -31,4 +31,11 @@ ctool/package.json、packages/ctool-core/vite.config.ts、既有单测/浏览器
 ## 检查与结果
 
 接入后的命令：在ctool执行rtk proxy npx --yes pnpm@10.34.9 run verify；check:startup/test:performance为拟新增命令，实施后记录实际参数和退出码。
-当前只有现有检查入口已核对，新门禁和性能报告尚未生成，不能标已通过。
+本轮已生成结构/耗时门禁和真实样本，功能与结构通过；耗时结果单独列示。
+
+
+## 本轮实际实施与结果
+
+check:startup接入build:extension/verify，按modules遍历依赖闭包，JSON禁止提前加载quicktype。check:performance比较同环境/足量样本和原预算，负向测试覆盖违规依赖、体积、环境漂移、样本不足与耗时回归。最终完整verify为365单元/229合同/14包与预算/40浏览器，0错误195告警、0新增重复；耗时目标单独报告，不伪称全部达标。
+
+完整命令、当前产物、逐次样本与未验证项见[本轮验证](../../verification/loading-performance/README.md)，发布和清理不得以构建成功替代。

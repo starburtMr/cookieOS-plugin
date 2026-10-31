@@ -4,7 +4,7 @@ import {fillSql} from "./sql";
 import {composerize} from "composerize-ts";
 import {getDiff} from "recursive-diff";
 import {UAParser} from "ua-parser-js";
-import {ToolError,checkTree} from "../index";
+import {ToolError,checkTree} from "./primitives";
 import Json from "./json";
 import Serialize from "./serialize/index";
 

@@ -1,1 +1,1 @@
-export * from "ctool-tools/domains/toObject/index";
+export * from "ctool-tools/domains/toObject/options";

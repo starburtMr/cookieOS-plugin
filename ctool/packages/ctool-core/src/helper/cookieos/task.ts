@@ -3,7 +3,10 @@ export function runTask<T = unknown>(kind: string, args: unknown, signal: AbortS
     if (payload.length > 12 * 1024 * 1024) return Promise.reject(new Error("内容过大，请减少输入"));
     return new Promise((resolve, reject) => {
         const worker = new Worker(new URL("./task.worker.ts", import.meta.url), {type: "module"});
+        let settled = false;
         const finish = (error?: Error, value?: T) => {
+            if (settled) return;
+            settled = true; worker.onmessage = null; worker.onerror = null;
             clearTimeout(timer); signal.removeEventListener("abort", abort); worker.terminate();
             error ? reject(error) : resolve(value!);
         };

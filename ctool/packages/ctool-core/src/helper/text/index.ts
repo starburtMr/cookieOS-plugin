@@ -1,4 +1,4 @@
-import {decodeBase64Bytes} from "ctool-tools";
+import {decodeBase64Bytes} from "ctool-tools/domains/primitives";
 import filetype from "magic-bytes.js";
 // @ts-ignore
 import { isText, isBinary } from "istextorbinary";

@@ -10,7 +10,7 @@ import Uint from "./uint";
 import {encodeBase32, decodeBase32} from "./base32";
 import unicode from "./unicode";
 import {convent as ascii} from "./ascii";
-import {ToolError} from "../index";
+import {ToolError} from "./primitives";
 
 export function encodeText(text: string, encoding: "utf-8" | "gbk" = "utf-8") { return Uint.fromString(text).to(encoding).uint8Array; }
 export function decodeText(bytes: Uint8Array, encoding = "utf-8") { return new TextDecoder(encoding, {fatal: true}).decode(bytes); }

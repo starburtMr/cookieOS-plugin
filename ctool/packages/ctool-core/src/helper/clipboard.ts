@@ -51,6 +51,7 @@ export const copy = (data: string, successCallback?: () => void) => {
 };
 // 获取剪贴板数据
 export const paste = async (force: boolean = false): Promise<string> => {
+    if (!force) await initPermission();
     return new Promise(resolve => {
         try {
             if (!force && permission !== "granted") {

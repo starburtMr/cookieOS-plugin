@@ -30,3 +30,10 @@
 ## 验证记录
 
 规划阶段仅完成[静态快照与代码核对](../../research/loading-performance.md)。上述浏览器/耗时基线、脚本和预算尚未生成，实施时记录实际命令、退出码、样本数及限制。
+
+
+## 本轮实际实施与结果
+
+tests/performance_host.py与tests/performance.mjs复用真实隔离宿主和流式HTTP代理，不使用Playwright route采缓存。固定宿主二进制/前端后逐组对比最终ZIP与不可变0.3.0，原始样本和冻结预算归档到验证目录；只输入可见的早期JSON/代码探针已排除，正式终点实际点击格式化并验证结果。
+
+完整命令、当前产物、逐次样本与未验证项见[本轮验证](../../verification/loading-performance/README.md)，发布和清理不得以构建成功替代。

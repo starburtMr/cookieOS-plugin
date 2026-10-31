@@ -6,6 +6,10 @@
         :style="{ height: `${sizeConvert(props.height)}`, width: `100%` }"
         toggle
     >
+        <div v-if="loading || failed" class="ctool-editor-loading" role="status">
+            <span>{{ failed ? '编辑器未能打开' : '正在打开编辑器…' }}</span>
+            <Button v-if="failed" text="重试" @click="container && create(container)" />
+        </div>
         <div ref="container" :style="editorStyle"></div>
         <template #extra>
             <div ref="toolbarContainer" class="ctool-code-diff-toolbar">
@@ -92,6 +96,16 @@ const container = ref<HTMLElement | null>(null);
 const toolbarContainer = ref<HTMLElement | null>(null);
 const toolbarHeight = ref(0);
 const editorView = shallowRef<monacoEditor.editor.IDiffEditor | null>(null);
+const loading = ref(true);
+const failed = ref(false);
+let disposed = false;
+let generation = 0;
+const models = new Set<monacoEditor.editor.ITextModel>();
+const releaseEditor = () => {
+    editorView.value?.dispose(); editorView.value = null;
+    for (const model of models) model.dispose();
+    models.clear();
+};
 let toolbarResizeObserver: ResizeObserver | null = null;
 
 const editorStyle = computed<StyleValue>(() => {
@@ -149,14 +163,17 @@ const updateEditorConfig = async () => {
 };
 
 const create = async (element: HTMLElement) => {
-    if (editorView.value) {
-        editorView.value.dispose();
-    }
-    monacoInit({
+    const current = ++generation;
+    releaseEditor(); loading.value = true; failed.value = false;
+    try {
+    const monaco = await monacoInit({
         "vs/nls": { availableLanguages: { "*": $t("main_locale") === "zh_CN" ? "zh-cn" : "en" } },
-    }).then(monaco => {
+    });
+    if (disposed || current !== generation) return;
         const originalModel = monaco.editor.createModel(original.value);
+        models.add(originalModel);
         const modifiedModel = monaco.editor.createModel(modified.value);
+        models.add(modifiedModel);
         
         const diffEditor = monaco.editor.createDiffEditor(element, {
             ...contentSensitiveDiffOptions,
@@ -177,7 +194,7 @@ const create = async (element: HTMLElement) => {
             },
         });
         
-        window["_diffEditor"] = diffEditor;
+        editorView.value = diffEditor;
         
         diffEditor.setModel({
             original: originalModel,
@@ -213,7 +230,9 @@ const create = async (element: HTMLElement) => {
         editorView.value = diffEditor;
         // 编辑器配置
         updateEditorConfig();
-    });
+    } catch {
+        if (!disposed && current === generation) { releaseEditor(); failed.value = true; }
+    } finally { if (!disposed && current === generation) loading.value = false; }
 };
 
 const location = (type: "prev" | "next") => {
@@ -227,14 +246,17 @@ const location = (type: "prev" | "next") => {
     currentChange.value = current;
 };
 
+const clearContent = () => updateEditor();
 onMounted(async () => {
-    !props.disableClear && event.addListener("content_clear", () => updateEditor());
+    !props.disableClear && event.addListener("content_clear", clearContent);
     await create(<HTMLElement>container.value);
 });
 
 onUnmounted(() => {
+    disposed = true; generation++;
+    event.removeListener("content_clear", clearContent);
     toolbarResizeObserver?.disconnect();
-    editorView.value?.dispose();
+    releaseEditor();
 });
 
 const updateEditor = (original = "", modified = "") => {
@@ -262,13 +284,7 @@ watch(
             return updateEditor(value.original, value.modified);
         }
         
-        // 防止初始内容变更 编辑器还没有初始化成功
-        const timer = setInterval(() => {
-            if (editorView.value) {
-                clearInterval(timer);
-            }
-            updateEditor(value.original, value.modified);
-        }, 50);
+
     },
 );
 
@@ -288,6 +304,8 @@ watch(
 watch(toolbarContainer, element => observeToolbar(element), { flush: "post" });
 </script>
 <style>
+.ctool-code-editor, .ctool-code-diff { position:relative; }
+.ctool-editor-loading { position:absolute; inset:0; z-index:1; display:flex; gap:.5rem; align-items:center; justify-content:center; background:var(--ctool-background-color); }
 .ctool-code-diff {
     border-color: var(--ctool-border-color);
     border-style: solid;
